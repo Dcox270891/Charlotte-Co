@@ -1,3 +1,6 @@
+const bcrypt = require("bcrypt-nodejs");
+const SATLT_WORK_FACTOR = 12;
+
 module.exports = function(sequilize, DataTypes){
     const Users = sequilize.define(`Users`,{
         userId: {
@@ -16,7 +19,20 @@ module.exports = function(sequilize, DataTypes){
         },
         email: {
             type: DataTypes.STRING,
+            unique: true,
             allowNull: false,
+            validate: {
+                notNull: true,
+                notEmpty: true,
+            },
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                notNull: true,
+                notEmpty: true,
+            },
         },
         houseNameOrNumber: {
             type: DataTypes.STRING,
@@ -24,15 +40,15 @@ module.exports = function(sequilize, DataTypes){
         },
         street: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         city: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         county: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         postCode: {
             type: DataTypes.STRING,
@@ -40,7 +56,31 @@ module.exports = function(sequilize, DataTypes){
         },
     }, 
     {
+        classMethods: {
+            validPassword: function(password, passw, done, user){
+                bcrypt.compare(password, passw, done, user, function(err, isMatch){
+                    if (err) throw err;
+                    if (isMatch){
+                        return done (null, user)
+                    } else {
+                        return done (null, false)
+                    }
+                });
+            }
+        }
+    },
+    {
         freezeTableName: true
     });
+    Users.beforeCreate(function(user, options){
+        const salt = bcrypt.genSalt(SATLT_WORK_FACTOR, function (err, salt){
+            return salt
+        });
+        bcrypt.hash(user.password, salt, null, function(err, hash){
+            if (err) return next(err);
+            user.password = hash;
+            return (null, user)
+        });
+    })
     return Users;
 };

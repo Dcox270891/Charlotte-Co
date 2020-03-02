@@ -7,17 +7,17 @@ module.exports = function(app){
     app.post(`/api/Users/new`, function(req,res){
         const newUser = req.body;
         db.Users.create({
-            userId: newUser.userId,
             firstName: newUser.firstName,
             lastName: newUser.lastName,
             email: newUser.email,
+            password: newUser.password,
             houseNameOrNumber: newUser.houseNameOrNumber,
             street: newUser.street,
             city: newUser.city,
             county: newUser.county,
             postCode: newUser.postCode,
             })
-            .then(console.log(newUser))
+            .then(res.json())
         res.end();
     })
     
