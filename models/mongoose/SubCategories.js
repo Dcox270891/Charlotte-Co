@@ -12,14 +12,6 @@ const SubCategoriesSchema = new Schema({
         type: String,
         required: true,
     },
-    categoryId:{
-        type: Number,
-        required: true
-    },
-    subCategoriesId:{
-        type: Number,
-        required: true
-    },
 });
 
 const SubCategories = mongoose.model("SubCategories", SubCategoriesSchema);

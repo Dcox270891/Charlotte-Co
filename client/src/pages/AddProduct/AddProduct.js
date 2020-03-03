@@ -1,12 +1,16 @@
-import React, {useState} from "react";
-
+import React, {useState, useEffect} from "react";
+import API from "../../utils/API"
 
 function AddProduct(){
     const [  name, setName ] = useState("");
     // const [  productId, setProductId ] = useState("");
     const [  description, setDescription ] = useState("");
     const [  category, setCategory ] = useState("");
+    const [  newCategoryName, setNewCategoryName] = useState("")
+    const [  categories, setCategories ] = useState([]);
+    const [  addingnewcategory, setAddingnewcategory] = useState(false);
     const [  subCategory, setSubCategory ] = useState("");
+    const [  subCategories, setSubCategories ] = useState([]);
     const [  price, setPrice ] = useState("");
     const [  size, setSize  ] = useState("")
     const [  sizes, setSizes ] = useState([]);
@@ -18,8 +22,15 @@ function AddProduct(){
     const [  deliveryTimeMax, setDeliveryTimeMax ] = useState("");
     const [  deliveryTimeMin, setDeliveryTimeMin ] = useState("");
 
-    const categorys = ["Clothing", "Home"];
-    const subCategorys = ["Mens", "Womens"]
+    useEffect(() => {
+        console.log("reloaded categories")
+        API.getCategories()
+            .then(res => {
+                console.log(res);
+                setCategories(res);
+            })
+            .catch(err => console.log(err))
+    },[categories])
 
     function addSize(e){
         e.preventDefault();
@@ -45,6 +56,37 @@ function AddProduct(){
         setProductColours(productColours.filter(colours => colours !== remove));
     }
 
+    function toggleAddNewCategory(e){
+        e.preventDefault();
+        setAddingnewcategory(true);
+    }
+
+    function addNewCategory(){
+        return(<>
+            <label for="newCategoryName">
+                Category Name
+            </label>
+            <input
+                className="form-add-product"
+                type="text"
+                placeholder="new Category Name"
+                name="newCategoryName"
+                value={newCategoryName}
+                onChange={e => setNewCategoryName(e.target.value)}
+            /> 
+            <button onClick={saveNewCategory}>
+                Save
+            </button>  
+        </>)
+    }
+
+    function saveNewCategory(newCategoryName) {
+        API.addNewCategory(newCategoryName)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+        setAddingnewcategory(false);
+    }
+
     function submitProduct(e){
         e.preventDefault();
         const newProduct = {
@@ -59,23 +101,10 @@ function AddProduct(){
             deliveryTimeMax,
             deliveryTimeMin,
         };
+        API.addNewProduct(newProduct)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
         console.log(newProduct)
-        // API.saveProduct(newProduct)
-        //     .then(console.log(
-        //         `Saved
-        //         ----------------------------
-        //         Name: ${name}
-        //         Descrition: ${description}
-        //         Category: ${category}
-        //         Sub Category: ${subCategory}
-        //         Price: ${price}
-        //         Sizes: ${sizes}
-        //         Product Colours: ${productColours}
-        //         Is Active: ${isActive}
-        //         In Stock: ${inStock}
-        //         Delivery Time: ${deliveryTimeMin}-${deliveryTimeMax}`
-        //     ))
-        //     .catch(err => console.log(err))
     }
 
     return (<>
@@ -103,11 +132,16 @@ function AddProduct(){
                     onChange={e => setCategory(e.target.value)}
                 >
                     <option value={null} key="Not picked">Pick a Category</option>
-                    {categorys.map(category => {
-                        return <option value={category} key={category}>{category}</option>
+                    {categories.map(category => {
+                        return <option value={category} key={category._id}>{category}</option>
                     })
                     }   
                 </select>
+                <label for="newCategory">
+                    {!addingnewcategory?(<button onClick={e => toggleAddNewCategory(e)}>
+                        Add a new Category
+                    </button>):addNewCategory()}
+                </label>
             </div>
             <div className="form-question">
                 <label for="subCategory">
@@ -119,7 +153,7 @@ function AddProduct(){
                     onChange={e => setSubCategory(e.target.value)}
                 >
                     <option value={null} key="Not picked">Pick a Sub Category</option>
-                    {subCategorys.map(subCategory => {
+                    {subCategories.map(subCategory => {
                         return <option value={subCategory} key={subCategory}>{subCategory}</option>
                     })
                     }   

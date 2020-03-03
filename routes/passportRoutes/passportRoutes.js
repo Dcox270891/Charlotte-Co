@@ -1,66 +1,47 @@
-exports.IsAuthenticated = function(req, res, next){
-    if(req.IsAuthenticated()){
-        next();
-    } else {
-        next(new Error(401));
-    }
-};
+var db = require("../../models/sequilize/index");
+var passport = require("../../config/passport");
 
-exports.destroySession = function(req, res, next){
-    req.logOut();
-    req.session.destroy();
-    res.redirect("/")
-};
-
-module.exports = function(app){
-    
-    app.get("/", routes.index)
-    app.get("/home", application.IsAuthenticated, home.homepage)
-    app.post("/authenticate", 
-        passport.authenticate("local", {
-            successRedirect: "/home",
-            failureRedirect: "/"
-        })
-    )
-    app.get("/logout", application.destroySession)
-    app.get("/signup", users.signUp)
-    app.post("/register", user.register)
-}
-
-
-// unsure where this code needs to go
-const passport = require(`passport`);
-const LocalStratergy = require(`passport-local`).Stratergy;
-const db = require(`./models/sequilize/index`);
-
-passport.serializeUser(function (user, done) {
-    done(null, user);
-});
-
-passport.deserializeUser(function (user, done) {
-    db.Users.find({
-        where: {
-            userId: user.userId
-        }
-        .success(function (user) {
-            done(null, user);
-        })
-        .error(function(err){
-            done(err, null)
-        })
+module.exports = function(app) {
+    app.post("/api/user/login", passport.authenticate("local"), function(req, res) {
+        res.json(req.user);
     });
-});
 
-passport.use(new LocalStratergy(
-    function(email, password, done){
-        db.Users.find({
-            where: {
-                email: email
-            }
-        })
-        .success(function(user){
-            passwd = user? user.password : ""
-            isMatch = db.Users.validPassword(password, passwd, done, user)
-        });
-    }
-))
+    app.post("/api/user/signup", function(req, res) {
+        console.log(req.body);
+        const newUser = req.body;
+        db.Users.create({
+                firstName: newUser.firstName,
+                lastName: newUser.lastName,
+                email: newUser.email,
+                password: newUser.password,
+                houseNameOrNumber: newUser.houseNameOrNumber,
+                street: newUser.street,
+                city: newUser.city,
+                county: newUser.county,
+                postCode: newUser.postCode,
+            })
+            .then(function() {
+                res.redirect(307, "/api/user/login");
+            })
+            .catch(function(err) {
+                res.status(401).json(err);
+            });
+    })
+
+    app.get("/user/logout", function(req, res) {
+        req.logout();
+        res.redirect("/");
+    });
+
+    app.get("/api/user_data", function(req, res) {
+        if (!req.user) {
+            res.json({});
+        }
+        else {
+            res.json({
+                email: req.user.email,
+                id: req.user.id
+            });
+        }
+    });
+};

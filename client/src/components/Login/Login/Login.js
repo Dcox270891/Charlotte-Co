@@ -1,20 +1,23 @@
 import React, {useState} from "react";
+import API from "../../../utils/API";
 
 
 function Login(){
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
+    const [ user, setUser ] = useState();
 
     function loginLocalUser(e){
         e.preventDefault();
-        const userDetails = {
-            email,
-            password,
-        };
-        console.log(userDetails)
+        API.loginUser(email, password)
+            .then(res => {
+                setUser(res);
+            })
+            .catch(err => console.log(err));
     };
 
     return (<>
+        <h1>{(user)?(`Welcome ${user.data.email}`):("You need to log in")}</h1>
         <form>
             <div className="form-question">
                 <label for="email">

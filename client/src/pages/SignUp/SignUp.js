@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-
+import API from "../../utils/API"
 
 function Login(){
     const [ firstName, setFirstName ] = useState("");
@@ -26,8 +26,10 @@ function Login(){
             county,
             postCode,
         };
-        if (password === passwordConfirm){
-            console.log(newUser)
+        if (password === passwordConfirm){        
+            API.signUpUser(newUser)
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
         } else {
             console.log("passwords dont match")
         }

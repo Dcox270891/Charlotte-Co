@@ -56,31 +56,16 @@ module.exports = function(sequilize, DataTypes){
         },
     }, 
     {
-        classMethods: {
-            validPassword: function(password, passw, done, user){
-                bcrypt.compare(password, passw, done, user, function(err, isMatch){
-                    if (err) throw err;
-                    if (isMatch){
-                        return done (null, user)
-                    } else {
-                        return done (null, false)
-                    }
-                });
-            }
-        }
+        
     },
     {
         freezeTableName: true
     });
-    Users.beforeCreate(function(user, options){
-        const salt = bcrypt.genSalt(SATLT_WORK_FACTOR, function (err, salt){
-            return salt
+    Users.prototype.validPassword = function(password) {
+            return bcrypt.compareSync(password, this.password);
+        };
+    Users.addHook("beforeCreate", function(user) {
+            user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
         });
-        bcrypt.hash(user.password, salt, null, function(err, hash){
-            if (err) return next(err);
-            user.password = hash;
-            return (null, user)
-        });
-    })
-    return Users;
+        return Users;
 };

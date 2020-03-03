@@ -7,10 +7,6 @@ const CategoriesSchema = new Schema({
         type: String,
         required: true,
     },
-    categoryId:{
-        type: Number,
-        required: true
-    },
 });
 
 const Categories = mongoose.model("Categories", CategoriesSchema);

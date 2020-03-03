@@ -25,6 +25,13 @@ module.exports = function(app){
                 res.json(err);
             });
     });
+
+    app.get("/api/categories", (req, res) => {
+        Categories.find({})
+            .then(Categories => res.json(Categories))
+            .catch(err => console.log(err))
+    });
+
     app.post("/api/newSubCategories", ({ body }, res) => {
         SubCategories.create(body)
             .then(newSubCategories => {

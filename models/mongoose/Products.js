@@ -12,6 +12,7 @@ const ProductSchema = new Schema({
     },
     productId:{
         type: Number,
+        unique: true,
         required: true,
     },
     description:{
@@ -42,7 +43,7 @@ const ProductSchema = new Schema({
     },
     personalisableImage:{
         type: String,
-        required: true, 
+        required: false, 
     },
     isActive:{
         type: Boolean,
