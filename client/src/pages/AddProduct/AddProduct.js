@@ -25,7 +25,6 @@ function AddProduct(){
     const [  deliveryTimeMin, setDeliveryTimeMin ] = useState("");
 
     useEffect(() => {
-        console.log("reloaded categories")
         API.getCategories()
             .then(res => {
                 setCategories(res.data);
@@ -35,8 +34,6 @@ function AddProduct(){
     },[])
 
     useEffect(() => {
-        console.log("reloaded sub categories")
-        console.log(category._id)
         if (category){
             API.getSubCategoryByCategory(category._id)
             .then(res => {
