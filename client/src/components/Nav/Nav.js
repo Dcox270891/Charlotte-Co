@@ -23,14 +23,19 @@ function Nav(){
     return(<>
         <nav>
             <ul>
-            {categories.map(category => {
-                return (<>
-                    <li key={category._id}>{category.title}</li>
-                        <ul>
-                            {subCategories.map(subCategory => {return <li key={subCategory._id}>{subCategory.title}</li>})}
-                        </ul>
-                </>)
-            })}
+                <li>All products</li>
+                {categories.map(category => {
+                    return (<>
+                        <li key={category._id}>{category.title}</li>
+                            <ul>
+                                {subCategories.map(subCategory => {
+                                    if(subCategory.belongsTo === category._id){
+                                        return <li key={subCategory._id}>{subCategory.title}</li>
+                                    }})}
+                            </ul>
+                    </>)
+                })}
+                <li>Contact us</li>
             </ul>
         </nav>
     </>);

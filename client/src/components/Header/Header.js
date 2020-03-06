@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Close from "../Buttons/Close"
 import Login from "../Login/Login";
 import Nav from "../Nav/Nav";
 
@@ -14,9 +15,7 @@ function Header(){
                     Menu
                 </button>
                 {toggleNav? (<div>
-                    <button className="closeMenu" onClick={() => setToggleNav(false)}>
-                        x
-                    </button>
+                    <Close onClick={() => setToggleNav(false)} />
                     <Nav />
                 </div>) : ""} 
             </nav>
@@ -28,11 +27,9 @@ function Header(){
                     Login/Basket
                 </button>
                 {toggleLogInBasket? (<div>
-                    <button className="closeMenu" onClick={() => setToggleLogInBasket(false)}>
-                        x
-                    </button>
-                    <Login />
-                    <Link to="/signup">Sign Up</Link>
+                        <Close onClick={() => setToggleLogInBasket(false)} />
+                        <Login />
+                        <Link to="/signup">Sign Up</Link>
                     </div>) : ""}
             </div>
         </header>

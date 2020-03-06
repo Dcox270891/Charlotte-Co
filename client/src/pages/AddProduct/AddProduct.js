@@ -1,9 +1,13 @@
 import React, {useState, useEffect} from "react";
-import API from "../../utils/API"
+import Submit from "../../components/Buttons/Submit";
+import Input from "../../components/Input/InputText";
+import Checkbox from "../../components/Input/CheckboxInput";
+import CategoryPicker from "../../components/Input/CategoryPicker";
+import MultipleOptions from "../../components/Input/MuiltipleInputs";
+import API from "../../utils/API";
 
 function AddProduct(){
     const [  name, setName ] = useState("");
-    // const [  productId, setProductId ] = useState("");
     const [  description, setDescription ] = useState("");
     const [  category, setCategory ] = useState({});
     const [  newCategoryName, setNewCategoryName] = useState("")
@@ -28,7 +32,6 @@ function AddProduct(){
         API.getCategories()
             .then(res => {
                 setCategories(res.data);
-                console.log(categories)
             })
             .catch(err => console.log(err))
     },[])
@@ -42,78 +45,6 @@ function AddProduct(){
             .catch(err => console.log(err))
         }
     },[category])
-
-    function addSize(e){
-        e.preventDefault();
-        setSizes([...sizes, size ]);
-        setSize("")
-    }
-
-    function removeSize(e){
-        e.preventDefault();
-        const remove = e.target.getAttribute("remove");
-        setSizes(sizes.filter(size => size !== remove));
-    }
-    
-    function addColour(e){
-        e.preventDefault();
-        setProductColours([...productColours, colour ]);
-        setColour("")
-    }
-    
-    function removeColour(e){
-        e.preventDefault();
-        const remove = e.target.getAttribute("remove");
-        setProductColours(productColours.filter(colours => colours !== remove));
-    }
-
-    function toggleAddNewCategory(e){
-        e.preventDefault();
-        setAddingNewCategory(true);
-    }
-
-    function toggleAddNewSubCategory(e){
-        e.preventDefault();
-        setAddingNewSubCategory(true);
-    }
-
-    function addNewCategory(){
-        return(<>
-            <label for="newCategoryName">
-                Category Name
-            </label>
-            <input
-                className="form-add-product"
-                type="text"
-                placeholder="new Category Name"
-                name="newCategoryName"
-                value={newCategoryName}
-                onChange={e => setNewCategoryName(e.target.value)}
-            /> 
-            <button onClick={(e) =>saveNewCategory(e)}>
-                Save
-            </button>  
-        </>)
-    }
-    
-    function addNewSubCategory(){
-        return(<>
-            <label for="newSubCategoryName">
-                Sub Category Name
-            </label>
-            <input
-                className="form-add-product"
-                type="text"
-                placeholder="new Sub Category Name"
-                name="newSubCategoryName"
-                value={newSubCategoryName}
-                onChange={e => setNewSubCategoryName(e.target.value)}
-            /> 
-            <button onClick={(e) =>saveNewSubCategory(e)}>
-                Save
-            </button>  
-        </>)
-    }
 
     function saveNewCategory(e) {
         e.preventDefault();
@@ -156,184 +87,79 @@ function AddProduct(){
 
     return (<>
         <form>
-            <div className="form-question">
-                <label for="name">
-                    Name
-                </label>
-                <input
-                    className="form-add-product"
-                    type="text"
-                    placeholder="Name"
-                    name="name"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                />    
-            </div>
-            <div className="form-question">
-                <label for="category">
-                    Category
-                </label>
-                <select className="form-add-product"
-                    name="category"
-                    onChange={e => {setCategory(categories[e.target.value])
-                    console.log(category)}}
-                >
-                    <option value={null} key="Not picked">Pick a Category</option>
-                    {(categories.length)?(categories.map((category, i) => {
-                        return <option value={i} key={category._id}>{category.title}</option>
-                    })):""
-                    }   
-                </select>
-                <label for="newCategory">
-                    {!addingNewCategory?(<button onClick={e => toggleAddNewCategory(e)}>
-                        Add a new Category
-                    </button>):addNewCategory()}
-                </label>
-            </div>
-            {(category === "")?(""):
-            (<div className="form-question">
-                <label for="subCategory">
-                    Sub Category
-                </label>
-                <select className="form-add-product"
-                    name="subCategory"
-                    value={subCategory}
-                    onChange={e => setSubCategory(e.target.value)}
-                >
-                    <option value={null} key="Not picked">Pick a Category</option>
-                    {(subCategories.length)?(subCategories.map((category, i)=> {
-                        return <option value={i} key={category._id}>{category.title}</option>
-                    })):""
-                    }   
-                </select>
-                <label for="newCategory">
-                    {!addingNewSubCategory?(<button onClick={e => toggleAddNewSubCategory(e)}>
-                        Add a new Sub Category
-                    </button>):addNewSubCategory()}
-                </label>
-            </div>)}
-            <div className="form-question">
-                <label for="description">
-                    Description
-                </label>
-                <textarea
-                    className="form-add-product"
-                    type="text"
-                    placeholder="Description"
-                    name="description"
-                    value={description}
-                    onChange={e => setDescription(e.target.value)}
-                />
-            </div>
-            <div className="form-question">
-                <label for="price">
-                    Price: £
-                </label>
-                <input
-                    className="form-add-product"
-                    type="int"
-                    placeholder="Price"
-                    name="price"
-                    value={price}
-                    onChange={e => setPrice(e.target.value)}
-                />
-            </div>
-            <div className="form-question">
-                <label for="isActive">
-                    Is Active
-                </label>
-                <input
-                    className="form-add-product"
-                    type="checkbox"
-                    name="isActive"
-                    checked={isActive}
-                    onChange={e => setIsActive(e.target.checked)?(true):(false)}
-                />
-            </div>
-            <div className="form-question">
-                <label for="inStock">
-                    In Stock
-                </label>
-                <input
-                    className="form-add-product"
-                    type="checkbox"
-                    name="inStock"
-                    checked={inStock}
-                    onChange={e => setInStock(e.target.checked)?(true):(false)}
-                />
-            </div>
-            <div className="form-question">
-                <label for="size">
-                    Sizes
-                </label>
-                <input
-                    className="form-add-product"
-                    type="text"
-                    name="size"
-                    value={size}
-                    onChange={e => setSize(e.target.value)}
-                />
-                <button onClick={addSize}>
-                    +
-                </button>
-                <ul>
-                    Sizes:
-                    {sizes.map(size => {
-                        return <li key={size}>{size} <button remove={size} onClick={removeSize}>x</button></li>
-                    })}
-                </ul>
-            </div>
-            <div className="form-question">
-                <label for="productColours">
-                    Product Colours
-                </label>
-                <input
-                    className="form-add-product"
-                    type="text"
-                    name="colout"
-                    value={colour}
-                    onChange={e => setColour(e.target.value)}
-                />
-                <button onClick={addColour}>
-                    +
-                </button>
-                <ul>
-                    Colours:
-                    {productColours.map(colour => {
-                        return <li key={colour}>{colour} <button remove={colour} onClick={removeColour}>x</button></li>
-                    })}
-                </ul>
-            </div>
-            <div className="form-question">
-                <label for="deliveryTimeMax">
-                    Delivery time max
-                </label>
-                <input
-                    className="form-add-product"
-                    type="text"
-                    name="deliveryTimeMax"
-                    value={deliveryTimeMax}
-                    onChange={e => setDeliveryTimeMax(e.target.value)}
-                />
-            </div>
-            <div className="form-question">
-                <label for="deliveryTimeMin">
-                    Delivery time min
-                </label>
-                <input
-                    className="form-add-product"
-                    type="text"
-                    name="deliveryTimeMin"
-                    value={deliveryTimeMin}
-                    onChange={e => setDeliveryTimeMin(e.target.value)}
-                />
-            </div>
-            <button 
-                className="submit-buutton" 
-                onClick={e => submitProduct(e)}
-            >
-                Submit
-            </button>
+            <Input 
+                value={name} 
+                onChange={(e) => setName(e.target.value)} 
+                placeholder="Name" 
+            />
+            <CategoryPicker
+                value={category}
+                options={categories}
+                onChange={(e) => setCategory(categories[e.target.value])}
+                placeholder="Category"
+                APISave={(e) => saveNewCategory(e)}
+            />
+            {(category === {})?(""):
+            (<CategoryPicker
+                value={subCategory}
+                options={subCategories}
+                onChange={(e) => setSubCategory(e.target.value)}
+                placeholder="Sub Category"
+                APISave={(e) => saveNewSubCategory(e)}
+            />)}
+            <Input 
+                value={description} 
+                onChange={(e) => setDescription(e.target.value)} 
+                placeholder="Description" 
+            />
+            <Input 
+                value={price} 
+                onChange={(e) => setPrice(e.target.value)} 
+                placeholder="Price" 
+            />
+            <Checkbox
+                value={isActive}
+                name="isActive"
+                onChange={e => setIsActive(e.target.checked)?(true):(false)}
+                placeholder="Is Active"
+            />
+            <Checkbox
+                name="inStock"
+                value={inStock}
+                onChange={e => setInStock(e.target.checked)?(true):(false)}
+                placeholder="In Stock"
+            />
+            <MultipleOptions 
+                value={size} 
+                placeholder="Sizes"
+                onChange={e => setSize(e.target.value)}
+                optionsTitle="Sizes"
+                optionsArray={sizes}
+                setOptionsArray={setSizes}
+                setOption={setSize}
+            />
+            <MultipleOptions 
+                value={colour} 
+                placeholder="Product Colours"
+                onChange={e => setColour(e.target.value)}
+                optionsTitle="Colours"
+                optionsArray={productColours}
+                setOptionsArray={setProductColours}
+                setOption={setColour}
+            />
+            <Input 
+                value={deliveryTimeMax} 
+                onChange={(e) => setDeliveryTimeMax(e.target.value)} 
+                placeholder="Delivery time max" 
+            />
+            <Input 
+                value={deliveryTimeMin} 
+                onChange={(e) => setDeliveryTimeMin(e.target.value)} 
+                placeholder="Delivery time min" 
+            />
+            <Submit
+                onChange={e => submitProduct(e)}
+            />
         </form>
     </>)
 };
