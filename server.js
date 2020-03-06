@@ -3,6 +3,10 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("./config/passport.js");
 const app = express();
+const catgeory = require("./routes/mongooseRoutes/category");
+const subCatgeory = require("./routes/mongooseRoutes/subCategory");
+const products = require("./routes/mongooseRoutes/products");
+const uniqueTransfers = require("./routes/mongooseRoutes/uniqueTransfers");
 require(`dotenv`).config();
 const PORT = process.env.PORT || 3001;
 const db = require("./models/sequilize");
@@ -13,9 +17,12 @@ app.use(express.static("public"));
 app.use(session({secret:`cheeseisthebestnonvegansnack`}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(catgeory);
+app.use(subCatgeory);
+app.use(products);
+app.use(uniqueTransfers);
 
 require('./routes/sequilizeRoutes/sequilizeRoutes')(app);
-require('./routes/mongooseRoutes/mongooseRoutes')(app);
 require('./routes/passportRoutes/passportRoutes')(app);
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/charlotte_co", { useNewUrlParser: true });

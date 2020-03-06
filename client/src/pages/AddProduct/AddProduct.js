@@ -5,12 +5,14 @@ function AddProduct(){
     const [  name, setName ] = useState("");
     // const [  productId, setProductId ] = useState("");
     const [  description, setDescription ] = useState("");
-    const [  category, setCategory ] = useState("");
+    const [  category, setCategory ] = useState({});
     const [  newCategoryName, setNewCategoryName] = useState("")
     const [  categories, setCategories ] = useState([]);
-    const [  addingnewcategory, setAddingnewcategory] = useState(false);
-    const [  subCategory, setSubCategory ] = useState("");
+    const [  addingNewCategory, setAddingNewCategory] = useState(false);
+    const [  subCategory, setSubCategory ] = useState({});
+    const [  newSubCategoryName, setNewSubCategoryName] = useState("")
     const [  subCategories, setSubCategories ] = useState([]);
+    const [  addingNewSubCategory, setAddingNewSubCategory] = useState(false);
     const [  price, setPrice ] = useState("");
     const [  size, setSize  ] = useState("")
     const [  sizes, setSizes ] = useState([]);
@@ -26,11 +28,23 @@ function AddProduct(){
         console.log("reloaded categories")
         API.getCategories()
             .then(res => {
-                console.log(res);
-                setCategories(res);
+                setCategories(res.data);
+                console.log(categories)
             })
             .catch(err => console.log(err))
-    },[categories])
+    },[])
+
+    useEffect(() => {
+        console.log("reloaded sub categories")
+        console.log(category._id)
+        if (category){
+            API.getSubCategoryByCategory(category._id)
+            .then(res => {
+                setSubCategories(res.data);
+            })
+            .catch(err => console.log(err))
+        }
+    },[category])
 
     function addSize(e){
         e.preventDefault();
@@ -58,7 +72,12 @@ function AddProduct(){
 
     function toggleAddNewCategory(e){
         e.preventDefault();
-        setAddingnewcategory(true);
+        setAddingNewCategory(true);
+    }
+
+    function toggleAddNewSubCategory(e){
+        e.preventDefault();
+        setAddingNewSubCategory(true);
     }
 
     function addNewCategory(){
@@ -74,32 +93,63 @@ function AddProduct(){
                 value={newCategoryName}
                 onChange={e => setNewCategoryName(e.target.value)}
             /> 
-            <button onClick={saveNewCategory}>
+            <button onClick={(e) =>saveNewCategory(e)}>
+                Save
+            </button>  
+        </>)
+    }
+    
+    function addNewSubCategory(){
+        return(<>
+            <label for="newSubCategoryName">
+                Sub Category Name
+            </label>
+            <input
+                className="form-add-product"
+                type="text"
+                placeholder="new Sub Category Name"
+                name="newSubCategoryName"
+                value={newSubCategoryName}
+                onChange={e => setNewSubCategoryName(e.target.value)}
+            /> 
+            <button onClick={(e) =>saveNewSubCategory(e)}>
                 Save
             </button>  
         </>)
     }
 
-    function saveNewCategory(newCategoryName) {
-        API.addNewCategory(newCategoryName)
+    function saveNewCategory(e) {
+        e.preventDefault();
+        API.newCategory({title: newCategoryName})
             .then(res => console.log(res))
             .catch(err => console.log(err));
-        setAddingnewcategory(false);
+        setAddingNewCategory(false);
+    }
+
+    function saveNewSubCategory(e) {
+        e.preventDefault();
+        API.newSubCategory({
+            belongsTo: category._id,
+            title: newSubCategoryName,
+        })
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+        setAddingNewSubCategory(false);
     }
 
     function submitProduct(e){
         e.preventDefault();
         const newProduct = {
-            name,
-            description,
-            category,
-            subCategory,
-            price,
-            productColours,
-            isActive,
-            inStock,
-            deliveryTimeMax,
-            deliveryTimeMin,
+            name: name,
+            description: description,
+            category: category,
+            subCategory: subCategory,
+            price: price,
+            productColours: productColours,
+            isActive: isActive,
+            inStock: inStock,
+            deliveryTimeMax: deliveryTimeMax,
+            deliveryTimeMin: deliveryTimeMin,
         };
         API.addNewProduct(newProduct)
             .then(res => console.log(res))
@@ -128,22 +178,23 @@ function AddProduct(){
                 </label>
                 <select className="form-add-product"
                     name="category"
-                    value={category}
-                    onChange={e => setCategory(e.target.value)}
+                    onChange={e => {setCategory(categories[e.target.value])
+                    console.log(category)}}
                 >
                     <option value={null} key="Not picked">Pick a Category</option>
-                    {categories.map(category => {
-                        return <option value={category} key={category._id}>{category}</option>
-                    })
+                    {(categories.length)?(categories.map((category, i) => {
+                        return <option value={i} key={category._id}>{category.title}</option>
+                    })):""
                     }   
                 </select>
                 <label for="newCategory">
-                    {!addingnewcategory?(<button onClick={e => toggleAddNewCategory(e)}>
+                    {!addingNewCategory?(<button onClick={e => toggleAddNewCategory(e)}>
                         Add a new Category
                     </button>):addNewCategory()}
                 </label>
             </div>
-            <div className="form-question">
+            {(category === "")?(""):
+            (<div className="form-question">
                 <label for="subCategory">
                     Sub Category
                 </label>
@@ -152,13 +203,18 @@ function AddProduct(){
                     value={subCategory}
                     onChange={e => setSubCategory(e.target.value)}
                 >
-                    <option value={null} key="Not picked">Pick a Sub Category</option>
-                    {subCategories.map(subCategory => {
-                        return <option value={subCategory} key={subCategory}>{subCategory}</option>
-                    })
+                    <option value={null} key="Not picked">Pick a Category</option>
+                    {(subCategories.length)?(subCategories.map((category, i)=> {
+                        return <option value={i} key={category._id}>{category.title}</option>
+                    })):""
                     }   
                 </select>
-            </div>
+                <label for="newCategory">
+                    {!addingNewSubCategory?(<button onClick={e => toggleAddNewSubCategory(e)}>
+                        Add a new Sub Category
+                    </button>):addNewSubCategory()}
+                </label>
+            </div>)}
             <div className="form-question">
                 <label for="description">
                     Description
