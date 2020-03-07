@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import Submit from "../../components/Buttons/Submit";
 import Input from "../../components/Input/InputText";
+import API from "../../utils/API";
+import "./style.css";
 
 function CategoryPicker(props){
     const [  newOptionName, setNewOptionName] = useState("")
-    const [  options, setOptions ] = useState([]);
     const [  addingNewOption, setAddingNewOption] = useState(false);
 
     function toggleAddNewOption(e){
@@ -14,8 +15,23 @@ function CategoryPicker(props){
 
     function saveNewOption(e) {
         e.preventDefault();
-        props.APISave();
+        APISave();
         setAddingNewOption(false);
+    }
+
+    function APISave(){
+        if(props.value === "category"){
+            API.newCategory({title: newOptionName})
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+        } else if (props.value === "subCategory") {
+            API.newSubCategory({
+                belongsTo: props.category._id,
+                title: newOptionName,
+            })
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+        }
     }
     
     function addNewOption(){
@@ -31,21 +47,21 @@ function CategoryPicker(props){
         </>)
     }
 
-    return (<div className="form-question">
+    return (<div className="label-form">
             <label htmlFor={props.value}>
-                {"Pick a " + props.placeholder}
+                Pick a {props.placeholder} :
             </label>
-            <select className="form-add-product"
+            <select className="dropdown-form"
                 name={props.value}
                 onChange={props.onChange}
             >
                 <option value={null} key="Not picked">{props.placeholder}</option>
-                {(options.length)?(options.map((option, i) => {
+                {(props.options.length)?(props.options.map((option, i) => {
                     return <option value={i} key={option._id}>{option.title}</option>
                 })):""
                 }   
             </select>
-            <label htmlFor={options}>
+            <label htmlFor={props.options}>
                 {!addingNewOption?(<button onClick={e => toggleAddNewOption(e)}>
                     Add a new {props.placeholder}
                 </button>):addNewOption()}

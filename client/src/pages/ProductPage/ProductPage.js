@@ -20,7 +20,7 @@ function ProductPage(){
     return (<>
         <div className="product-page">
             <div className="row">
-                <div clasName="product-main">
+                <div className="product-main">
                     <div className="product-title">
                         <h3>{props.title}</h3>
                     </div>

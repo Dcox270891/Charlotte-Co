@@ -1,22 +1,20 @@
 import React, {useState, useEffect} from "react";
 import Submit from "../../components/Buttons/Submit";
-import Input from "../../components/Input/InputText";
+import InputText from "../../components/Input/InputText";
+import InputNumber from "../../components/Input/InputNumber";
 import Checkbox from "../../components/Input/CheckboxInput";
 import CategoryPicker from "../../components/Input/CategoryPicker";
 import MultipleOptions from "../../components/Input/MuiltipleInputs";
 import API from "../../utils/API";
+import "./style.css";
 
 function AddProduct(){
     const [  name, setName ] = useState("");
     const [  description, setDescription ] = useState("");
     const [  category, setCategory ] = useState({});
-    const [  newCategoryName, setNewCategoryName] = useState("")
     const [  categories, setCategories ] = useState([]);
-    const [  addingNewCategory, setAddingNewCategory] = useState(false);
     const [  subCategory, setSubCategory ] = useState({});
-    const [  newSubCategoryName, setNewSubCategoryName] = useState("")
     const [  subCategories, setSubCategories ] = useState([]);
-    const [  addingNewSubCategory, setAddingNewSubCategory] = useState(false);
     const [  price, setPrice ] = useState("");
     const [  size, setSize  ] = useState("")
     const [  sizes, setSizes ] = useState([]);
@@ -46,25 +44,6 @@ function AddProduct(){
         }
     },[category])
 
-    function saveNewCategory(e) {
-        e.preventDefault();
-        API.newCategory({title: newCategoryName})
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
-        setAddingNewCategory(false);
-    }
-
-    function saveNewSubCategory(e) {
-        e.preventDefault();
-        API.newSubCategory({
-            belongsTo: category._id,
-            title: newSubCategoryName,
-        })
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
-        setAddingNewSubCategory(false);
-    }
-
     function submitProduct(e){
         e.preventDefault();
         const newProduct = {
@@ -86,8 +65,8 @@ function AddProduct(){
     }
 
     return (<>
-        <form>
-            <Input 
+        <form className="add-product">
+            <InputText 
                 value={name} 
                 onChange={(e) => setName(e.target.value)} 
                 placeholder="Name" 
@@ -97,22 +76,21 @@ function AddProduct(){
                 options={categories}
                 onChange={(e) => setCategory(categories[e.target.value])}
                 placeholder="Category"
-                APISave={(e) => saveNewCategory(e)}
             />
             {(category === {})?(""):
             (<CategoryPicker
+                category={category}
                 value={subCategory}
                 options={subCategories}
                 onChange={(e) => setSubCategory(e.target.value)}
                 placeholder="Sub Category"
-                APISave={(e) => saveNewSubCategory(e)}
             />)}
-            <Input 
+            <InputText 
                 value={description} 
                 onChange={(e) => setDescription(e.target.value)} 
                 placeholder="Description" 
             />
-            <Input 
+            <InputNumber 
                 value={price} 
                 onChange={(e) => setPrice(e.target.value)} 
                 placeholder="Price" 
@@ -147,12 +125,12 @@ function AddProduct(){
                 setOptionsArray={setProductColours}
                 setOption={setColour}
             />
-            <Input 
+            <InputNumber 
                 value={deliveryTimeMax} 
                 onChange={(e) => setDeliveryTimeMax(e.target.value)} 
                 placeholder="Delivery time max" 
             />
-            <Input 
+            <InputNumber 
                 value={deliveryTimeMin} 
                 onChange={(e) => setDeliveryTimeMin(e.target.value)} 
                 placeholder="Delivery time min" 

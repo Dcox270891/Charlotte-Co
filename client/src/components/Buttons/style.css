@@ -1,0 +1,12 @@
+.close-menu{
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    justify-content: right;
+    background-color: red;
+}
+
+.submit-button{
+    border-radius: 5px;
+    padding: 5px;
+}

@@ -1,14 +1,15 @@
 import React from "react";
+import "./style.css";
 
 function Checkbox(props){
 
     return (
-        <div className="form-question">
+        <div className="label-form">
             <label htmlFor={props.name}>
                 {props.placeholder}
             </label>
             <input
-                className="form-add-product"
+                className="checkbox-form"
                 type="checkbox"
                 name={props.name}
                 checked={props.value}

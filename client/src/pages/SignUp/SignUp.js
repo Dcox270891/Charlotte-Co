@@ -1,5 +1,7 @@
 import React, {useState} from "react";
-import API from "../../utils/API"
+import Submit from "../../components/Buttons/Submit";
+import InputText from "../../components/Input/InputText";
+import API from "../../utils/API";
 
 function Login(){
     const [ firstName, setFirstName ] = useState("");
@@ -37,132 +39,59 @@ function Login(){
 
     return(<>
         <form>
-            <div className="form-question">
-                <label for="firstName">
-                    First Name
-                </label>
-                <input
-                    className="form-signup"
-                    type="text"
-                    name="firstName"
-                    value={firstName}
-                    onChange={e => setFirstName(e.target.value)}
-                />
-            </div>
-            <div className="form-question">
-                <label for="lastName">
-                    Last Name
-                </label>
-                <input
-                    className="form-signup"
-                    type="text"
-                    name="lastName"
-                    value={lastName}
-                    onChange={e => setLastName(e.target.value)}
-                />
-            </div>
-            <div className="form-question">
-                <label for="email">
-                    Email Address (this will be your login)
-                </label>
-                <input
-                    className="form-signup"
-                    type="text"
-                    name="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                />
-            </div>
-            <div className="form-question">
-                <label for="password">
-                    Password
-                </label>
-                <input
-                    className="form-signup"
-                    type="text"
-                    name="password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
-            </div>
-            <div className="form-question">
-                <label for="passwordConfirm">
-                    Confirm Password
-                </label>
-                <input
-                    className="form-signup"
-                    type="text"
-                    name="passwordConfirm"
-                    value={passwordConfirm}
-                    onChange={e => setPasswordConfirm(e.target.value)}
-                />
-            </div>
-            <div className="form-question">
-                <label for="houseNameOrNumber">
-                    House Number / Name
-                </label>
-                <input
-                    className="form-signup"
-                    type="text"
-                    name="houseNameOrNumber"
-                    value={houseNameOrNumber}
-                    onChange={e => setHouseNameOrNumber(e.target.value)}
-                />
-            </div>
-            <div className="form-question">
-                <label for="street">
-                    Street
-                </label>
-                <input
-                    className="form-signup"
-                    type="text"
-                    name="street"
-                    value={street}
-                    onChange={e => setStreet(e.target.value)}
-                />
-            </div>
-            <div className="form-question">
-                <label for="city">
-                    City
-                </label>
-                <input
-                    className="form-signup"
-                    type="text"
-                    name="city"
-                    value={city}
-                    onChange={e => setCity(e.target.value)}
-                />
-            </div>
-            <div className="form-question">
-                <label for="county">
-                    County
-                </label>
-                <input
-                    className="form-signup"
-                    type="text"
-                    name="county"
-                    value={county}
-                    onChange={e => setCounty(e.target.value)}
-                />
-            </div>
-            <div className="form-question">
-                <label for="postCode">
-                    Post Code
-                </label>
-                <input
-                    className="form-signup"
-                    type="text"
-                    name="postCode"
-                    value={postCode}
-                    onChange={e => setPostCode(e.target.value)}
-                />
-            </div>
-            <button 
-                className="submit-buutton" 
-                onClick={e => submitUser(e)}
-            >
-                Submit
-            </button>
+            <InputText 
+                value={firstName} 
+                onChange={e => setFirstName(e.target.value)}
+                placeholder="First Name" 
+            />
+            <InputText 
+                value={lastName} 
+                onChange={e => setLastName(e.target.value)}
+                placeholder="Last Name" 
+            />
+            <InputText 
+                value={email} 
+                onChange={e => setEmail(e.target.value)}
+                placeholder="Email Address" 
+            />
+            <InputText 
+                value={password} 
+                onChange={e => setPassword(e.target.value)}
+                placeholder="Password" 
+            />
+            <InputText 
+                value={passwordConfirm} 
+                onChange={e => setPasswordConfirm(e.target.value)}
+                placeholder="Confirm Password" 
+            />
+            <InputText 
+                value={houseNameOrNumber} 
+                onChange={e => setHouseNameOrNumber(e.target.value)}
+                placeholder="House name/number" 
+            />
+            <InputText 
+                value={street} 
+                onChange={e => setStreet(e.target.value)}
+                placeholder="Street" 
+            />
+            <InputText 
+                value={city} 
+                onChange={e => setCity(e.target.value)}
+                placeholder="City" 
+            />
+            <InputText 
+                value={county} 
+                onChange={e => setCounty(e.target.value)}
+                placeholder="County" 
+            />
+            <InputText 
+                value={postCode} 
+                onChange={e => setPostCode(e.target.value)}
+                placeholder="Post Code" 
+            />
+            <Submit
+                onChange={e => submitUser(e)}
+            />
         </form>
     </>)
 }

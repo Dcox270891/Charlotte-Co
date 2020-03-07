@@ -1,4 +1,6 @@
 import React from "react";
+import Close from "../Buttons/Close";
+import "./style.css";
 
 function MultipleInputs(props){
     function addOption(e){
@@ -14,10 +16,10 @@ function MultipleInputs(props){
     }
     return (<div className="form-question">
         <label htmlFor={props.value}>
-            {props.placeholder}
+            {props.placeholder} :
         </label>
         <input
-            className="form-add-product"
+            className="input-form"
             type="text"
             name={props.value}
             value={props.value}
@@ -29,12 +31,12 @@ function MultipleInputs(props){
         <ul>
             {props.optionsTitle}:
             {props.optionsArray.map(option => {
-                return <li key={option}>{option} <button remove={option} onClick={removeOption}>x</button></li>
+                return <li key={option}>
+                        {option} <Close remove={option} onClick={removeOption}/>
+                    </li>
             })}
         </ul>
     </div>)
-
-
 }
 
 export default MultipleInputs;

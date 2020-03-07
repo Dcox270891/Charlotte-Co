@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import Input from "../Input/InputText";
 import Submit from "../Buttons/Submit";
 import API from "../../utils/API";
+import "./style.css";
 
 
 function Login(){
@@ -20,7 +21,7 @@ function Login(){
 
     return (<>
         <h1>{(user)?(`Welcome ${user.data.email}`):("You need to log in")}</h1>
-        <form>
+        <form className="login-form">
             <Input 
                 value={email} 
                 onChange={e => setEmail(e.target.value)} 

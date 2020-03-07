@@ -4,15 +4,14 @@ import SignUp from "./pages/SignUp/SignUp";
 import Login from "./components/Login/Login";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import AddProduct from "./pages/AddProduct/AddProduct";
-import Header from "./components/Header/Header"
+import Header from "./components/Header/Header";
+import "./styles.css";
 
 function App() {
   return (<Router>
       <div>
       <Header />
         <nav>
-          <Link to="/login">Log In</Link><br/>
-          <Link to="/signup">Sign Up</Link><br/>
           <Link to="/productpage">Product Page</Link><br/>
           <Link to="/addproduct">Add/Edit Product</Link><br/>
         </nav>

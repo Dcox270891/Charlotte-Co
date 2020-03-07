@@ -1,15 +1,16 @@
 import React, {useState} from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Route, Link } from "react-router-dom";
 import Close from "../Buttons/Close"
 import Login from "../Login/Login";
 import Nav from "../Nav/Nav";
+import "./style.css"
 
 function Header(){
     const [ toggleLogInBasket , setToggleLogInBasket] = useState(false);
     const [ toggleNav , setToggleNav] = useState(false);
 
     return (<>
-        <header>
+        <header className="header">
             <nav>
                 <button onClick={() => setToggleNav(true)}>
                     Menu

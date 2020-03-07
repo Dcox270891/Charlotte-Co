@@ -1,15 +1,15 @@
 import React from "react";
 import "./style.css";
 
-function Input(props){
+function InputNumber(props){
     return(
-        <div className="form-question">
+        <div className="label-form">
             <label htmlFor={props.value}>
                 {props.placeholder} :
             </label>
             <input
-                className="input-form"
-                type="text"
+                className="input-form number"
+                type="number"
                 placeholder={props.placeholder}
                 name={props.value}
                 value={props.value}
@@ -18,4 +18,4 @@ function Input(props){
         </div>)
 }
 
-export default Input
+export default InputNumber;
