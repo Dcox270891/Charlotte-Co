@@ -38,7 +38,8 @@ export default {
         return axios.post(`/api/subcategory/${id}`);
     },
     getSubCategoryByCategory: function(id){
-        return axios.get(`/api/subcategory/category/${id}`)},
+        return axios.get(`/api/subcategory/category/${id}`)
+    },
     deleteSubCategory: function(id){
         return axios.delete(`/api/subcategory/${id}`);
     },
@@ -59,5 +60,23 @@ export default {
     },
     editProduct: function(id){
         return axios.put(`/api/products/${id}`);
+    },
+    getTransfers: function(){
+        return axios.get(`/api/uniquetransfers/`);
+    },
+    newTransfer: function (newTransfer){
+        return axios.post("/api/uniquetransfers", newTransfer);
+    },
+    getTransfer: function(id){
+        return axios.post(`/api/uniquetransfers/${id}`);
+    },
+    deleteTransfer: function(id){
+        return axios.delete(`/api/uniquetransfers/${id}`);
+    },
+    editTransfer: function(id){
+        return axios.put(`/api/uniquetransfers/${id}`);
+    },
+    getTransferByProduct: function(id){
+        return axios.get(`/api/uniquetransfers/product/${id}`)
     },
 }

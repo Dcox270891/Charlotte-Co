@@ -5,6 +5,7 @@ import InputNumber from "../../components/Input/InputNumber";
 import Checkbox from "../../components/Input/CheckboxInput";
 import CategoryPicker from "../../components/Input/CategoryPicker";
 import MultipleOptions from "../../components/Input/MuiltipleInputs";
+import UniqueTransfers from "../../components/UniqueTransfers/UniqueTransfers";
 import API from "../../utils/API";
 import "./style.css";
 
@@ -135,6 +136,7 @@ function AddProduct(){
                 onChange={(e) => setDeliveryTimeMin(e.target.value)} 
                 placeholder="Delivery time min" 
             />
+            <UniqueTransfers/><br/>
             <Submit
                 onChange={e => submitProduct(e)}
             />

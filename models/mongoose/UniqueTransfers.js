@@ -8,15 +8,6 @@ const UniqueTransfersSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Products' 
     }],
-    productId:{
-        type: Number,
-        required: true,
-        unique: true,
-    },
-    transferId:{
-        type: Number,
-        required: true, 
-    },
     title:{
         type: String,
         required: true, 
@@ -25,11 +16,11 @@ const UniqueTransfersSchema = new Schema({
         type: String,
         required: true, 
     },
-    tranferImages:{
+    transferImages:{
         type: [],
         required: true, 
     },
-    mainTranferImages:{
+    mainTranferImage:{
         type: String,
         required: true, 
     },

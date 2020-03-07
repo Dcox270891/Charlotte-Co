@@ -10,5 +10,9 @@ router
     .get(uniqueTransfersController.findUniqueTransferById)
     .put(uniqueTransfersController.updateUniqueTransfer)
     .delete(uniqueTransfersController.removeUniqueTransfer);
+router
+    .route("/api/uniquetransfers/product/:id")
+    .get(uniqueTransfersController.findUniqueTransfersByProduct);
+
 
 module.exports = router;

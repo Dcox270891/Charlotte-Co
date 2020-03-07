@@ -14,6 +14,7 @@ function MultipleInputs(props){
         const remove = e.target.getAttribute("remove");
         props.setOptionsArray(props.optionsArray.filter(option => option !== remove));
     }
+    
     return (<div className="form-question">
         <label htmlFor={props.value}>
             {props.placeholder} :

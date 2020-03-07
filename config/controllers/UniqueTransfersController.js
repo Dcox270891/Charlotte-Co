@@ -32,4 +32,12 @@ module.exports ={
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },
+    findUniqueTransfersByProduct: function(req, res) {
+      db.UniqueTransfers
+          .find({
+            forProduct: req.params.id
+          })
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.status(422).json(err));
+  },
 }
