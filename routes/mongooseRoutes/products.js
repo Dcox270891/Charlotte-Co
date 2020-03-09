@@ -5,8 +5,7 @@ router.route("/api/products/")
     .get(categoryController.findAllProducts)
     .post(categoryController.createProduct);
 
-router
-    .route("/api/products/:id")
+router.route("/api/products/:id")
     .get(categoryController.findProductById)
     .put(categoryController.updateProduct)
     .delete(categoryController.removeProducts);

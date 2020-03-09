@@ -21,7 +21,7 @@ function AddProduct(){
     const [  sizes, setSizes ] = useState([]);
     const [  colour, setColour  ] = useState("")
     const [  productColours, setProductColours ] = useState([]);
-    // const [  personalisableImage, setPersonalisableImage ] = useState("");
+    const [  personalisableImage, setPersonalisableImage ] = useState("");
     const [  isActive, setIsActive ] = useState(false);
     const [  inStock, setInStock ] = useState(false);
     const [  deliveryTimeMax, setDeliveryTimeMax ] = useState("");
@@ -136,10 +136,10 @@ function AddProduct(){
                 onChange={(e) => setDeliveryTimeMin(e.target.value)} 
                 placeholder="Delivery time min" 
             />
-            <UniqueTransfers/><br/>
             <Submit
                 onChange={e => submitProduct(e)}
             />
+            <UniqueTransfers/>
         </form>
     </>)
 };

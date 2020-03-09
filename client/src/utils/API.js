@@ -77,6 +77,30 @@ export default {
         return axios.put(`/api/uniquetransfers/${id}`);
     },
     getTransferByProduct: function(id){
-        return axios.get(`/api/uniquetransfers/product/${id}`)
+        return axios.get(`/api/uniquetransfers/product/${id}`);
+    },
+    getAllImages: function(){
+        return axios.get(`/api/images`);
+    },
+    findImageById: function(id){
+        return axios.get(`/api/images/${id}`);
+    },
+    postImage: function(newImage){
+        return axios.post(`/api/images`, newImage);
+    },
+    deletImageById: function(id){
+        return axios.delete(`/api/images/${id}`);
+    },
+    deletImageByProduct: function(id){
+        return axios.delete(`/api/images/product/${id}`);
+    },
+    findImageByProduct: function(newImage){
+        return axios.get(`/api/images/product/${newImage}`);
+    },
+    deletImageByTransfer: function(id){
+        return axios.delte(`/api/images/transfer/${id}`);
+    },
+    findImageByTransfer: function(newImage){
+        return axios.get(`/api/images/transfer/${newImage}`);
     },
 }
