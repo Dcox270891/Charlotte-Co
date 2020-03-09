@@ -29,18 +29,14 @@ function AddProduct(){
 
     useEffect(() => {
         API.getCategories()
-            .then(res => {
-                setCategories(res.data);
-            })
+            .then(res => setCategories(res.data))
             .catch(err => console.log(err))
     },[])
 
     useEffect(() => {
         if (category){
             API.getSubCategoryByCategory(category._id)
-            .then(res => {
-                setSubCategories(res.data);
-            })
+            .then(res => setSubCategories(res.data))
             .catch(err => console.log(err))
         }
     },[category])

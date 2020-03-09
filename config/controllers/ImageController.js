@@ -22,8 +22,8 @@ module.exports ={
             .catch(err => res.status(422).json(err));
     },
     postImage: function(req, res) {  
-        cloudinary.uploader.upload(req.fileToUpload.files.image.path, function(result) {
-            console.log(results)
+        cloudinary.uploader.upload(req.fileToUpload.files.image.path, function(result, err) {
+            console.log(results, err)
             db.Images
                 .create({...req.body, 
                     url: result.url,

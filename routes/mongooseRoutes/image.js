@@ -1,9 +1,11 @@
 const router = require("express").Router();
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
 const imageController = require("../../config/controllers/ImageController")
 
 router.route("api/image/")
     .get(imageController.getAllImages)
-    .post(imageController.postImage);
+    .post(multipartMiddleware, imageController.postImage);
 router.route("api/image/:id")
     .get(imageController.findImagebyId)
     .delete(imageController.deleteImageById);

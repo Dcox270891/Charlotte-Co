@@ -5,7 +5,27 @@ import API from "../../utils/API";
 
 function ImageUploader(props){
     const [  title, setTitle ] = useState("");
-    const [  imageToUpload, setImageToUpload ] = useState();
+    const [  imageToUpload, setImageToUpload ] = useState({});
+    const [  images, setImages ] = useState([])
+
+    useEffect(() => {
+        if(props){
+            API.getAllImages()
+                .then(res => setImages(res.data))
+                .catch(err => console.log(err))
+        } else {
+            if("product" in props){
+                API.findImageByProduct(props.product._id)
+                    .then(res => setImages(res.data))
+                    .catch(err => console.log(err))
+
+            } else if("transfer" in props){
+                API.findImageByTransfer(props.transfer._id)
+                    .then(res => setImages(res.data))
+                    .catch(err => console.log(err))
+            }
+        }
+    },[])
 
     function saveImage(e){
         e.preventDefault();
@@ -19,14 +39,14 @@ function ImageUploader(props){
                 .then(res => console.log(res))
                 .catch(err => console.log(err))
         } else { 
-            if (props.product._id !== null || ""){
+            if ("product" in props){
                 API.postImage({
                     ...newImage,
                     forProduct: props.product._id,
                 })
                     .then(res => console.log(res))
                     .catch(err => console.log(err))
-            } else if (props.transfer._id !== null || "") {
+            } else if ("transfer" in props) {
                 API.postImage({
                     ...newImage,
                     forTransfer: props.transfer._id,
@@ -46,7 +66,6 @@ function ImageUploader(props){
     }
 
     return(<>
-        <h1> show up please</h1>
         <form className="image-uploader">
             <InputText
                 value={title}
@@ -62,6 +81,15 @@ function ImageUploader(props){
                 onChange={(e) => saveImage(e)}
             />
         </form>
+        <div>
+            {images.map(image => {
+                return (<div key={image._id}>
+                    <h3>{image.title}</h3>
+                    <img src={image.url}/>
+                </div>)
+            })}
+
+        </div>
     </>)
 }
 
