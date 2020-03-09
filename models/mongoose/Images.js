@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Product = require("./Products");
 const UniqueTransfers = require("./UniqueTransfers");
 
+
 const Schema = mongoose.Schema;
 
 const ImagesSchema = new Schema({
@@ -10,6 +11,10 @@ const ImagesSchema = new Schema({
         required: true,
     },
     url:{
+        type: String,
+        required: true,
+    },
+    imageId:{
         type: String,
         required: true,
     },

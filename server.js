@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
-const cloudinary = require('cloudinary').v2;
 const passport = require("./config/passport.js");
 const app = express();
 const catgeory = require("./routes/mongooseRoutes/category");
@@ -22,11 +21,6 @@ app.use(catgeory);
 app.use(subCatgeory);
 app.use(products);
 app.use(uniqueTransfers);
-cloudinary.config({ 
-  cloud_name: process.env.cloudName, 
-  api_key: process.env.clodinaryKey, 
-  api_secret: process.env.coudinarySecret,
-});
 
 require('./routes/sequilizeRoutes/sequilizeRoutes')(app);
 require('./routes/passportRoutes/passportRoutes')(app);

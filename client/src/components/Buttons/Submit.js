@@ -5,7 +5,7 @@ function Submit(props){
     return (
         <button 
             className="submit-button" 
-            onClick={props.onClick}
+            onClick={(e) => e.preventDefault(), props.onClick}
         >
             Submit
         </button>
