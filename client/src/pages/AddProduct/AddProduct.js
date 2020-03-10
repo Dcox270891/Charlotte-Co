@@ -9,7 +9,7 @@ import UniqueTransfers from "../../components/UniqueTransfers/UniqueTransfers";
 import API from "../../utils/API";
 import "./style.css";
 
-function AddProduct(){
+function AddProduct(props){
     const [  name, setName ] = useState("");
     const [  description, setDescription ] = useState("");
     const [  category, setCategory ] = useState({});
@@ -59,6 +59,7 @@ function AddProduct(){
             .then(res => console.log(res))
             .catch(err => console.log(err))
         console.log(newProduct)
+        return 
     }
 
     return (<>

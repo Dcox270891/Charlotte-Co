@@ -19,8 +19,8 @@ export default {
     newCategory: function (newCategory){
         return axios.post("/api/category", newCategory);
     },
-    getCategory: function(id){
-        return axios.post(`/api/category/${id}`);
+    getCategoryById: function(id){
+        return axios.get(`/api/category/${id}`);
     },
     deleteCategory: function(id){
         return axios.delete(`/api/category/${id}`);

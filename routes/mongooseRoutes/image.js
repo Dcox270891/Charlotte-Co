@@ -5,7 +5,7 @@ const imageController = require("../../config/controllers/ImageController")
 
 router.route("api/image/")
     .get(imageController.getAllImages)
-    .post(multipartMiddleware, imageController.postImage);
+    .post(imageController.postImage);
 router.route("api/image/:id")
     .get(imageController.findImagebyId)
     .delete(imageController.deleteImageById);

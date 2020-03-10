@@ -5,12 +5,16 @@ import "./style.css";
 
 function CategoriesPage(props){
     const [  products, setProducts ] = useState([]);
+    const [  subCategory, setSubCategory ] = useState({});
 
-    useEffect(() => {
-        API.getTransferByProduct(props.subCategory._id)
-            .then(res => setProducts(res.data))
-            .catch(err => console.log(err))
-    },[])
+    if(subCategory in props){
+        setSubCategory(props.subCategory)
+        useEffect(() => {
+            API.getTransferByProduct(subCategory._id)
+                .then(res => setProducts(res.data))
+                .catch(err => console.log(err))
+        },[])
+    }
 
     
     return(<>

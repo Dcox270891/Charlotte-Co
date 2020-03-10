@@ -1,6 +1,6 @@
 module.exports = {
     Products: require("./Products"),
-    Images: require("./Categories"),
+    Categories: require("./Categories"),
     SubCategories: require("./SubCategories"),
     UniqueTransfers: require("./UniqueTransfers"),
     Images: require("./Images"),

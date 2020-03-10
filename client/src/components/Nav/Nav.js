@@ -8,16 +8,11 @@ function Nav(){
     const [ subCategories, setSubCategories] = useState([]);
 
     useEffect(() => {
-        console.log("reloaded categories")
         API.getCategories()
-            .then(res => {
-                setCategories(res.data);
-            })
+            .then(res => {setCategories(res.data)})
             .catch(err => console.log(err));
         API.getSubCategories()
-            .then(res => {
-                setSubCategories(res.data);
-            })
+            .then(res => {setSubCategories(res.data)})
             .catch(err => console.log(err))
     },[])
 
