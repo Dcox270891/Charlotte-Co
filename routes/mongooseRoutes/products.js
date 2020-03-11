@@ -9,5 +9,7 @@ router.route("/api/products/:id")
     .get(categoryController.findProductById)
     .put(categoryController.updateProduct)
     .delete(categoryController.removeProducts);
+router.route("api/product/subcategory/:id")
+    .get(categoryController.getProductBySubCategory)
 
 module.exports = router;

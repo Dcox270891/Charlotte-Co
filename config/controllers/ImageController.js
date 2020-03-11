@@ -21,17 +21,15 @@ module.exports ={
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
-    postImage: function(req, res) {  
-        cloudinary.uploader.upload(req.fileToUpload.files.image.path, function(result, err) {
-            console.log(results, err)
-            db.Images
-                .create({...req.body, 
-                    url: result.url,
-                    imageId : result.public_id,
-                })
-                .then(dbModel => res.json(dbModel))
-                .catch(err => res.status(422).json(err));
-        })
+    postImage: function(req, res) {
+        console.log(results, err)
+        db.Images
+            .create({...req.body, 
+                url: result.url,
+                imageId : result.public_id,
+            })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
     },
     deleteImageById: function(req, res) {
       db.Images

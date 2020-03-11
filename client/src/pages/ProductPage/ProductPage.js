@@ -1,50 +1,50 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import * as qs from 'query-string';
 import "./style.css";
 
-function ProductPage(){
-    const props = {
-        title: "Glass pint cup",
-        mainImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQso1TEwQBLsC0ky27bsn7nGAvkiBSM0TEUtDB2SGRJZOJYq3uV&s",
-        images: [
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQso1TEwQBLsC0ky27bsn7nGAvkiBSM0TEUtDB2SGRJZOJYq3uV&s",
-        ],
-        description: "This holds water",
-        price: 4.99,
-        uniqueTransfers:[
-            "1",
-            "2",
-            "3",
-        ],
-    };
+function ProductPage(props){
+    const [  title,  ] = useState();
+    const [  description,  ] = useState();
+    const [  images,  ] = useState();
+    const [  mainImage,  ] = useState();
+    const [  price,  ] = useState();
+    const [  uniqueTransfers,  ] = useState();
+
+
+    useEffect(() => {
+        const query = qs.parse(props.location.search);
+        console.log(query);
+    },[])
+
 
     return (<>
         <div className="product-page">
             <div className="row">
                 <div className="product-main">
                     <div className="product-title">
-                        <h3>{props.title}</h3>
+                        <h3>{title}</h3>
                     </div>
                     <div className="product-main-img">
-                        <img alt={props.title} src={props.mainImage}/>
+                        <img alt={title} src={mainImage}/>
                     </div>
                 </div>
                 <div className="product-other-img">
-                    {props.images.map(image => {
-                        return <img alt={props.title} src={image}/>
+                    {images.map(image => {
+                        return <img alt={title} src={image}/>
                     })}
                 </div>
             </div>
             <div className="row">
                 <div className="product-description">
-                    {props.description}
+                    {description}
                 </div>
             </div>
             <div className="row">
                 <div className="product-price">
-                    £{props.price}
+                    £{price}
                 </div>
                 <div className="product-unique-transfers">
-                    {props.uniqueTransfers.map(transfer => {
+                    {uniqueTransfers.map(transfer => {
                         return <p>{transfer}</p>
                     })}
                 </div>

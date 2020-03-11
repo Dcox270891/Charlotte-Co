@@ -6,16 +6,22 @@ import "./style.css";
 function CategoriesPage(props){
     const [  products, setProducts ] = useState([]);
     const [  subCategory, setSubCategory ] = useState({});
+    const subCategoryId = props.match.params.id
 
-    if(subCategory in props){
-        setSubCategory(props.subCategory)
-        useEffect(() => {
-            API.getTransferByProduct(subCategory._id)
-                .then(res => setProducts(res.data))
-                .catch(err => console.log(err))
-        },[])
-    }
+    useEffect(() => {
+        API.getSubCategory(subCategoryId)
+            .then(res => {
+                setSubCategory(res.data)
+                console.log(res.data)
+            })
+            .catch(err => console.log(err))
+    },[])
 
+    useEffect(() => {
+        API.getTransferByProduct(subCategory._id)
+            .then(res => setProducts(res.data))
+            .catch(err => console.log(err))
+    },[subCategory])
     
     return(<>
         {products.map(product =>{

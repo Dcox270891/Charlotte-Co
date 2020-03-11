@@ -7,9 +7,6 @@ import "./style.css";
 function HomePage(){
     
     return(<>
-        <Image publicId="Maincompanyimagelogo" type="fetch">
-            <Transformation width="300" height="300" crop="fill" fetchFormat="auto" />
-        </Image>
         <div>
             <h2 className="home-product-title">Hot Now</h2>
             <ProductCard />

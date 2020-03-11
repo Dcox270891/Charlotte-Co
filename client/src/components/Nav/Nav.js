@@ -26,7 +26,9 @@ function Nav(){
                             <ul>
                                 {subCategories.map(subCategory => {
                                     if(subCategory.belongsTo == category._id){
-                                        return <li key={subCategory._id}>{subCategory.title}</li>
+                                        return <li key={subCategory._id}>
+                                            <Link to={`/category/${subCategory._id}`}>{subCategory.title}</Link>
+                                        </li>
                                     }})}
                             </ul>
                     </>)

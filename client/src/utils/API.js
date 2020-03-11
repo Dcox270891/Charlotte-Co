@@ -35,7 +35,7 @@ export default {
         return axios.post("/api/subcategory", newCategory);
     },
     getSubCategory: function(id){
-        return axios.post(`/api/subcategory/${id}`);
+        return axios.get(`/api/subcategory/${id}`);
     },
     getSubCategoryByCategory: function(id){
         return axios.get(`/api/subcategory/category/${id}`)
@@ -60,6 +60,9 @@ export default {
     },
     editProduct: function(id){
         return axios.put(`/api/products/${id}`);
+    },
+    getProductBySubCategory: function(id){
+        return axios.get(`api/product/subcategory/${id}`)
     },
     getTransfers: function(){
         return axios.get(`/api/uniquetransfers/`);

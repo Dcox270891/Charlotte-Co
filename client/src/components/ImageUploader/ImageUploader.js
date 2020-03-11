@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import InputText from "../../components/Input/InputText";
+import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 import Submit from "../Buttons/Submit";
 import API from "../../utils/API";
 
@@ -9,22 +10,9 @@ function ImageUploader(props){
     const [  images, setImages ] = useState([])
 
     useEffect(() => {
-        if(props){
-            API.getAllImages()
-                .then(res => setImages(res.data))
-                .catch(err => console.log(err))
-        } else {
-            if("product" in props){
-                API.findImageByProduct(props.product._id)
-                    .then(res => setImages(res.data))
-                    .catch(err => console.log(err))
-
-            } else if("transfer" in props){
-                API.findImageByTransfer(props.transfer._id)
-                    .then(res => setImages(res.data))
-                    .catch(err => console.log(err))
-            }
-        }
+        API.getAllImages()
+            .then(res => setImages(res.data))
+            .catch(err => console.log(err))
     },[])
 
     function saveImage(e){
@@ -34,35 +22,9 @@ function ImageUploader(props){
             fileToUpload: imageToUpload,
         }
         console.log(newImage)
-        if(props === {}){
-            API.postImage(newImage)
-                .then(res => console.log(res))
-                .catch(err => console.log(err))
-        } else { 
-            if ("product" in props){
-                API.postImage({
-                    ...newImage,
-                    forProduct: props.product._id,
-                })
-                    .then(res => console.log(res))
-                    .catch(err => console.log(err))
-            } else if ("transfer" in props) {
-                API.postImage({
-                    ...newImage,
-                    forTransfer: props.transfer._id,
-                })
-                    .then(res => console.log(res))
-                    .catch(err => console.log(err))
-            }
-        }
-    }
-
-    function onChangeFile(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        const file = e.target.files[0];
-        setImageToUpload(file);
-        console.log(imageToUpload)
+        API.postImage(newImage)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
     }
 
     return(<>
@@ -72,11 +34,12 @@ function ImageUploader(props){
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Image Title"
             />
-            <input 
-                id="Image"
-                type="file"
-                onChange={(e) => onChangeFile(e)}
-            />
+            <button 
+                id="upload_widget" 
+                className="cloudinary-button"
+            >
+                Upload files
+            </button>
             <Submit
                 onChange={(e) => saveImage(e)}
             />
