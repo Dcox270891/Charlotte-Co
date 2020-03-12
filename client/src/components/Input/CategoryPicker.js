@@ -13,18 +13,17 @@ function CategoryPicker(props){
         setAddingNewOption(true);
     }
 
-    function saveNewOption(e) {
-        e.preventDefault();
-        APISave();
+    function saveNewOption(optionValue) {
+        APISave(optionValue);
         setAddingNewOption(false);
     }
 
-    function APISave(){
-        if(props.value === "category"){
+    function APISave(optionValue){
+        if(optionValue === "Category"){
             API.newCategory({title: newOptionName})
                 .then(res => console.log(res))
                 .catch(err => console.log(err));
-        } else if (props.value === "subCategory") {
+        } else if (optionValue === "Sub Category") {
             API.newSubCategory({
                 belongsTo: props.category._id,
                 title: newOptionName,
@@ -42,7 +41,7 @@ function CategoryPicker(props){
                 placeholder={props.placeholder + " Name"}
             />
             <Submit
-                onClick={(e) =>saveNewOption(e)}
+                onClick={() => saveNewOption(props.placeholder)}
             />
         </>)
     }

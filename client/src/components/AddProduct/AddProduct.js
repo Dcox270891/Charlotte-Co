@@ -10,6 +10,7 @@ import "./style.css";
 import Submit from "../Buttons/Submit";
 
 function AddProduct(props){
+    const [  productId, setProductId ] = useState((props.loadedProduct)?(props.loadedProduct._id):"")
     const [  name, setName ] = useState((props.loadedProduct)?(props.loadedProduct.name):"");
     const [  description, setDescription ] = useState((props.loadedProduct)?(props.loadedProduct.description):"");
     const [  category, setCategory ] = useState((props.loadedProduct)?(props.loadedProduct.category):{});
