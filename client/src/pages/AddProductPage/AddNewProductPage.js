@@ -1,34 +1,26 @@
 import React, { useState } from "react";
-import AddProduct from "../../components/AddProduct";
-import Submit from "../../components/Buttons/Submit";
+import AddProduct from "../../components/AddProduct/AddProduct";
+import API from "../../utils/API"
+import { Redirect } from "react-router-dom";
 
-function AddNewProductPage(props){
+function AddNewProductPage(){
+    const [ product, setProduct ] = useState({});
+    const redirectUrl = `/editproduct/${product._id}`;
     
-    function submitProduct(e){
-        e.preventDefault();
-        const newProduct = {
-            name: name,
-            description: description,
-            category: category,
-            subCategory: subCategory,
-            price: price,
-            productColours: productColours,
-            isActive: isActive,
-            inStock: inStock,
-            deliveryTimeMax: deliveryTimeMax,
-            deliveryTimeMin: deliveryTimeMin,
-        };
-        API.addNewProduct(newProduct)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
+    function submitProduct(newProduct){
         console.log(newProduct)
+        API.newProduct(newProduct)
+            .then(res => setProduct(res.data))
+            .catch(err => console.log(err))
+        console.log("saved:" + newProduct);
+        return <Redirect to={{
+            pathname: "/editproduct/:id",
+            state: {product: product._id}
+        }} />
     }
 
 return (<>
-    <AddProduct/>
-    <Submit
-        onChange={(e) => submitProduct(e)}
-    />
+    <AddProduct submitHandler={submitProduct}/>
 </>)
 }
 

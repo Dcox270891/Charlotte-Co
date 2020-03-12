@@ -1,38 +1,51 @@
 import React, { useState , useEffect} from "react";
-import AddProduct from "../../components/AddProduct";
+import * as qs from 'query-string';
+import AddProduct from "../../components/AddProduct/AddProduct";
 import ImageUplaoder from "../../components/ImageUploader/ImageUploader";
 import UniqueTransfers from "../../components/UniqueTransfers/UniqueTransfers";
-
+import API from "../../utils/API";
 
 function EditProductPage(props){
-    const [ loadedProduct, setLoadedProduct] = useState("")
+    const [ productToLoad, setProductToLoad] = useState((props.product)?(props.product._id):"")
+    const [ product, setProduct] = useState((props.product)?(props.product._id):"")
+
     const query = qs.parse(props.location.search);
-    console.log(query);
-    if (query !== "new"){
-        API.getProductById(query)
-            .then(res => setLoadedProduct(res.data))
+    
+    useEffect(() => {
+        console.log(query);
+        setProductToLoad(query);
+    },[])
+    
+    useEffect(() => {
+        if(productToLoad === ""){
+            API.getProductById(query)
+                .then(res => setProduct(res.data))
+                .catch(err => console.log(err))
+        }
+    },[productToLoad])
+
+
+    function submitProduct(newProduct){
+        API.newProduct(newProduct)
+            .then(res => console.log(res))
             .catch(err => console.log(err))
+        console.log(newProduct)
     }
 
-    useEffect(() => {
-        setTitle(loadedProduct.title);
-
-    },[loadedProduct])
-
-return (<>
-    <AddProduct 
-        loadedProduct={loadedProduct}
-    />
-    <ImageUplaoder
-        imageInfo={`forProduct: ${loadedProduct._id}`}
-    />
-    <UniqueTransfers
-        product={loadedProduct._id}
-    />
+    return (<>
+        <AddProduct 
+            loadedProduct={product}
+        />
+        <ImageUplaoder
+            imageInfo={`forProduct: ${product._id}`}
+        />
+        <UniqueTransfers
+            product={product._id}
+        />
 
 
 
-</>)
+    </>)
 }
 
 export default EditProductPage;

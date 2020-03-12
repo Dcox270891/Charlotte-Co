@@ -8,15 +8,15 @@ import API from "../../utils/API";
 import ImageGallery from "../ImageGallery/ImageGallery";
 
 function UniqueTransfers(props){
-    const [  title, setTitle  ] = useState("");
-    const [  transferDescription, setTransferDescription  ] = useState("");
-    const [  transferImages, setTransferImages  ] = useState([]);
-    const [  mainTranferImage, setMainTranferImage  ] = useState("");
-    const [  priceDifference, setPriceDifference  ] = useState("");
-    const [  transferArray, setTransferArray ] = useState([]);
+    const [  title, setTitle  ] = useState((props.product)?(props.product.title):"");
+    const [  transferDescription, setTransferDescription  ] = useState((props.product)?(props.product.transferDescription):"");
+    const [  transferImages, setTransferImages  ] = useState((props.product)?(props.product.transferImages):[]);
+    const [  mainTranferImage, setMainTranferImage  ] = useState((props.product)?(props.product.mainTranferImage):"");
+    const [  priceDifference, setPriceDifference  ] = useState((props.product)?(props.product.priceDifference):"");
+    const [  transferArray, setTransferArray ] = useState((props.product)?(props.product.transferArray):[]);
 
     if(props.product){
-        API.getTransferByProduct(prop.product)
+        API.getTransferByProduct(props.product)
             .then(res => setTransferArray([...res, transferArray]))
             .catch(err => console.log(err))
     }
@@ -84,7 +84,7 @@ function UniqueTransfers(props){
                 imageInfo={`forTransfer: ${props.product}`}
             />
             <ImageGallery
-                forTransfer={}
+                forTransfer=""
             />
             <Submit
                 onClick={addTransfer}

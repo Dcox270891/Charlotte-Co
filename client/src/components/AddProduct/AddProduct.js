@@ -7,23 +7,24 @@ import CategoryPicker from "../Input/CategoryPicker";
 import MultipleOptions from "../Input/MuiltipleInputs";
 import API from "../../utils/API";
 import "./style.css";
+import Submit from "../Buttons/Submit";
 
 function AddProduct(props){
-    const [  name, setName ] = useState("");
-    const [  description, setDescription ] = useState("");
-    const [  category, setCategory ] = useState({});
+    const [  name, setName ] = useState((props.loadedProduct)?(props.loadedProduct.name):"");
+    const [  description, setDescription ] = useState((props.loadedProduct)?(props.loadedProduct.description):"");
+    const [  category, setCategory ] = useState((props.loadedProduct)?(props.loadedProduct.category):{});
     const [  categories, setCategories ] = useState([]);
-    const [  subCategory, setSubCategory ] = useState({});
+    const [  subCategory, setSubCategory ] = useState((props.loadedProduct)?(props.loadedProduct.subCategory):{});
     const [  subCategories, setSubCategories ] = useState([]);
-    const [  price, setPrice ] = useState("");
+    const [  price, setPrice ] = useState((props.loadedProduct)?(props.loadedProduct.price):"");
     const [  size, setSize  ] = useState("")
-    const [  sizes, setSizes ] = useState([]);
+    const [  sizes, setSizes ] = useState((props.loadedProduct)?(props.loadedProduct.sizes):[]);
     const [  colour, setColour  ] = useState("")
-    const [  productColours, setProductColours ] = useState([]);
-    const [  isActive, setIsActive ] = useState(false);
-    const [  inStock, setInStock ] = useState(false);
-    const [  deliveryTimeMax, setDeliveryTimeMax ] = useState("");
-    const [  deliveryTimeMin, setDeliveryTimeMin ] = useState("");
+    const [  productColours, setProductColours ] = useState((props.loadedProduct)?(props.loadedProduct.productColours):[]);
+    const [  isActive, setIsActive ] = useState((props.loadedProduct)?(props.loadedProduct.isActive):false);
+    const [  inStock, setInStock ] = useState((props.loadedProduct)?(props.loadedProduct.inStock):false);
+    const [  deliveryTimeMax, setDeliveryTimeMax ] = useState((props.loadedProduct)?(props.loadedProduct.deliveryTimeMax):"");
+    const [  deliveryTimeMin, setDeliveryTimeMin ] = useState((props.loadedProduct)?(props.loadedProduct.deliveryTimeMin):"");
 
     useEffect(() => {
         API.getCategories()
@@ -39,40 +40,23 @@ function AddProduct(props){
         }
     },[category])
 
-    if (props.loadedProduct){
-        setName(props.loadedProduct.name);
-        setDescription(props.loadedProduct.description);
-        setCategory(props.loadedProduct.category);
-        setSubCategory(props.loadedProduct.subCategory);
-        setPrice(props.loadedProduct.price);
-        setSizes(props.loadedProduct.sizes);
-        setProductColours(props.loadedProduct.productColours);
-        setIsActive(props.loadedProduct.isActive);
-        setInStock(props.loadedProduct.inStock);
-        setDeliveryTimeMax(props.loadedProduct.deliveryTimeMax);
-        setDeliveryTimeMin(props.loadedProduct.deliveryTimeMin);
+    function submitProduct(e){
+        e.preventDefault();
+        const newProduct = {
+            name: name,
+            description: description,
+            category: category,
+            subCategory: subCategory,
+            price: price,
+            sizes: sizes,
+            productColours: productColours,
+            isActive: isActive,
+            inStock: inStock,
+            deliveryTimeMax: deliveryTimeMax,
+            deliveryTimeMin: deliveryTimeMin,
+        };
+        props.submitHandler(newProduct) 
     }
-
-    // function submitProduct(e){
-    //     e.preventDefault();
-    //     const newProduct = {
-    //         name: name,
-    //         description: description,
-    //         category: category,
-    //         subCategory: subCategory,
-    //         price: price,
-    //         productColours: productColours,
-    //         isActive: isActive,
-    //         inStock: inStock,
-    //         deliveryTimeMax: deliveryTimeMax,
-    //         deliveryTimeMin: deliveryTimeMin,
-    //     };
-    //     API.addNewProduct(newProduct)
-    //         .then(res => console.log(res))
-    //         .catch(err => console.log(err))
-    //     console.log(newProduct)
-    //     return 
-    // }
 
     return (<>
     <div>
@@ -93,7 +77,7 @@ function AddProduct(props){
                 category={category}
                 value={subCategory}
                 options={subCategories}
-                onChange={(e) => setSubCategory(e.target.value)}
+                onChange={(e) => setSubCategory(subCategories[e.target.value])}
                 placeholder="Sub Category"
             />)}
             <InputText 
@@ -145,6 +129,9 @@ function AddProduct(props){
                 value={deliveryTimeMin} 
                 onChange={(e) => setDeliveryTimeMin(e.target.value)} 
                 placeholder="Delivery time min" 
+            />
+            <Submit
+                onClick={(e) => submitProduct(e)}
             />
         </form>
     </div>

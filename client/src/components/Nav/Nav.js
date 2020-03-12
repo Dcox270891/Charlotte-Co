@@ -5,10 +5,10 @@ import "./style.css";
 
 function Nav(){
     const [ categories, setCategories] = useState([]);
-    const [ categoryChosen, setCategroyChosen] = useState();
+    const [ categoryChosen, setCategroyChosen] = useState("");
     const [ loadSubCategories, setLoadSubCategories ] = useState(false);
     const [ subCategories, setSubCategories] = useState([]);
-    const [ subCategoryChosen, setSubCategroyChosen] = useState();
+    const [ subCategoryChosen, setSubCategroyChosen] = useState("");
     const [ loadProducts, setLoadProducts ] = useState(false);
     const [ products, setProducts ] = useState([]);
 
@@ -16,20 +16,19 @@ function Nav(){
         API.getCategories()
             .then(res => {setCategories(res.data)})
             .catch(err => console.log(err));
-        API.getProducts()     
-            .then(res => {setProducts(res.data)})
-            .catch(err => console.log(err));
     },[])
 
     useEffect(() => {
-        console.log("getting categories")
-        API.getSubCategoryByCategory(categoryChosen)
-            .then(res => {
-                setSubCategories(res.data)
-                setLoadSubCategories(true);
-                console.log("subcategory set")
-            })
-            .catch(err => console.log(err))
+        if(categoryChosen !== ""){
+            console.log("getting sub categories")
+            API.getSubCategoryByCategory(categoryChosen)
+                .then(res => {
+                    setSubCategories(res.data)
+                    setLoadSubCategories(true);
+                    console.log("subcategory set")
+                })
+                .catch(err => console.log(err))
+            }
     },[categoryChosen])
 
     function chooseCategory(e, category){
@@ -39,14 +38,17 @@ function Nav(){
     }
     
     useEffect(() => {
-        console.log("getting sub Categories")
-        API.getProductBySubCategory(subCategoryChosen)
-            .then(res => {
-                setProducts(res.data)
-                setLoadProducts(true);
-                console.log("products set")
-            })
-            .catch(err => console.log(err))
+        if(subCategoryChosen !== ""){
+            console.log("getting products")
+            API.getProductBySubCategory(subCategoryChosen)
+                .then(res => {
+                    console.log(res)
+                    setProducts(res.data)
+                    setLoadProducts(true);
+                    console.log("products set")
+                })
+                .catch(err => console.log(err))
+        }
     },[subCategoryChosen])
 
     function chooseSubCategory(e, subCategory){
@@ -68,7 +70,7 @@ function Nav(){
                                 {category.title}
                             </button>
                             <ul>
-                                {loadSubCategories ? (
+                                {loadSubCategories && category._id === categoryChosen ? (
                                     subCategories.map(subCategory => {
                                         return <div>
                                                 <button 
@@ -77,7 +79,7 @@ function Nav(){
                                                     <Link to={`/category/${subCategory._id}`}>{subCategory.title}</Link>
                                                 </button>
                                                 <ul>
-                                                    {loadProducts ? (
+                                                    {loadProducts && subCategoryChosen._id === subCategoryChosen? (
                                                         products.map(product =>{
                                                             return <li key={product._id}>
                                                                 <Link to={`/productpage/${product._id}`}>{product.title}</Link>
