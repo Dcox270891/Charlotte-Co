@@ -3,3 +3,11 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body{
+    background-image: url("./images/demo\ logo\ square.jpg");
+    background-position-x: center;
+    background-position-y: 150px;
+    background-repeat: no-repeat;
+    background-size: auto;
+}

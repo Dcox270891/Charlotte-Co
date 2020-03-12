@@ -1,9 +1,11 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Submit from "../Buttons/Submit";
 import InputText from "../Input/InputText";
 import InputNumber from "../Input/InputNumber";
 import Close from "../Buttons/Close";
+import ImageUploader from "../ImageUploader/ImageUploader";
 import API from "../../utils/API";
+import ImageGallery from "../ImageGallery/ImageGallery";
 
 function UniqueTransfers(props){
     const [  title, setTitle  ] = useState("");
@@ -12,7 +14,12 @@ function UniqueTransfers(props){
     const [  mainTranferImage, setMainTranferImage  ] = useState("");
     const [  priceDifference, setPriceDifference  ] = useState("");
     const [  transferArray, setTransferArray ] = useState([]);
-    
+
+    if(props.product){
+        API.getTransferByProduct(prop.product)
+            .then(res => setTransferArray([...res, transferArray]))
+            .catch(err => console.log(err))
+    }
     
     function addTransfer(e){
         const transfer={
@@ -72,6 +79,12 @@ function UniqueTransfers(props){
                 value={priceDifference}
                 onChange={(e) => setPriceDifference(e.target.value)}
                 placeholder="Price Difference"
+            />
+            <ImageUploader
+                imageInfo={`forTransfer: ${props.product}`}
+            />
+            <ImageGallery
+                forTransfer={}
             />
             <Submit
                 onClick={addTransfer}

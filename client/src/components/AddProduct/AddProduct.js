@@ -1,15 +1,14 @@
 import React, {useState, useEffect} from "react";
-import Submit from "../../components/Buttons/Submit";
-import InputText from "../../components/Input/InputText";
-import InputNumber from "../../components/Input/InputNumber";
-import Checkbox from "../../components/Input/CheckboxInput";
-import CategoryPicker from "../../components/Input/CategoryPicker";
-import MultipleOptions from "../../components/Input/MuiltipleInputs";
-import UniqueTransfers from "../../components/UniqueTransfers/UniqueTransfers";
+// import * as qs from 'query-string';
+import InputText from "../Input/InputText";
+import InputNumber from "../Input/InputNumber";
+import Checkbox from "../Input/CheckboxInput";
+import CategoryPicker from "../Input/CategoryPicker";
+import MultipleOptions from "../Input/MuiltipleInputs";
 import API from "../../utils/API";
 import "./style.css";
 
-function AddProduct(){
+function AddProduct(props){
     const [  name, setName ] = useState("");
     const [  description, setDescription ] = useState("");
     const [  category, setCategory ] = useState({});
@@ -21,7 +20,6 @@ function AddProduct(){
     const [  sizes, setSizes ] = useState([]);
     const [  colour, setColour  ] = useState("")
     const [  productColours, setProductColours ] = useState([]);
-    //const [  personalisableImage, setPersonalisableImage ] = useState("");
     const [  isActive, setIsActive ] = useState(false);
     const [  inStock, setInStock ] = useState(false);
     const [  deliveryTimeMax, setDeliveryTimeMax ] = useState("");
@@ -41,28 +39,43 @@ function AddProduct(){
         }
     },[category])
 
-    function submitProduct(e){
-        e.preventDefault();
-        const newProduct = {
-            name: name,
-            description: description,
-            category: category,
-            subCategory: subCategory,
-            price: price,
-            productColours: productColours,
-            isActive: isActive,
-            inStock: inStock,
-            deliveryTimeMax: deliveryTimeMax,
-            deliveryTimeMin: deliveryTimeMin,
-        };
-        API.addNewProduct(newProduct)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-        console.log(newProduct)
-        return 
+    if (props.loadedProduct){
+        setName(props.loadedProduct.name);
+        setDescription(props.loadedProduct.description);
+        setCategory(props.loadedProduct.category);
+        setSubCategory(props.loadedProduct.subCategory);
+        setPrice(props.loadedProduct.price);
+        setSizes(props.loadedProduct.sizes);
+        setProductColours(props.loadedProduct.productColours);
+        setIsActive(props.loadedProduct.isActive);
+        setInStock(props.loadedProduct.inStock);
+        setDeliveryTimeMax(props.loadedProduct.deliveryTimeMax);
+        setDeliveryTimeMin(props.loadedProduct.deliveryTimeMin);
     }
 
+    // function submitProduct(e){
+    //     e.preventDefault();
+    //     const newProduct = {
+    //         name: name,
+    //         description: description,
+    //         category: category,
+    //         subCategory: subCategory,
+    //         price: price,
+    //         productColours: productColours,
+    //         isActive: isActive,
+    //         inStock: inStock,
+    //         deliveryTimeMax: deliveryTimeMax,
+    //         deliveryTimeMin: deliveryTimeMin,
+    //     };
+    //     API.addNewProduct(newProduct)
+    //         .then(res => console.log(res))
+    //         .catch(err => console.log(err))
+    //     console.log(newProduct)
+    //     return 
+    // }
+
     return (<>
+    <div>
         <form className="add-product">
             <InputText 
                 value={name} 
@@ -133,11 +146,8 @@ function AddProduct(){
                 onChange={(e) => setDeliveryTimeMin(e.target.value)} 
                 placeholder="Delivery time min" 
             />
-            <Submit
-                onChange={e => submitProduct(e)}
-            />
-            <UniqueTransfers/>
         </form>
+    </div>
     </>)
 };
 

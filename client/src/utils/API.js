@@ -52,7 +52,7 @@ export default {
     newProduct: function (newCategory){
         return axios.post("/api/products", newCategory);
     },
-    getProduct: function(id){
+    getProductById: function(id){
         return axios.post(`/api/products/${id}`);
     },
     deleteProduct: function(id){
