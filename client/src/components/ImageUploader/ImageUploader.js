@@ -1,31 +1,46 @@
 import React, {useState, useEffect} from "react";
+import axios from "axios";
 import InputText from "../../components/Input/InputText";
-import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 import Submit from "../Buttons/Submit";
 import API from "../../utils/API";
 
 function ImageUploader(props){
     const [  title, setTitle ] = useState("");
-    const [  imageToUpload, setImageToUpload ] = useState({});
-    const [  images, setImages ] = useState([])
+    const [  image, setImage ] = useState([]);
+    const [  loading, setLoading ] = useState(false);
 
-    useEffect(() => {
-        API.getAllImages()
-            .then(res => setImages(res.data))
-            .catch(err => console.log(err))
-    },[])
+    const uploadImage = async e => {
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset', 'charlotte-co')
+        setLoading(true)
+        axios.post('https://api.cloudinary.com/v1_1/charlotte-co/image/upload', data)
+            .then(res => {
+                setImage(res.data.secure_url)
+                console.log(res)
+                setLoading(false)
+            })
+            .catch(err =>console.log(err));
+    }
 
     function saveImage(e){
-        e.preventDefault();
-        const newImage ={
+        let newImage = {
             title: title,
-            fileToUpload: imageToUpload,
+            url: image,
         }
-        console.log(newImage)
+        if(props.imageInfo){
+            newImage = {
+                ...props.imageInfo,
+                title: title,
+                url: image
+            }
+        }
+        e.preventDefault();
         API.postImage(newImage)
             .then(res => console.log(res))
             .catch(err => console.log(err))
-    }
+    }    
 
     return(<>
         <form className="image-uploader">
@@ -34,25 +49,24 @@ function ImageUploader(props){
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Image Title"
             />
-            <button 
-                id="upload_widget" 
-                className="cloudinary-button"
-            >
-                Upload files
-            </button>
+            <input
+                type="file"
+                name="file"
+                placeholder="Upload a File"
+                className="uploader"
+                onChange={uploadImage}
+            />
+            <div>
+                {loading ? (
+                    <h4>loading...</h4>
+                ):(
+                    <img src={image}/>
+                )}
+            </div>
             <Submit
                 onChange={(e) => saveImage(e)}
             />
         </form>
-        <div>
-            {images.map(image => {
-                return (<div key={image._id}>
-                    <h3>{image.title}</h3>
-                    <img src={image.url}/>
-                </div>)
-            })}
-
-        </div>
     </>)
 }
 

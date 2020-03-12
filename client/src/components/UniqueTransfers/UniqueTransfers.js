@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import Submit from "../Buttons/Submit";
 import InputText from "../Input/InputText";
 import InputNumber from "../Input/InputNumber";
@@ -28,7 +28,8 @@ function UniqueTransfers(props){
         setTransferDescription("");
         setTransferImages([]);
         setPriceDifference("");
-        API.addTransfer(transfer)
+        setMainTranferImage("");
+        API.newTransfer(transfer)
             .then(res => console.log(res))
             .catch(err => console.log(err))
     }

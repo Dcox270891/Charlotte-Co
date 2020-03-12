@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { BrowserRouter as Route, Link } from "react-router-dom";
+import { BrowserRouter as Link } from "react-router-dom";
 import Close from "../Buttons/Close"
 import Login from "../Login/Login";
 import Nav from "../Nav/Nav";

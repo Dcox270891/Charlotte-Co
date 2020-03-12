@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 import SignUp from "./pages/SignUp/SignUp";
 import Login from "./components/Login/Login";
 import ProductPage from "./pages/ProductPage/ProductPage";
@@ -25,8 +24,7 @@ function App() {
             </nav>
           <Route path="/login" component={Login} />
           <Route exact path="/" component={HomePage} />
-          <Route path="/category/:id" render={(props) => { console.log(props);
-           return <CategoriesPage {...props} />}} />
+          <Route path="/category/:id" render={(props) => <CategoriesPage {...props} />} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/productpage/:id" render={(props) => <ProductPage {...props} />} />
           <Route exact path="/addproduct" component={AddProduct} />

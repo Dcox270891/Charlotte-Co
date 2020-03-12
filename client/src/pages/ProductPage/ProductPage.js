@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react";
-import * as qs from 'query-string';
+import React, {useState } from "react";
+//import * as qs from 'query-string';
 import "./style.css";
 
 function ProductPage(props){
@@ -11,10 +11,10 @@ function ProductPage(props){
     const [  uniqueTransfers,  ] = useState();
 
 
-    useEffect(() => {
-        const query = qs.parse(props.location.search);
-        console.log(query);
-    },[])
+    // useEffect(() => {
+    //     const query = qs.parse(props.location.search);
+    //     console.log(query);
+    // },[])
 
 
     return (<>

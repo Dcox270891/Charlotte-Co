@@ -9,7 +9,7 @@ import UniqueTransfers from "../../components/UniqueTransfers/UniqueTransfers";
 import API from "../../utils/API";
 import "./style.css";
 
-function AddProduct(props){
+function AddProduct(){
     const [  name, setName ] = useState("");
     const [  description, setDescription ] = useState("");
     const [  category, setCategory ] = useState({});
@@ -21,7 +21,7 @@ function AddProduct(props){
     const [  sizes, setSizes ] = useState([]);
     const [  colour, setColour  ] = useState("")
     const [  productColours, setProductColours ] = useState([]);
-    const [  personalisableImage, setPersonalisableImage ] = useState("");
+    //const [  personalisableImage, setPersonalisableImage ] = useState("");
     const [  isActive, setIsActive ] = useState(false);
     const [  inStock, setInStock ] = useState(false);
     const [  deliveryTimeMax, setDeliveryTimeMax ] = useState("");

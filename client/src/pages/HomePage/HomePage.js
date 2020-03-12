@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
+import React from "react";
 import ProductCard from "../../components/ProductCard/ProductCard"
-import API from "../../utils/API";
 import "./style.css";
 
 function HomePage(){

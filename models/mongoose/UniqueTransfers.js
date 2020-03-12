@@ -18,11 +18,11 @@ const UniqueTransfersSchema = new Schema({
     },
     transferImages:{
         type: [],
-        required: true, 
+        required: false, 
     },
     mainTranferImage:{
         type: String,
-        required: true, 
+        required: false, 
     },
     priceDifference:{
         type: Number,
