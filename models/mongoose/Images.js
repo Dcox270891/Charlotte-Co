@@ -14,10 +14,6 @@ const ImagesSchema = new Schema({
         type: String,
         required: true,
     },
-    imageId:{
-        type: String,
-        required: true,
-    },
     forProduct: [{
         type: Schema.Types.ObjectId,
         ref: 'Products',
