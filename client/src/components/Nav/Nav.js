@@ -23,9 +23,8 @@ function Nav(){
             console.log("getting sub categories")
             API.getSubCategoryByCategory(categoryChosen)
                 .then(res => {
-                    setSubCategories(res.data)
+                    setSubCategories(res.data);
                     setLoadSubCategories(true);
-                    console.log("subcategory set")
                 })
                 .catch(err => console.log(err))
             }
@@ -34,18 +33,15 @@ function Nav(){
     function chooseCategory(e, category){
         e.preventDefault();
         setCategroyChosen(category);
-        console.log(category);
     }
     
     useEffect(() => {
         if(subCategoryChosen !== ""){
             console.log("getting products")
-            API.getProductBySubCategory(subCategoryChosen)
+            API.getProducts() // this isnt connectin but will connect with get products
                 .then(res => {
-                    console.log(res)
-                    setProducts(res.data)
+                    setProducts(res.data);
                     setLoadProducts(true);
-                    console.log("products set")
                 })
                 .catch(err => console.log(err))
         }
@@ -54,7 +50,6 @@ function Nav(){
     function chooseSubCategory(e, subCategory){
         e.preventDefault();
         setSubCategroyChosen(subCategory);
-        console.log(subCategory);
     }
 
     return(<>
@@ -63,28 +58,28 @@ function Nav(){
                 <li>All products</li>
                 {categories.map((category, i) => {
                     return (<>
-                        <button 
+                        <div 
                             value={i} 
                             key={category._id} 
                             onClick={(e) => chooseCategory(e, category._id)}>
                                 {category.title}
-                            </button>
+                        </div>
                             <ul>
                                 {loadSubCategories && category._id === categoryChosen ? (
                                     subCategories.map(subCategory => {
                                         return <div>
-                                                <button 
+                                                <div 
                                                     key={subCategory._id} 
                                                     onClick={(e) => chooseSubCategory(e, subCategory._id)}>
                                                     <Link to={`/category/${subCategory._id}`}>{subCategory.title}</Link>
-                                                </button>
+                                                </div>
                                                 <ul>
-                                                    {loadProducts && subCategoryChosen._id === subCategoryChosen? (
+                                                    {loadProducts ? (
                                                         products.map(product =>{
-                                                            return <li key={product._id}>
-                                                                <Link to={`/productpage/${product._id}`}>{product.title}</Link>
+                                                            return <div key={product._id}>
+                                                                <Link to={`/productpage/${product._id}`}>{product.name}</Link>
                                                                 <Link to={`/editproduct/${product._id}`}>edit</Link>
-                                                            </li>
+                                                            </div>
                                                         })
                                                     ) : ""}
                                                 </ul>

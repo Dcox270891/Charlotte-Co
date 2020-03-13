@@ -62,7 +62,7 @@ export default {
         return axios.put(`/api/products/${id}`);
     },
     getProductBySubCategory: function(id){
-        return axios.get(`api/product/subcategory/${id}`)
+        return axios.get(`api/products/subcategory/${id}`)
     },
     getTransfers: function(){
         return axios.get(`/api/uniquetransfers/`);
