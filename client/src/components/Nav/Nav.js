@@ -53,42 +53,52 @@ function Nav(){
 
     return(<>
         <nav>
-            <ul>
-                <li>All products</li>
+            <div className="nav-category">
+                <div className="nav-category-links">All products</div>
                 {categories.map((category, i) => {
                     return (<>
                         <div 
-                            value={i} 
+                            value={i}
+                            className="nav-category-links"
                             key={category._id} 
                             onClick={(e) => chooseCategory(e, category._id)}>
                                 {category.title}
                         </div>
-                            <ul>
+                            <div className="nav-subcategory">
                                 {loadSubCategories && category._id === categoryChosen ? (
                                     subCategories.map(subCategory => {
                                         return <div>
-                                                <div 
+                                                <div
+                                                    className="nav-subcategory-links"
                                                     key={subCategory._id} 
                                                     onClick={(e) => chooseSubCategory(e, subCategory._id)}>
                                                     <Link to={`/category/${subCategory._id}`}>{subCategory.title}</Link>
                                                 </div>
-                                                <ul>
+                                                <div className="nav-products">
                                                     {loadProducts && subCategory._id === subCategoryChosen ? (
                                                         products.map(product =>{
-                                                            return <div key={product._id}>
+                                                            return <div 
+                                                                className="nav-product-links"
+                                                                key={product._id}
+                                                            >
                                                                 <Link to={`/productpage/${product._id}`}>{product.name}</Link>
-                                                                <Link to={`/editproduct/${product._id}`}>edit</Link>
+                                                                <Link 
+                                                                    className="edit"
+                                                                    to={`/editproduct/${product._id}`}
+                                                                >
+                                                                    Edit
+                                                                </Link>
                                                             </div>
                                                         })
                                                     ) : ""}
-                                                </ul>
+                                                </div>
                                             </div>
                                     }) ) : ""}
-                            </ul>
+                            </div>
                     </>)
                 })}
-                <li>Contact us</li>
-            </ul>
+                <div className="nav-category-links">Contact us</div>
+            </div>
         </nav>
     </>);
 }

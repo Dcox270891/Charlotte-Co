@@ -11,3 +11,9 @@ body{
     background-repeat: no-repeat;
     background-size: auto;
 }
+
+.edit{
+    background-color: green;
+    color: white;
+    padding: 10px;
+}

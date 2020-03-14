@@ -16,13 +16,6 @@ function App() {
   return (<Router>
     <div>
           <Header />
-            <nav>
-              <Link to="/productpage">Product Page</Link><br/>
-              <Link to="/addnewproduct">Add/Edit Product</Link><br/>
-              <Link to="/imageUploader">Image Uploader</Link><br/>
-              <Link to="/">Home Page</Link><br/>
-              <Link to="/category/:id">Category Page</Link><br/>
-            </nav>
           <Route path="/login" component={Login} />
           <Route exact path="/" component={HomePage} />
           <Route path="/category/:id" render={(props) => <CategoriesPage {...props} />} />

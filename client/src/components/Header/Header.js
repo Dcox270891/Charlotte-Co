@@ -7,7 +7,7 @@ import "./style.css"
 
 function Header(){
     const [ toggleLogInBasket , setToggleLogInBasket] = useState(false);
-    const [ toggleNav , setToggleNav] = useState(false);
+    const [ toggleNav , setToggleNav] = useState(true);
 
     return (<>
         <header className="header">
@@ -15,10 +15,7 @@ function Header(){
                 <button onClick={() => setToggleNav(true)}>
                     Menu
                 </button>
-                {toggleNav? (<div>
-                    <Close onClick={() => setToggleNav(false)} />
-                    <Nav />
-                </div>) : ""} 
+                {toggleNav? (<Close onClick={() => setToggleNav(false)} />):""}
             </nav>
             <div className="logo">
 
@@ -34,6 +31,7 @@ function Header(){
                     </div>) : ""}
             </div>
         </header>
+        {toggleNav? (<Nav />) : ""} 
     </>)
 }
 
