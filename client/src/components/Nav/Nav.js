@@ -74,7 +74,7 @@ function Nav(){
                                                     <Link to={`/category/${subCategory._id}`}>{subCategory.title}</Link>
                                                 </div>
                                                 <ul>
-                                                    {loadProducts ? (
+                                                    {loadProducts && subCategory._id === subCategoryChosen ? (
                                                         products.map(product =>{
                                                             return <div key={product._id}>
                                                                 <Link to={`/productpage/${product._id}`}>{product.name}</Link>

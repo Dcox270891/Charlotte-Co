@@ -31,10 +31,11 @@ function AddProduct(props){
         API.getCategories()
             .then(res => setCategories(res.data))
             .catch(err => console.log(err))
-    },[])
+        setProductId(props.loadedProduct._id)
+    },[props])
 
     useEffect(() => {
-        if (category){
+        if (category !== "{}"){
             API.getSubCategoryByCategory(category._id)
             .then(res => setSubCategories(res.data))
             .catch(err => console.log(err))

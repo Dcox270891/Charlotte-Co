@@ -20,13 +20,13 @@ export default {
         return axios.post("/api/category", newCategory);
     },
     getCategoryById: function(id){
-        return axios.get(`/api/category/${id}`);
+        return axios.get("/api/category/" , id);
     },
     deleteCategory: function(id){
-        return axios.delete(`/api/category/${id}`);
+        return axios.delete("/api/category/" , id);
     },
     editCategory: function(id){
-        return axios.put(`/api/category/${id}`);
+        return axios.put("/api/category/" , id);
     },
     getSubCategories: function (){
         return axios.get("/api/subcategory");
@@ -35,16 +35,16 @@ export default {
         return axios.post("/api/subcategory", newCategory);
     },
     getSubCategory: function(id){
-        return axios.get(`/api/subcategory/${id}`);
+        return axios.get("/api/subcategory/" , id);
     },
     getSubCategoryByCategory: function(id){
         return axios.get(`/api/subcategory/category/${id}`)
     },
     deleteSubCategory: function(id){
-        return axios.delete(`/api/subcategory/${id}`);
+        return axios.delete("/api/subcategory/" , id);
     },
     editSubCategory: function(id){
-        return axios.put(`/api/subcategory/${id}`);
+        return axios.put("/api/subcategory/" , id);
     },
     getProducts: function (){
         return axios.get("/api/products");
@@ -53,57 +53,57 @@ export default {
         return axios.post("/api/products", newProduct);
     },
     getProductById: function(id){
-        return axios.post(`/api/products/${id}`);
+        return axios.get("/api/products/"+id);
     },
     deleteProduct: function(id){
         return axios.delete(`/api/products/${id}`);
     },
     editProduct: function(id){
-        return axios.put(`/api/products/${id}`);
+        return axios.put("/api/products/" , id);
     },
     getProductBySubCategory: function(id){
         return axios.get(`api/products/subcategory/${id}`)
     },
     getTransfers: function(){
-        return axios.get(`/api/uniquetransfers/`);
+        return axios.get("/api/uniquetransfers/");
     },
     newTransfer: function (newTransfer){
         return axios.post("/api/uniquetransfers", newTransfer);
     },
     getTransfer: function(id){
-        return axios.post(`/api/uniquetransfers/${id}`);
+        return axios.post("/api/uniquetransfers/" , id);
     },
     deleteTransfer: function(id){
-        return axios.delete(`/api/uniquetransfers/${id}`);
+        return axios.delete("/api/uniquetransfers/" , id);
     },
     editTransfer: function(id){
-        return axios.put(`/api/uniquetransfers/${id}`);
+        return axios.put("/api/uniquetransfers/" , id);
     },
     getTransferByProduct: function(id){
-        return axios.get(`/api/uniquetransfers/product/${id}`);
+        return axios.get("/api/uniquetransfers/product/" , id);
     },
     getAllImages: function(){
-        return axios.get(`/api/images`);
+        return axios.get("/api/images");
     },
     findImageById: function(id){
-        return axios.get(`/api/images/${id}`);
+        return axios.get("/api/images/" , id);
     },
     postImage: function(newImage){
-        return axios.post(`/api/images`, newImage);
+        return axios.post("/api/images", newImage);
     },
     deletImageById: function(id){
-        return axios.delete(`/api/images/${id}`);
+        return axios.delete("/api/images/" , id);
     },
     deletImageByProduct: function(id){
-        return axios.delete(`/api/images/product/${id}`);
+        return axios.delete("/api/images/product/" , id);
     },
     findImageByProduct: function(newImage){
-        return axios.get(`/api/images/product/${newImage}`);
+        return axios.get("/api/images/product/" , newImage);
     },
     deletImageByTransfer: function(id){
-        return axios.delte(`/api/images/transfer/${id}`);
+        return axios.delte("/api/images/transfer/" , id);
     },
     findImageByTransfer: function(newImage){
-        return axios.get(`/api/images/transfer/${newImage}`);
+        return axios.get("/api/images/transfer/" , newImage);
     },
 }

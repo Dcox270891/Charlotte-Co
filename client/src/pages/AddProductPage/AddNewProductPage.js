@@ -7,16 +7,13 @@ function AddNewProductPage(){
     const [ product, setProduct ] = useState({});
     
     function submitProduct(newProduct){
-        console.log(newProduct)
         API.newProduct(newProduct)
-            .then(res => {
-                console.log("saved:", res);
-                setProduct(res.json())})
+            .then(res => setProduct(res))
             .catch(err => console.log(err))
-        return <Redirect to={{
-            pathname: "/editproduct/:id",
-            state: {product: product._id}
-        }} />
+        // return <Redirect to={{
+        //     pathname: "/editproduct/:id",
+        //     state: {product: product._id}
+        // }} />
     }
 
 return (<>

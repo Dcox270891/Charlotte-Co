@@ -17,20 +17,19 @@ function EditProductPage(props){
     },[])
     
     useEffect(() => {
-        if(productToLoad === ""){
+        if(productToLoad !== ""){
             API.getProductById(query)
                 .then(res => setProduct(res.data))
                 .catch(err => console.log(err))
         }
     },[productToLoad])
 
-
-    function submitProduct(newProduct){
-        API.newProduct(newProduct)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-        console.log(newProduct)
-    }
+    // function submitProduct(newProduct){
+    //     API.newProduct(newProduct)
+    //         .then(res => console.log(res))
+    //         .catch(err => console.log(err))
+    //     console.log(newProduct)
+    // }
 
     return (<>
         <AddProduct 

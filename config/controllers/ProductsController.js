@@ -9,14 +9,13 @@ module.exports ={
     },
     findProductById: function(req, res) {
         db.Products
-            .findById(req.params.id)
+            .find({_id: req.params.id})
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
     createProduct: function(req, res) {
       db.Products
-        .create(req.body,
-          console.log(req.body))
+        .create(req.body)
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },

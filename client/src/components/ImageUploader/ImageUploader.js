@@ -43,7 +43,7 @@ function ImageUploader(props){
     }    
 
     return(<>
-        <form className="image-uploader">
+        <div className="image-uploader">
             <InputText
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -66,7 +66,7 @@ function ImageUploader(props){
             <Submit
                 onChange={(e) => saveImage(e)}
             />
-        </form>
+        </div>
     </>)
 }
 
