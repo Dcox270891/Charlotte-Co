@@ -9,7 +9,6 @@ import "./style.css";
 import Submit from "../Buttons/Submit";
 
 function AddProduct(props){
-    console.log(props)
     const [  product, setProduct ] = useState()
     const [  name, setName ] = useState();
     const [  description, setDescription ] = useState();
@@ -38,8 +37,6 @@ function AddProduct(props){
         if(product){
             setName(product.name);
             setDescription(product.description);
-            setCategory(product.category);
-            setSubCategory(product.subCategory);
             setPrice(product.price);
             setSizes(product.sizes);
             setProductColours(product.productColours);
@@ -52,10 +49,22 @@ function AddProduct(props){
     },[product]);
 
     useEffect(() => {
-        API.getCategories()
-            .then(res => setCategories(res.data))
-            .catch(err => console.log(err))
-    },[props]);
+        console.log(product)
+        if(product){
+            API.getCategories()
+                .then(res => {
+                    setCategories(res.data)
+                    setCategory(categories.filter(category => product.category[0] === category._id))
+                })
+                .catch(err => console.log(err))
+
+        } else {
+            API.getCategories()
+                .then(res => setCategories(res.data))
+                .catch(err => console.log(err))
+
+        }
+    },[props, product]);
 
     useEffect(() => {
         if (category){

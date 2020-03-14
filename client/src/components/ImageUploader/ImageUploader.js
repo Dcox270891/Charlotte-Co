@@ -18,7 +18,6 @@ function ImageUploader(props){
         axios.post('https://api.cloudinary.com/v1_1/charlotte-co/image/upload', data)
             .then(res => {
                 setImage(res.data.secure_url)
-                console.log(res)
                 setLoading(false)
             })
             .catch(err =>console.log(err));

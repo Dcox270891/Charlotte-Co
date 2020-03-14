@@ -20,7 +20,6 @@ function Nav(){
 
     useEffect(() => {
         if(categoryChosen !== ""){
-            console.log("getting sub categories")
             API.getSubCategoryByCategory(categoryChosen)
                 .then(res => {
                     setSubCategories(res.data);
@@ -37,7 +36,6 @@ function Nav(){
     
     useEffect(() => {
         if(subCategoryChosen !== ""){
-            console.log("getting products")
             API.getProductBySubCategory(subCategoryChosen) 
                 .then(res => {
                     console.log(res.data)

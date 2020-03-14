@@ -7,7 +7,6 @@ import API from "../../utils/API";
 
 function EditProductPage(props){
     const {id} = props.match.params
-    const [ productToLoad, setProductToLoad] = useState((props.product)?(props.product._id):"")
     const [ product, setProduct] = useState((props.product)?(props.product._id):"")
 
     useEffect(() => {
@@ -16,13 +15,6 @@ function EditProductPage(props){
             .catch(err => console.log(err))
     },[])
     
-    // useEffect(() => {
-    //     if(productToLoad !== ""){
-    //         API.getProductById(query)
-    //             .then(res => setProduct(res.data))
-    //             .catch(err => console.log(err))
-    //     }
-    // },[productToLoad])
 
     // function submitProduct(newProduct){
     //     API.newProduct(newProduct)
@@ -36,7 +28,6 @@ function EditProductPage(props){
             <h2>Edit {product.name}</h2>
             <AddProduct 
                 id={id}
-                loadedProduct={product._id}
             />
         </div>
         <div>
