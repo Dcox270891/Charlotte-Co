@@ -27,9 +27,9 @@ function App() {
           <Route exact path="/" component={HomePage} />
           <Route path="/category/:id" render={(props) => <CategoriesPage {...props} />} />
           <Route exact path="/signup" component={SignUp} />
-          <Route exact path="/productpage/:id" render={(props) => <ProductPage {...props} />} />
+          <Route path="/productpage/:id" render={(props) => <ProductPage {...props} />} />
           <Route exact path="/addnewproduct" component={AddProduct} />
-          <Route exact path="/editproduct/:id" render={(props) => <EditProduct {...props} />} />
+          <Route path="/editproduct/:id" render={(props) => <EditProduct {...props} />} />
           <Route exact path="/imageUploader" component={ImageUploader} />
           </div>
     </Router>);

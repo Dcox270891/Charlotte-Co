@@ -38,8 +38,9 @@ function Nav(){
     useEffect(() => {
         if(subCategoryChosen !== ""){
             console.log("getting products")
-            API.getProducts() // this isnt connectin but will connect with get products
+            API.getProductBySubCategory(subCategoryChosen) 
                 .then(res => {
+                    console.log(res.data)
                     setProducts(res.data);
                     setLoadProducts(true);
                 })

@@ -9,7 +9,7 @@ module.exports ={
     },
     findProductById: function(req, res) {
         db.Products
-            .find({_id: req.params.id})
+            .findById(req.params.id)
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
@@ -33,7 +33,7 @@ module.exports ={
         .catch(err => res.status(422).json(err));
     },
     getProductBySubCategory: function(req, res) {
-        db.Products
+      db.Products
         .find({
           subCategory: req.params.id
         })

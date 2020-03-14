@@ -31,11 +31,11 @@ function MultipleInputs(props){
         </button>
         <ul>
             {props.optionsTitle}:
-            {props.optionsArray.map(option => {
+            {(props.optionsArray)?(props.optionsArray.map(option => {
                 return <li key={option}>
                         {option} <Close remove={option} onClick={removeOption}/>
                     </li>
-            })}
+            })):""}
         </ul>
     </div>)
 }

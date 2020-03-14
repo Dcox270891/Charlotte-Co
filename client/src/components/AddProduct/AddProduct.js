@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-// import * as qs from 'query-string';
 import InputText from "../Input/InputText";
 import InputNumber from "../Input/InputNumber";
 import Checkbox from "../Input/CheckboxInput";
@@ -10,37 +9,61 @@ import "./style.css";
 import Submit from "../Buttons/Submit";
 
 function AddProduct(props){
-    const [  productId, setProductId ] = useState((props.loadedProduct)?(props.loadedProduct._id):"")
-    const [  name, setName ] = useState((props.loadedProduct)?(props.loadedProduct.name):"");
-    const [  description, setDescription ] = useState((props.loadedProduct)?(props.loadedProduct.description):"");
-    const [  category, setCategory ] = useState((props.loadedProduct)?(props.loadedProduct.category):{});
+    console.log(props)
+    const [  product, setProduct ] = useState()
+    const [  name, setName ] = useState();
+    const [  description, setDescription ] = useState();
+    const [  category, setCategory ] = useState();
     const [  categories, setCategories ] = useState([]);
-    const [  subCategory, setSubCategory ] = useState((props.loadedProduct)?(props.loadedProduct.subCategory):{});
+    const [  subCategory, setSubCategory ] = useState();
     const [  subCategories, setSubCategories ] = useState([]);
-    const [  price, setPrice ] = useState((props.loadedProduct)?(props.loadedProduct.price):"");
-    const [  size, setSize  ] = useState("")
-    const [  sizes, setSizes ] = useState((props.loadedProduct)?(props.loadedProduct.sizes):[]);
-    const [  colour, setColour  ] = useState("")
-    const [  productColours, setProductColours ] = useState((props.loadedProduct)?(props.loadedProduct.productColours):[]);
-    const [  isActive, setIsActive ] = useState((props.loadedProduct)?(props.loadedProduct.isActive):false);
-    const [  inStock, setInStock ] = useState((props.loadedProduct)?(props.loadedProduct.inStock):false);
-    const [  deliveryTimeMax, setDeliveryTimeMax ] = useState((props.loadedProduct)?(props.loadedProduct.deliveryTimeMax):"");
-    const [  deliveryTimeMin, setDeliveryTimeMin ] = useState((props.loadedProduct)?(props.loadedProduct.deliveryTimeMin):"");
+    const [  price, setPrice ] = useState();
+    const [  size, setSize  ] = useState()
+    const [  sizes, setSizes ] = useState();
+    const [  colour, setColour  ] = useState()
+    const [  productColours, setProductColours ] = useState();
+    const [  isActive, setIsActive ] = useState(false);
+    const [  inStock, setInStock ] = useState(false);
+    const [  deliveryTimeMax, setDeliveryTimeMax ] = useState();
+    const [  deliveryTimeMin, setDeliveryTimeMin ] = useState();
+
+    useEffect(() => {
+        const query = props.id;
+        API.getProductById(query)
+            .then(res => setProduct(res.data))
+            .catch(err => console.log(err))
+    },[]);
+
+    useEffect(()=> {
+        if(product){
+            setName(product.name);
+            setDescription(product.description);
+            setCategory(product.category);
+            setSubCategory(product.subCategory);
+            setPrice(product.price);
+            setSizes(product.sizes);
+            setProductColours(product.productColours);
+            setIsActive(product.isActive);
+            setInStock(product.inStock);
+            setDeliveryTimeMax(product.setDeliveryTimeMax);
+            setDeliveryTimeMin(product.setDeliveryTimeMin);
+        }
+
+    },[product]);
 
     useEffect(() => {
         API.getCategories()
             .then(res => setCategories(res.data))
             .catch(err => console.log(err))
-        setProductId(props.loadedProduct._id)
-    },[props])
+    },[props]);
 
     useEffect(() => {
-        if (category !== "{}"){
+        if (category){
             API.getSubCategoryByCategory(category._id)
             .then(res => setSubCategories(res.data))
             .catch(err => console.log(err))
         }
-    },[category])
+    },[category]);
 
     function submitProduct(e){
         e.preventDefault();

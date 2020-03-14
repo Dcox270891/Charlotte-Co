@@ -47,13 +47,13 @@ export default {
         return axios.put("/api/subcategory/" , id);
     },
     getProducts: function (){
-        return axios.get("/api/products");
+        return axios.get("/api/product");
     },
     newProduct: function (newProduct){
         return axios.post("/api/products", newProduct);
     },
     getProductById: function(id){
-        return axios.get("/api/products/"+id);
+        return axios.get(`/api/products/${id}`);
     },
     deleteProduct: function(id){
         return axios.delete(`/api/products/${id}`);
@@ -62,7 +62,7 @@ export default {
         return axios.put("/api/products/" , id);
     },
     getProductBySubCategory: function(id){
-        return axios.get(`api/products/subcategory/${id}`)
+        return axios.get(`/api/products/subcategory/${id}`)
     },
     getTransfers: function(){
         return axios.get("/api/uniquetransfers/");

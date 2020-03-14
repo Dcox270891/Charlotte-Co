@@ -4,19 +4,16 @@ import "./style.css";
 
 function ProductPage(props){
     const [  product, setProduct ] = useState();
-    const [  title, setTitle  ] = useState((product)?(product.title):(""));
-    const [  description, setDescription ] = useState((product)?(product.description):(""));
-    const [  images, setImages ] = useState((product)?(product.images):([]));
-    const [  mainImage, setMainImage ] = useState((product)?(product.mainImage):({}));
-    const [  price, setPrice ] = useState((product)?(product.price):(""));
-    const [  uniqueTransfers, setUniqueTransfers ] = useState((product)?(product.uniqueTransfers):([]));
+    const [  title, setTitle  ] = useState("");
+    const [  description, setDescription ] = useState("");
+    const [  images, setImages ] = useState([]);
+    const [  mainImage, setMainImage ] = useState({});
+    const [  price, setPrice ] = useState("");
+    const [  uniqueTransfers, setUniqueTransfers ] = useState([]);
 
 
     useEffect(() => {
         const query = props.match.params.id;
-        
-        console.log("query is")
-        console.log(query);
         API.getProductById(query)
             .then(res => {
                 console.log(res.data)
@@ -28,12 +25,12 @@ function ProductPage(props){
     useEffect(() => {
         if(product){
             console.log(product)
-            setTitle(product[0].name);
-            setDescription(product[0].description);
-            setImages(product[0].images);
-            setMainImage(product[0].mainImage);
-            setPrice(product[0].price);
-            setUniqueTransfers(product[0].uniqueTransfers)
+            setTitle(product.name);
+            setDescription(product.description);
+            setImages(product.images);
+            setMainImage(product.mainImage);
+            setPrice(product.price);
+            setUniqueTransfers(product.uniqueTransfers)
         }
     },[product])
 
