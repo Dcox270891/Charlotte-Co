@@ -16,13 +16,6 @@ function EditProductPage(props){
     },[])
     
 
-    // function submitProduct(newProduct){
-    //     API.newProduct(newProduct)
-    //         .then(res => console.log(res))
-    //         .catch(err => console.log(err))
-    //     console.log(newProduct)
-    // }
-
     return (<>
         <div>
             <h2>Edit {product.name}</h2>

@@ -28,6 +28,10 @@ const ProductSchema = new Schema({
         type: Number,
         required: true, 
     },
+    images:{
+        type: [],
+        required: false,
+    },
     sizes:{
         type: [],
         required: false, 

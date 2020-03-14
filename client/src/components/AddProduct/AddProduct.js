@@ -28,6 +28,7 @@ function AddProduct(props){
 
     useEffect(() => {
         const query = props.id;
+
         API.getProductById(query)
             .then(res => setProduct(res.data))
             .catch(err => console.log(err))

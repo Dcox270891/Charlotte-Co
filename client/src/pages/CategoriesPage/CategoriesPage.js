@@ -11,11 +11,12 @@ function CategoriesPage(props){
         API.getProductBySubCategory(id)
             .then(res => setProducts(res.data))
             .catch(err => console.log(err));
-    },[])
+        console.log(products)
+    },[props])
     
     return(<>
         {products.map(product =>{
-            return <ProductCard key={product._id} transfer={product}/>
+            return <ProductCard key={product._id} product={product}/>
         })}
     </>)
 }

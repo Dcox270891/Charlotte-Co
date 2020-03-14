@@ -1,28 +1,16 @@
-// import React, { useState } from "react";
-// import {Image, Transformation} from 'cloudinary-react';
-// import API from "../../utils/API";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "./style.css";
 
-function ProductCard(props){
-    return ""
-    // const [  transfer, setTransfer  ] = useState();
-
-    // setTransfer();
-    // useEffect(() => {
-    //     API.getTransfers(props.transfer._id)
-    //         .then(res => setTransfer(res.data))
-    //         .catch(err => console.log(err));
-    // }, [])
-
-    // return(<>
-    //     {(transfer)?(<div>
-    //         <h3 className="transfer-title">{transfer.title}</h3>
-    //         <Image publicId={transfer.mainTransferImage.url} type="fetch">
-    //             <Transformation width="300" height="300" crop="fill" fetchFormat="auto" />
-    //         </Image>
-    //         <h3 className="transfer-price">{transfer.price}</h3>
-    //     </div>):("")}
-    // </>)
+function ProductCard({product}){
+    return (<>
+        <Link to={`/productpage/${product._id}`} >
+            <div>
+                {(product.images.length>0)?(<img src={product.images[0].url}/>):""}
+                <h3>{product.name}</h3>
+            </div>
+        </Link>
+    </>)
 }
 
 export default ProductCard;
