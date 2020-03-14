@@ -53,6 +53,7 @@ li{
 @media screen and (min-width: 768px){
     
     .nav-category{
+        flex-direction: row;
         display:flex;
         position: initial;
         justify-content: space-around;
@@ -67,7 +68,7 @@ li{
         position: relative;
         display: block;
         justify-content: space-around;
-        padding: 5px 10px;
+        padding: 10px 40px;
     }
 
     .nav-subcategory{
@@ -86,7 +87,7 @@ li{
         display: flex;
         width: 100%;
         justify-content: space-around;
-        padding: 5px 40px;
+        padding: 10px 40px;
     }
 
     .nav-products{
@@ -105,7 +106,7 @@ li{
         display: flex;
         width: 100%;
         justify-content: space-between;
-        padding: 5px 40px;    
+        padding: 10px 40px;    
     }
 
 }
