@@ -24,10 +24,7 @@ module.exports ={
     postImage: function(req, res) {
         console.log(results, err)
         db.Images
-            .create({...req.body, 
-                url: result.url,
-                imageId : result.public_id,
-            })
+            .create(req.bod)
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },

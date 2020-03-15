@@ -1,7 +1,5 @@
 import React, { useState , useEffect} from "react";
-import * as qs from 'query-string';
 import AddProduct from "../../components/AddProduct/AddProduct";
-import ImageUplaoder from "../../components/ImageUploader/ImageUploader";
 import UniqueTransfers from "../../components/UniqueTransfers/UniqueTransfers";
 import API from "../../utils/API";
 
@@ -14,6 +12,12 @@ function EditProductPage(props){
             .then(res => setProduct(res.data))
             .catch(err => console.log(err))
     },[])
+
+    function editProduct(newProduct){
+        API.editProduct(newProduct)
+            .then(res => setProduct(res))
+            .catch(err => console.log(err))
+    }
     
 
     return (<>
@@ -21,12 +25,7 @@ function EditProductPage(props){
             <h2>Edit {product.name}</h2>
             <AddProduct 
                 id={id}
-            />
-        </div>
-        <div>
-            <h2>Upload Images to {product.name}</h2>
-            <ImageUplaoder
-                imageInfo={`forProduct: ${product._id}`}
+                submitHandler={editProduct}
             />
         </div>
         <div>

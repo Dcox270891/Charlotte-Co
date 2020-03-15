@@ -13,6 +13,7 @@ li{
     justify-content: space-evenly;
     align-items: center;
     background-color: pink;
+    z-index: 9;
 }
 
 .nav-category-links{
@@ -20,6 +21,7 @@ li{
     display: block;
     justify-content: space-around;
     padding: 10px 40px;
+    z-index: 9;
 }
 
 .nav-subcategory{
@@ -27,6 +29,7 @@ li{
     justify-content: space-around;
     align-items: center;
     width: auto;
+    z-index: 9;
 }
 
 .nav-subcategory-links{
@@ -34,6 +37,7 @@ li{
     display: block;
     justify-content: space-around;
     padding: 10px 40px;
+    z-index: 9;
 }
 
 .nav-products{
@@ -41,13 +45,15 @@ li{
     justify-content: space-around;
     align-items: center;
     width: auto;
+    z-index: 9;
 }
 
 .nav-product-links{
     position: relative;
     display: block;
     justify-content: space-around;
-    padding: 10px 40px;    
+    padding: 10px 40px; 
+    z-index: 9;   
 }
 
 @media screen and (min-width: 768px){
@@ -62,6 +68,7 @@ li{
         width: 100%;
         padding: 0px 30px;
         background-color: pink;
+        z-index: 9;
     }
 
     .nav-category-links{
@@ -69,6 +76,7 @@ li{
         display: block;
         justify-content: space-around;
         padding: 10px 40px;
+        z-index: 9;
     }
 
     .nav-subcategory{
@@ -80,7 +88,7 @@ li{
         width: auto;
         height: 40px;
         background-color: pink;
-
+        z-index: 9;
     }
 
     .nav-subcategory-links{
@@ -88,6 +96,7 @@ li{
         width: 100%;
         justify-content: space-around;
         padding: 10px 40px;
+        z-index: 9;
     }
 
     .nav-products{
@@ -99,7 +108,7 @@ li{
         height: 40px;
         width: 100%;
         background-color: pink;
-        
+        z-index: 9;        
     }
 
     .nav-product-links{
@@ -107,6 +116,7 @@ li{
         width: 100%;
         justify-content: space-between;
         padding: 10px 40px;    
+        z-index: 9;
     }
 
 }

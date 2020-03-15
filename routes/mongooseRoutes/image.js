@@ -1,6 +1,4 @@
 const router = require("express").Router();
-var multipart = require('connect-multiparty');
-var multipartMiddleware = multipart();
 const imageController = require("../../config/controllers/ImageController")
 
 router.route("api/image/")

@@ -8,23 +8,25 @@ import CategoriesPage from "./pages/CategoriesPage/CategoriesPage";
 import AddProduct from "./pages/AddProductPage/AddNewProductPage";
 import EditProduct from "./pages/EditProductPage/EditProductPage";
 import Header from "./components/Header/Header";
-import ImageUploader from "./components/ImageUploader/ImageUploader";
 import "./styles.css";
+import AllProductsPage from './pages/AllProductsPage/AllProductsPage';
 
 function App() {
   
   return (<Router>
-    <div>
-          <Header />
+      <div>
+        <Header />
+        <div className="main-page">
           <Route path="/login" component={Login} />
           <Route exact path="/" component={HomePage} />
+          <Route path="/allproducts" component={AllProductsPage} />
           <Route path="/category/:id" render={(props) => <CategoriesPage {...props} />} />
           <Route exact path="/signup" component={SignUp} />
           <Route path="/productpage/:id" render={(props) => <ProductPage {...props} />} />
           <Route exact path="/addnewproduct" component={AddProduct} />
           <Route path="/editproduct/:id" render={(props) => <EditProduct {...props} />} />
-          <Route exact path="/imageUploader" component={ImageUploader} />
-          </div>
+        </div>
+      </div>
     </Router>);
 }
 

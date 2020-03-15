@@ -1,13 +1,10 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import InputText from "../../components/Input/InputText";
-import Submit from "../Buttons/Submit";
-import API from "../../utils/API";
 
 function ImageUploader(props){
-    const [  title, setTitle ] = useState("");
-    const [  image, setImage ] = useState([]);
+    const [  newImage, netNewImage ] = useState();
     const [  loading, setLoading ] = useState(false);
+    const [ test, setTest ] =useState()
 
     const uploadImage = async e => {
         const files = e.target.files
@@ -17,37 +14,22 @@ function ImageUploader(props){
         setLoading(true)
         axios.post('https://api.cloudinary.com/v1_1/charlotte-co/image/upload', data)
             .then(res => {
-                setImage(res.data.secure_url)
-                setLoading(false)
+                netNewImage(res.data.secure_url);
+                setLoading(false);
+                setTest( ...test, newImage)
             })
             .catch(err =>console.log(err));
     }
 
-    function saveImage(e){
-        let newImage = {
-            title: title,
-            url: image,
-        }
-        if(props.imageInfo){
-            newImage = {
-                ...props.imageInfo,
-                title: title,
-                url: image
-            }
-        }
-        e.preventDefault();
-        API.postImage(newImage)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-    }    
+    useEffect(()=> {
+        console.log(props);
+        console.log(newImage);
+        console.log(test)
+        // props.setImages(...props.images, newImage);
+    },[newImage])
 
     return(<>
         <div className="image-uploader">
-            <InputText
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="Image Title"
-            />
             <input
                 type="file"
                 name="file"
@@ -59,12 +41,14 @@ function ImageUploader(props){
                 {loading ? (
                     <h4>loading...</h4>
                 ):(
-                    <img src={image}/>
+                    <img src={newImage}/>
                 )}
+                {(props.images)?(
+                    props.images.map(image => {
+                        return <img src={image}/>
+                    })
+                ):(<p>No images saved</p>)}
             </div>
-            <Submit
-                onChange={(e) => saveImage(e)}
-            />
         </div>
     </>)
 }

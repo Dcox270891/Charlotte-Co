@@ -7,6 +7,7 @@ import MultipleOptions from "../Input/MuiltipleInputs";
 import API from "../../utils/API";
 import "./style.css";
 import Submit from "../Buttons/Submit";
+import ImageUploader from "../ImageUploader/ImageUploader";
 
 function AddProduct(props){
     const [  product, setProduct ] = useState()
@@ -25,10 +26,10 @@ function AddProduct(props){
     const [  inStock, setInStock ] = useState(false);
     const [  deliveryTimeMax, setDeliveryTimeMax ] = useState();
     const [  deliveryTimeMin, setDeliveryTimeMin ] = useState();
+    const [  images, setImages ] = useState([]);
 
     useEffect(() => {
         const query = props.id;
-
         API.getProductById(query)
             .then(res => setProduct(res.data))
             .catch(err => console.log(err))
@@ -43,6 +44,7 @@ function AddProduct(props){
             setProductColours(product.productColours);
             setIsActive(product.isActive);
             setInStock(product.inStock);
+            setImages(product.images);
             setDeliveryTimeMax(product.setDeliveryTimeMax);
             setDeliveryTimeMin(product.setDeliveryTimeMin);
         }
@@ -89,6 +91,7 @@ function AddProduct(props){
             inStock: inStock,
             deliveryTimeMax: deliveryTimeMax,
             deliveryTimeMin: deliveryTimeMin,
+            images: images,
         };
         props.submitHandler(newProduct) 
     }
@@ -164,6 +167,10 @@ function AddProduct(props){
                 value={deliveryTimeMin} 
                 onChange={(e) => setDeliveryTimeMin(e.target.value)} 
                 placeholder="Delivery time min" 
+            />
+            <ImageUploader
+                images={images}
+                setImages={() => setImages()}
             />
             <Submit
                 onClick={(e) => submitProduct(e)}

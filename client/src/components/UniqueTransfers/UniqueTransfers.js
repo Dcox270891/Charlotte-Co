@@ -5,21 +5,22 @@ import InputNumber from "../Input/InputNumber";
 import Close from "../Buttons/Close";
 import ImageUploader from "../ImageUploader/ImageUploader";
 import API from "../../utils/API";
-import ImageGallery from "../ImageGallery/ImageGallery";
 
 function UniqueTransfers(props){
-    const [  title, setTitle  ] = useState((props.product)?(props.product.title):"");
-    const [  transferDescription, setTransferDescription  ] = useState((props.product)?(props.product.transferDescription):"");
-    const [  transferImages, setTransferImages  ] = useState((props.product)?(props.product.transferImages):[]);
-    const [  mainTranferImage, setMainTranferImage  ] = useState((props.product)?(props.product.mainTranferImage):"");
-    const [  priceDifference, setPriceDifference  ] = useState((props.product)?(props.product.priceDifference):"");
-    const [  transferArray, setTransferArray ] = useState((props.product)?(props.product.transferArray):[]);
+    const [  title, setTitle  ] = useState();
+    const [  transferDescription, setTransferDescription  ] = useState();
+    const [  transferImages, setTransferImages  ] = useState([]);
+    const [  mainTranferImage, setMainTranferImage  ] = useState();
+    const [  priceDifference, setPriceDifference  ] = useState();
+    const [  transferArray, setTransferArray ] = useState([]);
 
-    if(props.product){
+    useEffect(() => {
         API.getTransferByProduct(props.product)
-            .then(res => setTransferArray([...res, transferArray]))
+            .then(res => setTransferArray([...res.data, transferArray]))
             .catch(err => console.log(err))
-    }
+
+    },[])
+
     
     function addTransfer(e){
         const transfer={
@@ -81,10 +82,8 @@ function UniqueTransfers(props){
                 placeholder="Price Difference"
             />
             <ImageUploader
-                imageInfo={`forTransfer: ${props.product}`}
-            />
-            <ImageGallery
-                forTransfer=""
+                images={transferImages}
+                setImages={() => setTransferImages()}
             />
             <Submit
                 onClick={addTransfer}

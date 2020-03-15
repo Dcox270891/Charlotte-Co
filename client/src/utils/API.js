@@ -83,27 +83,27 @@ export default {
         return axios.get("/api/uniquetransfers/product/" , id);
     },
     getAllImages: function(){
-        return axios.get("/api/images");
+        return axios.get("/api/image");
     },
     findImageById: function(id){
-        return axios.get("/api/images/" , id);
+        return axios.get("/api/image/" , id);
     },
     postImage: function(newImage){
-        return axios.post("/api/images", newImage);
+        return axios.post("/api/image", newImage);
     },
     deletImageById: function(id){
-        return axios.delete("/api/images/" , id);
+        return axios.delete("/api/image/" , id);
     },
     deletImageByProduct: function(id){
-        return axios.delete("/api/images/product/" , id);
+        return axios.delete("/api/image/product/" , id);
     },
     findImageByProduct: function(newImage){
-        return axios.get("/api/images/product/" , newImage);
+        return axios.get("/api/image/product/" , newImage);
     },
     deletImageByTransfer: function(id){
-        return axios.delte("/api/images/transfer/" , id);
+        return axios.delte("/api/image/transfer/" , id);
     },
     findImageByTransfer: function(newImage){
-        return axios.get("/api/images/transfer/" , newImage);
+        return axios.get("/api/image/transfer/" , newImage);
     },
 }

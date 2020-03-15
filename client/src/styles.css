@@ -17,3 +17,8 @@ body{
     color: white;
     padding: 5px;
 }
+
+.main-page{
+    position: relative;
+    top: 40px;
+}

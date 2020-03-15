@@ -6,7 +6,8 @@ function ProductCard({product}){
     return (<>
         {(product)?(<Link to={`/productpage/${product._id}`} >
             <div>
-                <img src={product.images[0].url}/>
+                {(product.transfer)?(<h3>£{product.price + product.transfer.pricediffer}</h3>):""}
+                {(product.image)?(<img src={product.images[0].url}/>):""}
                 <h3>{product.name}</h3>
             </div>
         </Link>):""}
