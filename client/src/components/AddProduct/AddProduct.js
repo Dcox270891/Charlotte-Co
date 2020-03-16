@@ -19,9 +19,9 @@ function AddProduct(props){
     const [  subCategories, setSubCategories ] = useState([]);
     const [  price, setPrice ] = useState();
     const [  size, setSize  ] = useState()
-    const [  sizes, setSizes ] = useState();
+    const [  sizes, setSizes ] = useState([]);
     const [  colour, setColour  ] = useState()
-    const [  productColours, setProductColours ] = useState();
+    const [  productColours, setProductColours ] = useState([]);
     const [  isActive, setIsActive ] = useState(false);
     const [  inStock, setInStock ] = useState(false);
     const [  deliveryTimeMax, setDeliveryTimeMax ] = useState();
@@ -47,6 +47,7 @@ function AddProduct(props){
             setImages(product.images);
             setDeliveryTimeMax(product.setDeliveryTimeMax);
             setDeliveryTimeMin(product.setDeliveryTimeMin);
+            setProduct(product);
         }
 
     },[product]);
@@ -92,6 +93,7 @@ function AddProduct(props){
             deliveryTimeMax: deliveryTimeMax,
             deliveryTimeMin: deliveryTimeMin,
             images: images,
+            _id: product._id,
         };
         props.submitHandler(newProduct) 
     }
@@ -170,7 +172,7 @@ function AddProduct(props){
             />
             <ImageUploader
                 images={images}
-                setImages={() => setImages()}
+                setImages={setImages}
             />
             <Submit
                 onClick={(e) => submitProduct(e)}

@@ -58,8 +58,8 @@ export default {
     deleteProduct: function(id){
         return axios.delete(`/api/products/${id}`);
     },
-    editProduct: function(id){
-        return axios.put("/api/products/" , id);
+    editProduct: function(id, product){
+        return axios.put(`/api/products/${id}`, product);
     },
     getProductBySubCategory: function(id){
         return axios.get(`/api/products/subcategory/${id}`)

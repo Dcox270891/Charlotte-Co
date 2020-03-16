@@ -26,8 +26,10 @@ li{
 
 .nav-subcategory{
     display:flex;
+    top: 40px;
     justify-content: space-around;
     align-items: center;
+    width: 100%;
     width: auto;
     z-index: 9;
 }
@@ -35,6 +37,8 @@ li{
 .nav-subcategory-links{
     position: relative;
     display: block;
+    width: auto;
+    width: 100%;
     justify-content: space-around;
     padding: 10px 40px;
     z-index: 9;
@@ -42,17 +46,21 @@ li{
 
 .nav-products{
     display:flex;
+    top: 40px;
     justify-content: space-around;
     align-items: center;
     width: auto;
+    width: 100%;
     z-index: 9;
 }
 
 .nav-product-links{
     position: relative;
-    display: block;
+    display: flex;
     justify-content: space-around;
     padding: 10px 40px; 
+    width: 100%;
+    width: auto;
     z-index: 9;   
 }
 

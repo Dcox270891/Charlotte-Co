@@ -16,7 +16,6 @@ function ImageUploader(props){
             .then(res => {
                 netNewImage(res.data.secure_url);
                 setLoading(false);
-                setTest( ...test, newImage)
             })
             .catch(err =>console.log(err));
     }
@@ -25,7 +24,7 @@ function ImageUploader(props){
         console.log(props);
         console.log(newImage);
         console.log(test)
-        // props.setImages(...props.images, newImage);
+        props.setImages([...props.images, newImage]);
     },[newImage])
 
     return(<>
@@ -40,9 +39,7 @@ function ImageUploader(props){
             <div>
                 {loading ? (
                     <h4>loading...</h4>
-                ):(
-                    <img src={newImage}/>
-                )}
+                ):""}
                 {(props.images)?(
                     props.images.map(image => {
                         return <img src={image}/>

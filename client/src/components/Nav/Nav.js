@@ -57,6 +57,9 @@ function Nav(){
                 <div className="nav-category-links">
                     <Link to="/allproducts">All products</Link>
                 </div>
+                <div className="nav-category-links">
+                    <Link to="/addnewproduct">Add a product</Link>
+                </div>
                 {categories.map((category, i) => {
                     return (<>
                         <div 

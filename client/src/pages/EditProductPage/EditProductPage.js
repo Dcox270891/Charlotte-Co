@@ -13,9 +13,10 @@ function EditProductPage(props){
             .catch(err => console.log(err))
     },[])
 
-    function editProduct(newProduct){
-        API.editProduct(newProduct)
-            .then(res => setProduct(res))
+    function editProduct(product){
+        console.log(product)
+        API.editProduct(product._id, product)
+            .then(res => setProduct(res.data))
             .catch(err => console.log(err))
     }
     
