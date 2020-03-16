@@ -12,7 +12,7 @@ function CategoriesPage(props){
             .then(res => setProducts(res.data))
             .catch(err => console.log(err));
         console.log(products)
-    },[props])
+    },[id, products])
     
     return(<>
         {products.map(product =>{

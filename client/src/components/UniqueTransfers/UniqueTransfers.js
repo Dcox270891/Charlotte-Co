@@ -18,8 +18,7 @@ function UniqueTransfers(props){
         API.getTransferByProduct(props.product)
             .then(res => setTransferArray([...res.data, transferArray]))
             .catch(err => console.log(err))
-
-    },[])
+    },[props.product, transferArray])
 
     
     function addTransfer(e){

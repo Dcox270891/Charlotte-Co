@@ -54,6 +54,10 @@ module.exports = function(sequilize, DataTypes){
             type: DataTypes.STRING,
             allowNull: false,
         },
+        isAdmin: {
+            type: DataTypes.BOOLEAN,
+            default: false,
+        },
     }, 
     {
         

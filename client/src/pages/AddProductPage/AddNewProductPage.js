@@ -3,7 +3,7 @@ import AddProduct from "../../components/AddProduct/AddProduct";
 import API from "../../utils/API"
 
 function AddNewProductPage(){
-    const [ product, setProduct ] = useState({});
+    const [ , setProduct ] = useState({});
     
     function submitProduct(newProduct){
         API.newProduct(newProduct)

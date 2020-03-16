@@ -10,17 +10,16 @@ function ProductPage(props){
     const [  mainImage, setMainImage ] = useState({});
     const [  price, setPrice ] = useState("");
     const [  uniqueTransfers, setUniqueTransfers ] = useState([]);
-
+    const query = props.match.params.id;
 
     useEffect(() => {
-        const query = props.match.params.id;
         API.getProductById(query)
             .then(res => {
                 console.log(res.data)
                 setProduct(res.data)
             })
             .catch(err => console.log(err))
-    },[])
+    },[query])
 
     useEffect(() => {
         if(product){

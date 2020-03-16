@@ -10,10 +10,12 @@ import EditProduct from "./pages/EditProductPage/EditProductPage";
 import Header from "./components/Header/Header";
 import "./styles.css";
 import AllProductsPage from './pages/AllProductsPage/AllProductsPage';
+import {UserWrapper} from "./UserContext"
 
 function App() {
   
   return (<Router>
+    <UserWrapper>
       <div>
         <Header />
         <div className="main-page">
@@ -27,7 +29,8 @@ function App() {
           <Route path="/editproduct/:id" render={(props) => <EditProduct {...props} />} />
         </div>
       </div>
-    </Router>);
+    </UserWrapper>
+  </Router>);
 }
 
 export default App;

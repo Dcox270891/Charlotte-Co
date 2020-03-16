@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
+import Delete from "../Buttons/Delete";
 
 function ImageUploader(props){
     const [  newImage, netNewImage ] = useState();
     const [  loading, setLoading ] = useState(false);
-    const [ test, setTest ] =useState()
 
     const uploadImage = async e => {
         const files = e.target.files
@@ -16,16 +16,10 @@ function ImageUploader(props){
             .then(res => {
                 netNewImage(res.data.secure_url);
                 setLoading(false);
+                props.setImages([...props.images, newImage]);
             })
             .catch(err =>console.log(err));
     }
-
-    useEffect(()=> {
-        console.log(props);
-        console.log(newImage);
-        console.log(test)
-        props.setImages([...props.images, newImage]);
-    },[newImage])
 
     return(<>
         <div className="image-uploader">
@@ -42,7 +36,14 @@ function ImageUploader(props){
                 ):""}
                 {(props.images)?(
                     props.images.map(image => {
-                        return <img src={image}/>
+                        return (<>
+                            <Delete 
+                                delete={image}
+                                deleteFrom={props.images}
+                                setDeleteFrom={props.setImages}
+                            />
+                            <img alt="" key={image} src={image}/>
+                        </>)
                     })
                 ):(<p>No images saved</p>)}
             </div>

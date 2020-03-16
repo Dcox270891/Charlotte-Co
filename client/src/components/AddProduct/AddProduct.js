@@ -27,13 +27,13 @@ function AddProduct(props){
     const [  deliveryTimeMax, setDeliveryTimeMax ] = useState();
     const [  deliveryTimeMin, setDeliveryTimeMin ] = useState();
     const [  images, setImages ] = useState([]);
+    const query = props.id;
 
     useEffect(() => {
-        const query = props.id;
         API.getProductById(query)
             .then(res => setProduct(res.data))
             .catch(err => console.log(err))
-    },[]);
+    },[query]);
 
     useEffect(()=> {
         if(product){
@@ -53,22 +53,10 @@ function AddProduct(props){
     },[product]);
 
     useEffect(() => {
-        console.log(product)
-        if(product){
-            API.getCategories()
-                .then(res => {
-                    setCategories(res.data)
-                    setCategory(categories.filter(category => product.category[0] === category._id))
-                })
-                .catch(err => console.log(err))
-
-        } else {
-            API.getCategories()
-                .then(res => setCategories(res.data))
-                .catch(err => console.log(err))
-
-        }
-    },[props, product]);
+        API.getCategories()
+            .then(res => setCategories(res.data))
+            .catch(err => console.log(err))
+    },[]);
 
     useEffect(() => {
         if (category){

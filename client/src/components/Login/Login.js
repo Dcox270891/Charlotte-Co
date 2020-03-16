@@ -1,30 +1,31 @@
-import React, {useState} from "react";
+import React, { useState, useContext } from "react";
 import Input from "../Input/InputText";
 import Submit from "../Buttons/Submit";
 import API from "../../utils/API";
 import "./style.css";
+import {UserContext} from "../../UserContext"
 
 
 function Login(){
+    const [ loggedOnUser, setLoggedOnUser ] = useContext(UserContext);
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
-    const [ user, setUser ] = useState();
 
     function loginLocalUser(e){
         e.preventDefault();
         API.loginUser(email, password)
             .then(res => {
-                setUser(res);
+                setLoggedOnUser(res.data);
             })
             .catch(err => console.log(err));
     };
 
     return (<>
-        <h1>{(user)?(`Welcome ${user.data.email}`):("You need to log in")}</h1>
+        <h1>{(loggedOnUser.email)?(`Welcome ${loggedOnUser.email}`):("You need to log in")}</h1>
         <form className="login-form">
             <Input 
                 value={email} 
-                onChange={e => setEmail(e.target.value)} 
+                onChange={e => {setEmail(e.target.value)}} 
                 placeholder="Email Address" 
             />
             <Input 
@@ -33,7 +34,7 @@ function Login(){
                 placeholder="Password" 
             />
             <Submit
-                onChange={e => loginLocalUser(e)}
+                onClick={e => loginLocalUser(e)}
             />
         </form>
     </>)

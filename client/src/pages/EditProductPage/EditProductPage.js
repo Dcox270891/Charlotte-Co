@@ -5,13 +5,13 @@ import API from "../../utils/API";
 
 function EditProductPage(props){
     const {id} = props.match.params
-    const [ product, setProduct] = useState((props.product)?(props.product._id):"")
+    const [ product, setProduct] = useState("")
 
     useEffect(() => {
         API.getProductById(id)
             .then(res => setProduct(res.data))
             .catch(err => console.log(err))
-    },[])
+    },[id])
 
     function editProduct(product){
         console.log(product)

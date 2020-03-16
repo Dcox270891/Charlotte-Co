@@ -54,10 +54,16 @@ function Nav(){
     return(<>
         <nav>
             <div className="nav-category">
-                <div className="nav-category-links">
+                <div 
+                    className="nav-category-links"
+                    key="all-products"
+                >
                     <Link to="/allproducts">All products</Link>
                 </div>
-                <div className="nav-category-links">
+                <div 
+                    className="nav-category-links"
+                    key="add-products"
+                >
                     <Link to="/addnewproduct">Add a product</Link>
                 </div>
                 {categories.map((category, i) => {
@@ -102,7 +108,10 @@ function Nav(){
                             </div>
                     </>)
                 })}
-                <div className="nav-category-links">Contact us</div>
+                <div 
+                    className="nav-category-links"
+                    key="contact-us"
+                >Contact us</div>
             </div>
         </nav>
     </>);
