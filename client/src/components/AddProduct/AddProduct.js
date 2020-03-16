@@ -45,9 +45,8 @@ function AddProduct(props){
             setIsActive(product.isActive);
             setInStock(product.inStock);
             setImages(product.images);
-            setDeliveryTimeMax(product.setDeliveryTimeMax);
-            setDeliveryTimeMin(product.setDeliveryTimeMin);
-            setProduct(product);
+            setDeliveryTimeMax(product.deliveryTimeMax);
+            setDeliveryTimeMin(product.deliveryTimeMin);
         }
 
     },[product]);

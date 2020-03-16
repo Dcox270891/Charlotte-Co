@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import API from "../../utils/API";
 import "./style.css";
+import {UserContext} from "../../UserContext";
 
 function Nav(){
     const [ categories, setCategories] = useState([]);
@@ -11,6 +12,7 @@ function Nav(){
     const [ subCategoryChosen, setSubCategroyChosen] = useState("");
     const [ loadProducts, setLoadProducts ] = useState(false);
     const [ products, setProducts ] = useState([]);
+    const [ loggedOnUser, ] = useContext(UserContext);
 
     useEffect(() => {
         API.getCategories()
@@ -60,12 +62,12 @@ function Nav(){
                 >
                     <Link to="/allproducts">All products</Link>
                 </div>
-                <div 
+                {loggedOnUser.isAdmin?(<div 
                     className="nav-category-links"
                     key="add-products"
                 >
                     <Link to="/addnewproduct">Add a product</Link>
-                </div>
+                </div>):""}
                 {categories.map((category, i) => {
                     return (<>
                         <div 
@@ -93,12 +95,12 @@ function Nav(){
                                                                 key={product._id}
                                                             >
                                                                 <Link to={`/productpage/${product._id}`}>{product.name}</Link>
-                                                                <Link 
+                                                                {loggedOnUser.isAdmin?(<Link 
                                                                     className="edit"
                                                                     to={`/editproduct/${product._id}`}
                                                                 >
                                                                     Edit
-                                                                </Link>
+                                                                </Link>):""}
                                                             </div>
                                                         })
                                                     ) : ""}

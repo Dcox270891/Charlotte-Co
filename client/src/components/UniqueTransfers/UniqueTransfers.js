@@ -23,6 +23,7 @@ function UniqueTransfers(props){
     
     function addTransfer(e){
         const transfer={
+            forProduct: props.product,
             title: title,
             transferDescription: transferDescription,
             transferImages: transferImages,
@@ -53,7 +54,7 @@ function UniqueTransfers(props){
             <h2>Transfers</h2>
             <ul>
                 Saved Transfers: 
-                {(transferArray.length>1)?(transferArray.map(transfers => {
+                {(transferArray.length>0)?(transferArray.map(transfers => {
                     return <li key={transfers._id}>
                         Title :{transfers.title}<br/>
                         Description :{transfers.transferDescription}<br/>
