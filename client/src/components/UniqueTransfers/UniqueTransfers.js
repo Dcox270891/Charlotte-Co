@@ -83,7 +83,7 @@ function UniqueTransfers(props){
             />
             <ImageUploader
                 images={transferImages}
-                setImages={() => setTransferImages()}
+                setImages={setTransferImages}
             />
             <Submit
                 onClick={addTransfer}

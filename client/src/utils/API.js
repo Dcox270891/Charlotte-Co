@@ -23,10 +23,10 @@ export default {
         return axios.get("/api/category/" , id);
     },
     deleteCategory: function(id){
-        return axios.delete("/api/category/" , id);
+        return axios.delete(`/api/category/${id}`);
     },
-    editCategory: function(id){
-        return axios.put("/api/category/" , id);
+    editCategory: function(id, category){
+        return axios.put(`/api/category/${id}`, category);
     },
     getSubCategories: function (){
         return axios.get("/api/subcategory");
@@ -35,16 +35,16 @@ export default {
         return axios.post("/api/subcategory", newCategory);
     },
     getSubCategory: function(id){
-        return axios.get("/api/subcategory/" , id);
+        return axios.get(`/api/subcategory/${id}`);
     },
     getSubCategoryByCategory: function(id){
         return axios.get(`/api/subcategory/category/${id}`)
     },
     deleteSubCategory: function(id){
-        return axios.delete("/api/subcategory/" , id);
+        return axios.delete(`/api/subcategory/${id}`);
     },
-    editSubCategory: function(id){
-        return axios.put("/api/subcategory/" , id);
+    editSubCategory: function(id, subCategory){
+        return axios.put(`/api/subcategory/${id}`, subCategory);
     },
     getProducts: function (){
         return axios.get("/api/product");
@@ -71,39 +71,15 @@ export default {
         return axios.post("/api/uniquetransfers", newTransfer);
     },
     getTransfer: function(id){
-        return axios.post("/api/uniquetransfers/" , id);
+        return axios.post(`/api/uniquetransfers/${id}`);
     },
     deleteTransfer: function(id){
-        return axios.delete("/api/uniquetransfers/" , id);
+        return axios.delete(`/api/uniquetransfers/${id}`);
     },
-    editTransfer: function(id){
-        return axios.put("/api/uniquetransfers/" , id);
+    editTransfer: function(id, transfer){
+        return axios.put(`/api/uniquetransfers/${id}`, transfer);
     },
     getTransferByProduct: function(id){
-        return axios.get("/api/uniquetransfers/product/" , id);
-    },
-    getAllImages: function(){
-        return axios.get("/api/image");
-    },
-    findImageById: function(id){
-        return axios.get("/api/image/" , id);
-    },
-    postImage: function(newImage){
-        return axios.post("/api/image", newImage);
-    },
-    deletImageById: function(id){
-        return axios.delete("/api/image/" , id);
-    },
-    deletImageByProduct: function(id){
-        return axios.delete("/api/image/product/" , id);
-    },
-    findImageByProduct: function(newImage){
-        return axios.get("/api/image/product/" , newImage);
-    },
-    deletImageByTransfer: function(id){
-        return axios.delte("/api/image/transfer/" , id);
-    },
-    findImageByTransfer: function(newImage){
-        return axios.get("/api/image/transfer/" , newImage);
+        return axios.get(`/api/uniquetransfers/product/${id}`);
     },
 }

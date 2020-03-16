@@ -21,7 +21,7 @@ function Login(){
     };
 
     return (<>
-        <h1>{(loggedOnUser.email)?(`Welcome ${loggedOnUser.email}`):("You need to log in")}</h1>
+        <h1>{(loggedOnUser !== undefined)?(`Welcome ${loggedOnUser.email}`):("You need to log in")}</h1>
         <form className="login-form">
             <Input 
                 value={email} 

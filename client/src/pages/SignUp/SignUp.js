@@ -90,7 +90,7 @@ function Login(){
                 placeholder="Post Code" 
             />
             <Submit
-                onChange={e => submitUser(e)}
+                onClick={e => submitUser(e)}
             />
         </form>
     </>)

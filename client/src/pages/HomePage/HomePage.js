@@ -8,7 +8,7 @@ function HomePage(){
 
     
     return(<>
-        <h1>{loggedOnUser.firstName} {loggedOnUser.lastName}</h1>
+        {(loggedOnUser !== undefined)?(<h1>{loggedOnUser.firstName} {loggedOnUser.lastName}</h1>):""}
         <div>
             <h2 className="home-product-title">Hot Now</h2>
             <ProductCard />

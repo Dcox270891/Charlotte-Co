@@ -1,11 +1,14 @@
-import React, {useState} from "react";
-import { BrowserRouter as Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Close from "../Buttons/Close"
 import Login from "../Login/Login";
 import Nav from "../Nav/Nav";
 import "./style.css"
+import {UserContext} from "../../UserContext"
+import Basket from "../Basket/Basket";
 
 function Header(){
+    const [ loggedOnUser, ] = useContext(UserContext);
     const [ toggleLogInBasket , setToggleLogInBasket] = useState(false);
     const [ toggleNav , setToggleNav] = useState(true);
 
