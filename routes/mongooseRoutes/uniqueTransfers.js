@@ -14,5 +14,4 @@ router
     .route("/api/uniquetransfers/product/:id")
     .get(uniqueTransfersController.findUniqueTransfersByProduct);
 
-
 module.exports = router;
