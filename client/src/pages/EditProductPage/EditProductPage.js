@@ -14,8 +14,11 @@ function EditProductPage(props){
     },[id])
 
     function editProduct(product){
-        console.log(product)
-        API.editProduct(product._id, product)
+         const editedProduct = {
+            ...product,
+            _id: id,
+        }
+        API.editProduct(id, editedProduct)
             .then(res => setProduct(res.data))
             .catch(err => console.log(err))
     }

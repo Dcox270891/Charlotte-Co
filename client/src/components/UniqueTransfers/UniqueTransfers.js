@@ -18,7 +18,7 @@ function UniqueTransfers(props){
         API.getTransferByProduct(props.product)
             .then(res => setTransferArray([...res.data, transferArray]))
             .catch(err => console.log(err))
-    },[props.product, transferArray])
+    },[props.product])
 
     
     function addTransfer(e){
@@ -31,22 +31,22 @@ function UniqueTransfers(props){
             priceDifference: priceDifference,
         }
         e.preventDefault();
+        API.newTransfer(transfer)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
         setTransferArray([...transferArray, transfer ]);
         setTitle("");
         setTransferDescription("");
         setTransferImages([]);
         setPriceDifference("");
         setMainTranferImage("");
-        API.newTransfer(transfer)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
     }
     
     function removeTransfer(e){
         e.preventDefault();
         const remove = e.target.getAttribute("remove");
+        API.deleteTransfer(remove);
         setTransferArray(transferArray.filter(transfer => transfer !== remove));
-        API.deleteTransfer(e.target.getAttribute("remove"))
     }
 
     return(<>
@@ -54,15 +54,17 @@ function UniqueTransfers(props){
             <h2>Transfers</h2>
             <ul>
                 Saved Transfers: 
-                {(transferArray.length>0)?(transferArray.map(transfers => {
+                {(transferArray.length>1)?(transferArray.map(transfers => {
                     return <li key={transfers._id}>
                         Title :{transfers.title}<br/>
                         Description :{transfers.transferDescription}<br/>
                         Main Image :{transfers.mainTranferImages}<br/>
                         Other Images :{transfers.transferImages}<br/>
                         Price Difference :{transfers.priceDifference}<br/>
-                        Need to add a button to edit this transfer here
-                        <Close remove={transfers._id} onClick={removeTransfer}/>
+                        <Close
+                            remove={transfers._id}
+                            onClick={(e) => {removeTransfer(e)}}
+                        />
                     </li>
                 })):("No saved transfers")}
             </ul>

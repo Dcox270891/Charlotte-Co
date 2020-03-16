@@ -50,7 +50,7 @@ export default {
         return axios.get("/api/product");
     },
     newProduct: function (newProduct){
-        return axios.post("/api/products", newProduct);
+        return axios.post("/api/product", newProduct);
     },
     getProductById: function(id){
         return axios.get(`/api/products/${id}`);

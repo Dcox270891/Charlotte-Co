@@ -80,7 +80,6 @@ function AddProduct(props){
             deliveryTimeMax: deliveryTimeMax,
             deliveryTimeMin: deliveryTimeMin,
             images: images,
-            _id: product._id,
         };
         props.submitHandler(newProduct) 
     }
