@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import Input from "../Input/InputText";
 import Submit from "../Buttons/Submit";
 import API from "../../utils/API";
-import "./style.css";
 import {UserContext} from "../../UserContext"
 
 
@@ -22,17 +21,17 @@ function Login(){
 
     return (<>
         <h1>{(loggedOnUser !== undefined)?(`Welcome ${loggedOnUser.email}`):("You need to log in")}</h1>
-        <form className="login-form">
+        <form className="login-form column">
             <Input 
                 value={email} 
                 onChange={e => {setEmail(e.target.value)}} 
                 placeholder="Email Address" 
-            />
+            /><br/>
             <Input 
                 value={password} 
                 onChange={e => setPassword(e.target.value)} 
                 placeholder="Password" 
-            />
+            /><br/>
             <Submit
                 onClick={e => loginLocalUser(e)}
             />

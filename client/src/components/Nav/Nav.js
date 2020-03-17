@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import API from "../../utils/API";
-import "./style.css";
 import {UserContext} from "../../UserContext";
 
 function Nav(){

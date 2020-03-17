@@ -70,8 +70,8 @@ export default {
     newTransfer: function (newTransfer){
         return axios.post("/api/uniquetransfers", newTransfer);
     },
-    getTransfer: function(id){
-        return axios.post(`/api/uniquetransfers/${id}`);
+    getTransferById: function(id){
+        return axios.get(`/api/uniquetransfers/${id}`);
     },
     deleteTransfer: function(id){
         return axios.delete(`/api/uniquetransfers/${id}`);

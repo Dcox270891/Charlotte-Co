@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Close from "../Buttons/Close"
 import Login from "../Login/Login";
 import Nav from "../Nav/Nav";
-import "./style.css"
 import {UserContext} from "../../UserContext"
 import Basket from "../Basket/Basket";
 
@@ -27,14 +26,14 @@ function Header(){
                 <button onClick={() => setToggleLogInBasket(true)}>
                     Login/Basket
                 </button>
-                {toggleLogInBasket? (<div>
-                        <Close onClick={() => setToggleLogInBasket(false)} />
-                        <Login />
-                        <Link to="/signup">Sign Up</Link>
-                    </div>) : ""}
             </div>
         </header>
         {toggleNav? (<Nav />) : ""} 
+        {toggleLogInBasket? (<div>
+                <Close onClick={() => setToggleLogInBasket(false)} />
+                <Login />
+                <Link to="/signup">Sign Up</Link>
+            </div>) : ""}
     </>)
 }
 

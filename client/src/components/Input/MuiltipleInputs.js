@@ -1,6 +1,5 @@
 import React from "react";
 import Close from "../Buttons/Close";
-import "./style.css";
 
 function MultipleInputs(props){
     function addOption(e){

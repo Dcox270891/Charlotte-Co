@@ -5,7 +5,6 @@ import Checkbox from "../Input/CheckboxInput";
 import CategoryPicker from "../Input/CategoryPicker";
 import MultipleOptions from "../Input/MuiltipleInputs";
 import API from "../../utils/API";
-import "./style.css";
 import Submit from "../Buttons/Submit";
 import ImageUploader from "../ImageUploader/ImageUploader";
 
@@ -85,7 +84,7 @@ function AddProduct(props){
     }
 
     return (<>
-    <div>
+    <div className="form">
         <form className="add-product">
             <InputText 
                 value={name} 

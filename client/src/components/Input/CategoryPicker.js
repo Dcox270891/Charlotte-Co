@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import Submit from "../../components/Buttons/Submit";
 import Input from "../../components/Input/InputText";
 import API from "../../utils/API";
-import "./style.css";
 
 function CategoryPicker(props){
     const [  newOptionName, setNewOptionName] = useState("")

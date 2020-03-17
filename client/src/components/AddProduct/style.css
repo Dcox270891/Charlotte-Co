@@ -1,8 +1,0 @@
-.add-product{
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-right: 50px;
-}

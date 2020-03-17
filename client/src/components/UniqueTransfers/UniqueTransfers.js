@@ -50,7 +50,7 @@ function UniqueTransfers(props){
     }
 
     return(<>
-        <form className="unique-transfers">
+        <form className="add-product">
             <h2>Transfers</h2>
             <ul>
                 Saved Transfers: 

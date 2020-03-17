@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Image, Transformation } from 'cloudinary-react';
 import axios from "axios";
 import Delete from "../Buttons/Delete";
 
@@ -14,12 +15,15 @@ function ImageUploader(props){
         setLoading(true)
         axios.post('https://api.cloudinary.com/v1_1/charlotte-co/image/upload', data)
             .then(res => {
-                netNewImage(res.data.secure_url);
+                console.log(res.data)
+                netNewImage(res.data);
                 setLoading(false);
                 props.setImages([...props.images, newImage]);
             })
             .catch(err =>console.log(err));
     }
+
+    console.log(props.images)
 
     return(<>
         <div className="image-uploader">
@@ -38,11 +42,13 @@ function ImageUploader(props){
                     props.images.map(image => {
                         return (<>
                             <Delete 
-                                delete={image}
+                                delete={image.signature}
                                 deleteFrom={props.images}
                                 setDeleteFrom={props.setImages}
                             />
-                            <img alt="" key={image} src={image}/>
+                            <Image publicId={image.public_Id} >
+                                <Transformation width="200" height="200" crop="scale"  quality="10"/>
+                            </Image>
                         </>)
                     })
                 ):(<p>No images saved</p>)}

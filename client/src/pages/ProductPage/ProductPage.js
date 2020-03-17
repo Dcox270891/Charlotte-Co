@@ -1,6 +1,5 @@
 import React, {useState, useEffect } from "react";
 import API from "../../utils/API";
-import "./style.css";
 
 function ProductPage(props){
     const [  product, setProduct ] = useState();
@@ -30,12 +29,14 @@ function ProductPage(props){
             setMainImage(product.mainImage);
             setPrice(product.price);
             setUniqueTransfers(product.uniqueTransfers)
-            console.log(uniqueTransfers)
         }
     },[product])
 
-    function selectedTransfer(transfer){
-        setTransferSelected(transfer);
+    function selectedTransfer(e){
+        e.preventDefault()
+        API.getTransferById(e.target.value)
+            .then(res => setTransferSelected(res))
+            .catch(err => console.log(err))
     }
 
     return (<>
@@ -51,7 +52,7 @@ function ProductPage(props){
                     </div>
                 </div>
                 <div className="product-other-img">
-                    {(transferSelected !== undefined)?(transferSelected.images.map((image, i) =>{
+                    {(transferSelected !== undefined)?(transferSelected.transferImages.map((image, i) =>{
                         return <img 
                             key={i}
                             alt={transferSelected.title} 
@@ -78,7 +79,7 @@ function ProductPage(props){
                 {(transferSelected !== undefined)?(<p>£{transferSelected.priceDifference + price}</p>):(<p>£{price}</p>)}
                 </div>
                 <div className="product-unique-transfers">
-                    <select onChange={(e) => selectedTransfer(e.target.value)}>
+                    <select onChange={(e) => selectedTransfer(e)}>
                         <option value="null">Select Your option</option>
                         {uniqueTransfers ? (uniqueTransfers.map(transfer => {
                             return (<option
