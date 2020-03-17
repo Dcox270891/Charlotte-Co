@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
 import SignUp from "./pages/SignUp/SignUp";
 import Login from "./components/Login/Login";
 import ProductPage from "./pages/ProductPage/ProductPage";
@@ -16,6 +17,7 @@ function App() {
   
   return (<Router>
     <UserWrapper>
+      <CloudinaryContext cloudName="charlotte-co">
       <div>
         <Header />
         <div className="main-page">
@@ -29,6 +31,7 @@ function App() {
           <Route path="/editproduct/:id" render={(props) => <EditProduct {...props} />} />
         </div>
       </div>
+      </CloudinaryContext>
     </UserWrapper>
   </Router>);
 }

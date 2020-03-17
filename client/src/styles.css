@@ -34,6 +34,23 @@ button:active{
     align-content: space-between;
 }
 
+.productCard:hover{
+
+}
+
+.productCard{
+    text-align: center;
+}
+
+.productCard-price{
+    position: relative;
+    top: 30px;
+}
+
+.productCard-name{
+    position: relative;
+    bottom: 30px;
+}
 
 .edit-product{
     margin: 5px;

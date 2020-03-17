@@ -1,5 +1,6 @@
 import React, {useState, useEffect } from "react";
 import API from "../../utils/API";
+import Picture from "../../components/Picture/Picture";
 
 function ProductPage(props){
     const [  product, setProduct ] = useState();
@@ -52,19 +53,21 @@ function ProductPage(props){
                     </div>
                 </div>
                 <div className="product-other-img">
-                    {(transferSelected !== undefined)?(transferSelected.transferImages.map((image, i) =>{
-                        return <img 
-                            key={i}
-                            alt={transferSelected.title} 
-                            src={image}
+                    {(transferSelected !== undefined)?(transferSelected.transferImages.map((image) =>{
+                        return <Picture
+                            publicId={image.public_id}
+                            version={image.version}
+                            width="250"
+                            quality="40"
                         />
                     })):""}
-                    {(images)?(images.map((image, i) => {
-                        return <img 
-                            key={i}
-                            alt={title} 
-                            src={image}
-                        />
+                    {(images)?(images.map((image) => {
+                        return <Picture
+                        publicId={image.public_id}
+                        version={image.version}
+                        width="250"
+                        quality="40"
+                    />
                     })):""}
                 </div>
             </div>

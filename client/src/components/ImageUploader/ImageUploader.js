@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Image, Transformation } from 'cloudinary-react';
 import axios from "axios";
 import Delete from "../Buttons/Delete";
+import Picture from "../Picture/Picture";
 
 function ImageUploader(props){
-    const [  newImage, netNewImage ] = useState();
     const [  loading, setLoading ] = useState(false);
 
     const uploadImage = async e => {
@@ -15,15 +14,13 @@ function ImageUploader(props){
         setLoading(true)
         axios.post('https://api.cloudinary.com/v1_1/charlotte-co/image/upload', data)
             .then(res => {
-                console.log(res.data)
-                netNewImage(res.data);
                 setLoading(false);
-                props.setImages([...props.images, newImage]);
+                props.setImages([...props.images, res.data]);
             })
             .catch(err =>console.log(err));
     }
 
-    console.log(props.images)
+        console.log(props.images)
 
     return(<>
         <div className="image-uploader">
@@ -42,13 +39,16 @@ function ImageUploader(props){
                     props.images.map(image => {
                         return (<>
                             <Delete 
-                                delete={image.signature}
+                                delete={image.public_id}
                                 deleteFrom={props.images}
                                 setDeleteFrom={props.setImages}
                             />
-                            <Image publicId={image.public_Id} >
-                                <Transformation width="200" height="200" crop="scale"  quality="10"/>
-                            </Image>
+                            <Picture
+                                publicId={image.public_id}
+                                version={image.version}
+                                width="100"
+                                quality="20"
+                            />
                         </>)
                     })
                 ):(<p>No images saved</p>)}

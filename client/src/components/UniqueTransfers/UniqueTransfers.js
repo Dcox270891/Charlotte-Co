@@ -4,6 +4,7 @@ import InputText from "../Input/InputText";
 import InputNumber from "../Input/InputNumber";
 import Close from "../Buttons/Close";
 import ImageUploader from "../ImageUploader/ImageUploader";
+import Picture from "../Picture/Picture";
 import API from "../../utils/API";
 
 function UniqueTransfers(props){
@@ -54,12 +55,24 @@ function UniqueTransfers(props){
             <h2>Transfers</h2>
             <ul>
                 Saved Transfers: 
-                {(transferArray.length>1)?(transferArray.map(transfers => {
+                {(transferArray.length>0)?(transferArray.map(transfers => {
                     return <li key={transfers._id}>
                         Title :{transfers.title}<br/>
                         Description :{transfers.transferDescription}<br/>
-                        Main Image :{transfers.mainTranferImages}<br/>
-                        Other Images :{transfers.transferImages}<br/>
+                        Main Image :{(transfers.mainTranferImage)?(<Picture 
+                            publidId={transfers.mainTranferImage[0].public_id}
+                            version={transfers.mainTranferImage[0].version}
+                            width="250"
+                            scale="60"
+                        />):("")}
+                        Other Images :{(transfers.transferImages)?(transfers.transferImages.map(image =>{
+                            return(<Picture 
+                                publidId={image.public_id}
+                                version={image.version}
+                                width="100"
+                                scale="30"
+                            />)
+                        })):""}<br/>
                         Price Difference :{transfers.priceDifference}<br/>
                         <Close
                             remove={transfers._id}
