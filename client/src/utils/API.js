@@ -25,9 +25,6 @@ export default {
     deleteCategory: function(id){
         return axios.delete(`/api/category/${id}`);
     },
-    editCategory: function(id, category){
-        return axios.put(`/api/category/${id}`, category);
-    },
     getSubCategories: function (){
         return axios.get("/api/subcategory");
     },
@@ -42,9 +39,6 @@ export default {
     },
     deleteSubCategory: function(id){
         return axios.delete(`/api/subcategory/${id}`);
-    },
-    editSubCategory: function(id, subCategory){
-        return axios.put(`/api/subcategory/${id}`, subCategory);
     },
     getProducts: function (){
         return axios.get("/api/product");
@@ -76,10 +70,35 @@ export default {
     deleteTransfer: function(id){
         return axios.delete(`/api/uniquetransfers/${id}`);
     },
-    editTransfer: function(id, transfer){
-        return axios.put(`/api/uniquetransfers/${id}`, transfer);
-    },
     getTransferByProduct: function(id){
         return axios.get(`/api/uniquetransfers/product/${id}`);
     },
+    newBasket: function(newBasket){
+        return axios.post(`/api/basket/new`, newBasket );
+    },
+    getBasketById: function(id){
+        return axios.get(`/api/basket/${id}`);
+    },
+    getAllBaskets: function(){
+        return axios.post(`/api/basket`);
+    },
+    editBasket: function(id){
+        return axios.put(`/api/basket/${id}`);
+    },
+    newBasketRow: function(newBasketrow){
+        return axios.post(`/api/Basketrow/new`, newBasketrow );
+    },
+    getBasketRowById: function(id){
+        return axios.get(`/api/Basketrow/${id}`);
+    },
+    getAllBasketRows: function(){
+        return axios.post(`/api/Basketrow`);
+    },
+    editBasketRow: function(id){
+        return axios.put(`/api/Basketrow/${id}`);
+    },
+    deletBasketRow: function(id){
+        return axios.delete(`/api/Basketrow/${id}`);
+    },
+
 }

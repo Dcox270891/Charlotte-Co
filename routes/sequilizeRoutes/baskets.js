@@ -35,7 +35,7 @@ module.exports = function(app){
         }
     });
 
-    app.get(`/api/Baskets`, function (req,res){
+    app.get(`/api/Basket`, function (req,res){
         db.Baskets.findAll().then( result =>{
             res.status(200).json(result);
             })
@@ -44,7 +44,7 @@ module.exports = function(app){
             });
     });
   
-    app.put(`/api/basket/edit/:id`, function(req,res){
+    app.put(`/api/basket/:id`, function(req,res){
         const basketId = req.params.id
         const newBasket = req.body;
         db.Baskets.update(
