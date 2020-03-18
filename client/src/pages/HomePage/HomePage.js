@@ -8,36 +8,36 @@ function HomePage(){
     const [ loggedOnUser, ] = useContext(UserContext);
     const [ hotNow, setHotNow ] = useContext();
     const [ newProduct, setNewProduct ] = useContext();
-    const [ homeProducts, setHomeProducts ] = useContext();
-    const [ allProducts, setAllProducts ] = useState();
+    // const [ homeProducts, setHomeProducts ] = useContext();
+    // const [ allProducts, setAllProducts ] = useState();
 
-    useEffect(() => {
-        Axios.get("./homeProducts.json")
-            .then(res => setHomeProducts(res.data))
-            .catch(err => console.log(err));
-        API.getProducts()
-            .then(res => setAllProducts(res.data))
-            .catch(err => console.log(err));
-    },[])
+    // useEffect(() => {
+    //     Axios.get("./homeProducts.js")
+    //         .then(res => setHomeProducts(res.data))
+    //         .catch(err => console.log(err));
+    //     API.getProducts()
+    //         .then(res => setAllProducts(res.data))
+    //         .catch(err => console.log(err));
+    // },[])
 
-    useEffect(() => {
-        API.getProductById(homeProducts.hotNow)
-            .then(res => setHotNow(res.data))
-            .catch(err => console.log(err));
-        API.getProductById(homeProducts.newProduct)
-            .then(res => setNewProduct(res.data))
-            .catch(err => console.log(err));
-    },[homeProducts])
+    // useEffect(() => {
+    //     API.getProductById(homeProducts.hotNow)
+    //         .then(res => setHotNow(res.data))
+    //         .catch(err => console.log(err));
+    //     API.getProductById(homeProducts.newProduct)
+    //         .then(res => setNewProduct(res.data))
+    //         .catch(err => console.log(err));
+    // },[homeProducts])
 
-    function changeHotNow(product){
-        const newHotNow = allProducts[product._id];
-        function changeHomeProducts (req,res){
-            Axios.put("./homeProducts.json", {"hotNow": {newHotNow}})
-                .then(dbmodel => res.json(dbmodel))
-                .catch(err => console.log(err))
-        }
-        changeHomeProducts (req,res);
-    }
+    // function changeHotNow(product){
+    //     const newHotNow = allProducts[product._id];
+    //     function changeHomeProducts (req,res){
+    //         Axios.put("./homeProducts.js", {"hotNow": {newHotNow}})
+    //             .then(dbmodel => res.json(dbmodel))
+    //             .catch(err => console.log(err))
+    //     }
+    //     changeHomeProducts(req,res);
+    // }
 
     
     return(<>
@@ -46,7 +46,7 @@ function HomePage(){
             <div className="home-product">
                 <h2 className="home-product-title">Hot Now</h2>
                 <ProductCard key="hotNow" product={hotNow}/>
-                {loggedOnUser.isAdmin?(
+                {/* {loggedOnUser.isAdmin?(
                     <div>
                         <label htmlFor="hotNow">
                             Change this product
@@ -71,7 +71,7 @@ function HomePage(){
                             })}
                         </select>
                     </div>
-                ):""}
+                ):""} */}
             </div>
             <div className="home-product">
                 <h2 className="home-product-title">New</h2>
