@@ -23,6 +23,8 @@ app.use(products);
 app.use(uniqueTransfers);
 
 require('./routes/sequilizeRoutes/users')(app);
+require('./routes/sequilizeRoutes/baskets')(app);
+require('./routes/sequilizeRoutes/basketRows')(app);
 require('./routes/passportRoutes/passportRoutes')(app);
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/charlotte_co", { useNewUrlParser: true });
