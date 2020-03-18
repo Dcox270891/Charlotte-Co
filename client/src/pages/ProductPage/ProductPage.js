@@ -39,9 +39,7 @@ function ProductPage(props){
 
     function selectedTransfer(e){
         e.preventDefault()
-        API.getTransferById(e.target.value)
-            .then(res => setTransferSelected(res))
-            .catch(err => console.log(err))
+        setTransferSelected(uniqueTransfers[e.target.value])
     }
 
     return (<>
@@ -89,10 +87,10 @@ function ProductPage(props){
                 <div className="product-unique-transfers">
                     <select onChange={(e) => selectedTransfer(e)}>
                         <option value="null">Select Your option</option>
-                        {uniqueTransfers ? (uniqueTransfers.map(transfer => {
+                        {uniqueTransfers ? (uniqueTransfers.map((transfer, i) => {
                             return (<option
-                                key={transfer.id}
-                                value={transfer._id}
+                                key={transfer._id}
+                                value={i}
                             >
                                 {transfer.title}
                             </option>)

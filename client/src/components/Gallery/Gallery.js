@@ -5,15 +5,15 @@ function Gallery(props){
     const [ mainImage, setMainImage ] = useState();
     const [ images, setImages ] = useState();
 
-    function selectImage(image){
-        console.log(image)
-        setMainImage(image)
+    function selectImage(i){
+        console.log(i)
+        setMainImage(images[i])
     }
 
     useEffect(() => {
         if(props.images){
             setMainImage(props.images[0]);
-            setImages([props.images]);
+            setImages(props.images);
         }
     },[props.images])
 
@@ -28,14 +28,18 @@ function Gallery(props){
                 />):""}
             </div>
             <div className="gallery-images">
-                {(images)?(images.map(image => {
-                    return <Picture
-                        onClick={(e) => selectImage(e.target.value)}
-                        publicId={image.public_id}
-                        version={image.version}
-                        width="100"
-                        quality="20"
-                    />
+                {(images)?(images.map((image, i) => {
+                    return <div
+                        onClick={() => selectImage(i)}
+                        value={i}
+                    >
+                        <Picture
+                            publicId={image.public_id}
+                            version={image.version}
+                            width="100"
+                            quality="20"
+                        />
+                    </div>
                 })):""}
             </div>
         </div>
