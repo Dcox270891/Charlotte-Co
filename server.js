@@ -22,7 +22,7 @@ app.use(subCatgeory);
 app.use(products);
 app.use(uniqueTransfers);
 
-require('./routes/sequilizeRoutes/sequilizeRoutes')(app);
+require('./routes/sequilizeRoutes/users')(app);
 require('./routes/passportRoutes/passportRoutes')(app);
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/charlotte_co", { useNewUrlParser: true });
