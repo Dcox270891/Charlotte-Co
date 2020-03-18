@@ -55,7 +55,7 @@ function UniqueTransfers(props){
             <h2>Transfers</h2>
             <ul>
                 Saved Transfers: 
-                {(transferArray.length>0)?(transferArray.map(transfers => {
+                {(transferArray.length>=1)?(transferArray.map(transfers => {
                     return <li key={transfers._id}>
                         Title :{transfers.title}<br/>
                         Description :{transfers.transferDescription}<br/>

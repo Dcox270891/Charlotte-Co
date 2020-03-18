@@ -1,13 +1,12 @@
 import React, {useState, useEffect } from "react";
 import API from "../../utils/API";
-import Picture from "../../components/Picture/Picture";
+import Gallery from "../../components/Gallery/Gallery";
 
 function ProductPage(props){
     const [  product, setProduct ] = useState();
     const [  title, setTitle  ] = useState("");
     const [  description, setDescription ] = useState("");
     const [  images, setImages ] = useState([]);
-    const [  mainImage, setMainImage ] = useState({});
     const [  price, setPrice ] = useState("");
     const [  uniqueTransfers, setUniqueTransfers ] = useState([]);
     const [  transferSelected, setTransferSelected ] = useState(undefined);
@@ -27,11 +26,16 @@ function ProductPage(props){
             setTitle(product.name);
             setDescription(product.description);
             setImages(product.images);
-            setMainImage(product.mainImage);
             setPrice(product.price);
             setUniqueTransfers(product.uniqueTransfers)
         }
     },[product])
+
+    useEffect(()=> {
+        if (transferSelected !== undefined){
+            setImages([...transferSelected.transferImages, ...images])
+        }
+    },[transferSelected])
 
     function selectedTransfer(e){
         e.preventDefault()
@@ -42,17 +46,18 @@ function ProductPage(props){
 
     return (<>
         <div className="product-page">
-            <div className="row">
+            <div className="container">
                 <div className="product-main">
                     <div className="product-title">
                         <h3>{title}</h3>
                         {(transferSelected !== undefined)?(<h2>{transferSelected.title}</h2>):""}
                     </div>
-                    <div className="product-main-img">
-                        <img alt={title} src={mainImage}/>
-                    </div>
                 </div>
                 <div className="product-other-img">
+                    <Gallery
+                        images={images}
+                    />
+{/* 
                     {(transferSelected !== undefined)?(transferSelected.transferImages.map((image) =>{
                         return <Picture
                             publicId={image.public_id}
@@ -68,7 +73,7 @@ function ProductPage(props){
                         width="250"
                         quality="40"
                     />
-                    })):""}
+                    })):""} */}
                 </div>
             </div>
             <div className="row">
