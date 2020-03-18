@@ -55,23 +55,6 @@ function ProductPage(props){
                     <Gallery
                         images={images}
                     />
-{/* 
-                    {(transferSelected !== undefined)?(transferSelected.transferImages.map((image) =>{
-                        return <Picture
-                            publicId={image.public_id}
-                            version={image.version}
-                            width="250"
-                            quality="40"
-                        />
-                    })):""}
-                    {(images)?(images.map((image) => {
-                        return <Picture
-                        publicId={image.public_id}
-                        version={image.version}
-                        width="250"
-                        quality="40"
-                    />
-                    })):""} */}
                 </div>
             </div>
             <div className="row">
