@@ -3,13 +3,15 @@ import API from "../../utils/API";
 import Gallery from "../../components/Gallery/Gallery";
 
 function ProductPage(props){
-    const [  product, setProduct ] = useState();
+    const [  product, setProduct ] = useState(undefined);
     const [  title, setTitle  ] = useState("");
     const [  description, setDescription ] = useState("");
     const [  images, setImages ] = useState([]);
     const [  price, setPrice ] = useState("");
     const [  uniqueTransfers, setUniqueTransfers ] = useState([]);
     const [  transferSelected, setTransferSelected ] = useState(undefined);
+    const [  size, setSize ] = useState();
+    const [  color, setColor ] = useState();
     const query = props.match.params.id;
 
     useEffect(() => {
@@ -28,6 +30,7 @@ function ProductPage(props){
             setImages(product.images);
             setPrice(product.price);
             setUniqueTransfers(product.uniqueTransfers)
+            console.log(product)
         }
     },[product])
 
@@ -82,6 +85,44 @@ function ProductPage(props){
                 </div>
             </div>
             <div className="row">
+            <div>
+                    {(product !== undefined)?(
+                        <div>
+                            <label htmlFor="sizeSelector">
+                                Select your Size : 
+                            </label>
+                            <select
+                                name="sizeSelector"
+                                onChange={(e) => setSize(product.sizes[e.target.value])}
+                            >
+                                {product.sizes.map((size, i)=> {
+                                    return <option value={i} key={size}>
+                                        {size}
+                                    </option>
+                                })}
+                            </select>
+                        </div>
+                    ):""}
+                </div>
+                <div>
+                    {(product !== undefined)?(
+                        <div>
+                            <label htmlFor="colorSelector">
+                                Select your Color : 
+                            </label>
+                            <select
+                                name="colorSelector"
+                                onChange={(e) => setColor(product.productColours[e.target.value])}
+                            >
+                                {product.productColours.map((color, i)=> {
+                                    return <option value={i} key={color}>
+                                        {color}
+                                    </option>
+                                })}
+                            </select>
+                        </div>
+                    ):""}
+                </div>
                 <div className="product-add-to-basket">
                     <button>Add to Basket</button>
                 </div>
