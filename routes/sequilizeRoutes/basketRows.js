@@ -19,6 +19,7 @@ module.exports = function(app){
             transferText: newBasketRow.transferText,
             transferTextColor: newBasketRow.transferTextColor,
             quantity: newBasketRow.quantity,
+            price: newBasketRow.price,
             })
             .then(res.json())
         res.end();
@@ -29,7 +30,7 @@ module.exports = function(app){
         if (basketRowId){
             db.Answers.findAll({
                     where: {
-                        basketRowId: basketRowId
+                        basketId: basketId
                     }
                 })
                 .then(result => {
@@ -67,6 +68,7 @@ module.exports = function(app){
                     transferText: newBasketRow.transferText,
                     transferTextColor: newBasketRow.transferTextColor,
                     quantity: newBasketRow.quantity,
+                    price: newBasketRow.price,
                 },
                 {
                     where: {

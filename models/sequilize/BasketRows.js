@@ -54,6 +54,10 @@ module.exports = function(sequilize, DataTypes){
             type: DataTypes.INTEGER ,
             allowNull: false,
         },
+        price:{
+            type: DataTypes.INTEGER ,
+            allowNull: false,
+        }
     },
     {},
     {

@@ -12,10 +12,12 @@ module.exports = function(sequilize, DataTypes){
         },
         isCompleted:{
             type: DataTypes.BOOLEAN,
+            allowNull: false,
             default: false,
         },
         isSent:{
             type: DataTypes.BOOLEAN,
+            allowNull: false,
             default: false,
         },
         trackingCode:{
@@ -24,6 +26,7 @@ module.exports = function(sequilize, DataTypes){
         },
         isPaid:{
             type: DataTypes.BOOLEAN,
+            allowNull: false,
             default: false,
         },
         discount:{

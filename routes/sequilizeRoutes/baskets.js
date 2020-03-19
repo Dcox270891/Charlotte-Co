@@ -18,14 +18,14 @@ module.exports = function(app){
         res.end();
     })
     
-    app.get(`/api/Basket/:id`, function(req, res){
+    app.get(`/api/basket/:id`, function(req, res){
         const basketId = req.params.id;
         if (basketId){
-            db.Answers.findAll({
+            db.Baskets.findAll({
                     where: {
-                        basketId: basketId
-                    }
-                })
+                        userId: basketId,
+                        isPaid: false,
+                }})
                 .then(result => {
                 res.status( 200 ).json(result);
                 })
@@ -35,7 +35,7 @@ module.exports = function(app){
         }
     });
 
-    app.get(`/api/Basket`, function (req,res){
+    app.get(`/api/basket`, function (req,res){
         db.Baskets.findAll().then( result =>{
             res.status(200).json(result);
             })
