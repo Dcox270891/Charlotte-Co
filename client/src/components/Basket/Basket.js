@@ -5,10 +5,9 @@ import API from "../../utils/API";
 
 function Basket(props){
     const [ basketData, setBasketData ] = useContext(BasketContext);
+    const [ basketRowData, setBasketRowData ] = useContext(BasketContext);
     const [ loggedOnUser, setLoggedOnUser ] = useContext(UserContext);
-    const [ basket, setBasket ] = useState();
-    const [ basketRows, setBasketRows ] = useState();
-    console.log(loggedOnUser)
+    const [ basket, setBasket ] = useState()
 
     function createNewBasket(){
         API.newBasket({
@@ -19,8 +18,8 @@ function Basket(props){
             })
             .then(res => {   
                 setLoggedOnUser(loggedOnUser);
-                setBasketData(res.data[res.data.length]);
-                setBasket(res.data[res.data.length]);
+                setBasketData(res.data);
+                setBasket(res.data)
             })
     }
 
@@ -32,32 +31,35 @@ function Basket(props){
                     createNewBasket()
                 } else {
                     setLoggedOnUser(loggedOnUser);
-                    setBasketData(res.data[res.data.length]);
-                    setBasket(res.data[res.data.length]);
+                    setBasketData(res.data);
+                    setBasket(res.data)
                 }
             })
             .catch(err => console.log(err))
     },[])
 
     useEffect(() => {
-        if(basket !== undefined){
-            API.getBasketRowById(basket.basketId)
-                .then(res => setBasketRows(res.data))
+        if(basketData !== undefined){
+            console.log(basketData[0].basketId)
+            API.getBasketRowById(basketData[0].basketId)
+                .then(res => {
+                    setBasketRowData(res.data)
+                })
                 .catch(err => console.log(err))
         }
-    },[])
+    },[basket])
 
     return(<>
         <div>
         <h2>{loggedOnUser.firstName}'s Basket</h2>
-            {basketRows?(basketRows.map(row => {
+            {basketRowData?(basketRowData.map(row => {
                 return <div key={row.basketRowId} value={row.basketRowId}>
                         <p>{row.productTitle}</p>
                         <p>{row.transferTitle}</p>
-                        <p>{row.size}</p>
-                        <p>{row.productColor}</p>
-                        <p>{row.price}</p>
-                        <p>{row.quantity}</p>
+                        <p>Size: {row.size}</p>
+                        <p>Colour: {row.productColor}</p>
+                        <p>£{row.price}</p>
+                        <p>Amount: {row.quantity}</p>
                     </div>
             })):""}
 

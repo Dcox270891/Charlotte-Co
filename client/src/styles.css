@@ -34,6 +34,19 @@ button:active{
     align-content: space-between;
 }
 
+.product-page{
+    background-color: #E0E0E0;
+    border-radius: 5px;
+    border: 2px;
+    border-color: #FFCCCC;
+    border-style: ridge;
+    margin: 5px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+}
+
 .productCard:hover{
 
 }

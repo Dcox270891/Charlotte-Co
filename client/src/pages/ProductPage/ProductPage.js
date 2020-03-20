@@ -2,8 +2,10 @@ import React, {useState, useEffect, useContext } from "react";
 import API from "../../utils/API";
 import Gallery from "../../components/Gallery/Gallery";
 import {UserContext} from "../../UserContext";
+import {BasketContext} from "../../BasketContext";
 
 function ProductPage(props){
+    const [ basketData, setBasketData ] = useContext(BasketContext);
     const [ loggedOnUser, setLoggedOnUser ] = useContext(UserContext);
     const [  product, setProduct ] = useState(undefined);
     const [  title, setTitle  ] = useState("");
@@ -16,6 +18,8 @@ function ProductPage(props){
     const [  color, setColor ] = useState();
     const [ quantity, setQuantity ] = useState();
     const query = props.match.params.id;
+
+    console.log(basketData)
 
     useEffect(() => {
         API.getProductById(query)
@@ -32,6 +36,8 @@ function ProductPage(props){
             setDescription(product.description);
             setImages(product.images);
             setPrice(product.price);
+            setSize(product.sizes[0]);
+            setColor(product.productColours[0])
             setUniqueTransfers(product.uniqueTransfers)
             console.log(product)
         }
@@ -40,7 +46,7 @@ function ProductPage(props){
     useEffect(()=> {
         if (transferSelected !== undefined){
             setImages([...transferSelected.transferImages, ...images])
-            setPrice(transferSelected.price + product.price)
+            setPrice(transferSelected.priceDifference + product.price)
         }
     },[transferSelected])
 
@@ -52,19 +58,20 @@ function ProductPage(props){
     function addToBasket(e){
         e.preventDefault();
         if(loggedOnUser !== undefined && transferSelected !== undefined){
+            console.log(basketData[0].basketId)
             API.newBasketRow({
-                    basketId: loggedOnUser.basketData[0].basketId,
+                    basketId: basketData[0].basketId,
                     userId: loggedOnUser.userId,
                     productId: product._id,
                     productTitle: product.name,
                     transferId: transferSelected._id,
-                    transferTitle: transferSelected.name,
+                    transferTitle: transferSelected.title,
                     size: size,
                     productColor: color,
-                    quantity: quantity,
+                    quantity: 1,
                     price: price,
                 })
-                .then(res => console.log(res.data))
+                .then(res => console.log("results here"))
                 .catch(err => console.log(err))
         } else {
             alert("You need to log on and select a transfer before you can add an item to your basket.")
@@ -94,7 +101,7 @@ function ProductPage(props){
             </div>
             <div className="row">
                 <div className="product-price">
-                {(transferSelected !== undefined)?(<p>£{transferSelected.priceDifference + price}</p>):(<p>£{price}</p>)}
+                    <p>£{price}</p>
                 </div>
                 <div className="product-unique-transfers">
                     <select onChange={(e) => selectedTransfer(e)}>
