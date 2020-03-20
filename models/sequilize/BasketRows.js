@@ -1,5 +1,5 @@
 module.exports = function(sequilize, DataTypes){
-    const BasketRows = sequilize.define(`Baskets`,{
+    const BasketRows = sequilize.define(`BasketRows`,{
         basketRowId:{
             type: DataTypes.INTEGER,
             allowNull: false,

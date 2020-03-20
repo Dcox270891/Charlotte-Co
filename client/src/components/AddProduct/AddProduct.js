@@ -40,6 +40,8 @@ function AddProduct(props){
             setDescription(product.description);
             setPrice(product.price);
             setSizes(product.sizes);
+            setCategory(product.category);
+            setSubCategory(product.subCategory);
             setProductColours(product.productColours);
             setIsActive(product.isActive);
             setInStock(product.inStock);

@@ -1,8 +1,10 @@
-import React, {useState, useEffect } from "react";
+import React, {useState, useEffect, useContext } from "react";
 import API from "../../utils/API";
 import Gallery from "../../components/Gallery/Gallery";
+import {UserContext} from "../../UserContext";
 
 function ProductPage(props){
+    const [ loggedOnUser, setLoggedOnUser ] = useContext(UserContext);
     const [  product, setProduct ] = useState(undefined);
     const [  title, setTitle  ] = useState("");
     const [  description, setDescription ] = useState("");
@@ -12,6 +14,7 @@ function ProductPage(props){
     const [  transferSelected, setTransferSelected ] = useState(undefined);
     const [  size, setSize ] = useState();
     const [  color, setColor ] = useState();
+    const [ quantity, setQuantity ] = useState();
     const query = props.match.params.id;
 
     useEffect(() => {
@@ -37,12 +40,35 @@ function ProductPage(props){
     useEffect(()=> {
         if (transferSelected !== undefined){
             setImages([...transferSelected.transferImages, ...images])
+            setPrice(transferSelected.price + product.price)
         }
     },[transferSelected])
 
     function selectedTransfer(e){
         e.preventDefault()
         setTransferSelected(uniqueTransfers[e.target.value])
+    }
+
+    function addToBasket(e){
+        e.preventDefault();
+        if(loggedOnUser !== undefined && transferSelected !== undefined){
+            API.newBasketRow({
+                    basketId: loggedOnUser.basketData[0].basketId,
+                    userId: loggedOnUser.userId,
+                    productId: product._id,
+                    productTitle: product.name,
+                    transferId: transferSelected._id,
+                    transferTitle: transferSelected.name,
+                    size: size,
+                    productColor: color,
+                    quantity: quantity,
+                    price: price,
+                })
+                .then(res => console.log(res.data))
+                .catch(err => console.log(err))
+        } else {
+            alert("You need to log on and select a transfer before you can add an item to your basket.")
+        }
     }
 
     return (<>
@@ -124,8 +150,7 @@ function ProductPage(props){
                     ):""}
                 </div>
                 <div className="product-add-to-basket">
-                    <button>Add to Basket</button>
-                </div>
+                    <button onClick={(e) => addToBasket(e)}>Add to Basket</button>                </div>
                 <div className="product-quantity">
                     -0+
                 </div>

@@ -1,8 +1,10 @@
 import React, { useEffect, useContext, useState } from "react";
 import {UserContext} from "../../UserContext";
+import {BasketContext} from "../../BasketContext";
 import API from "../../utils/API";
 
 function Basket(props){
+    const [ basketData, setBasketData ] = useContext(BasketContext);
     const [ loggedOnUser, setLoggedOnUser ] = useContext(UserContext);
     const [ basket, setBasket ] = useState();
     const [ basketRows, setBasketRows ] = useState();
@@ -16,9 +18,9 @@ function Basket(props){
             isPaid: false,
             })
             .then(res => {   
-                const basketData = res.data
-                setLoggedOnUser(loggedOnUser, res.data[res.data.length()])
-                setBasket(res.data[res.data.length()])
+                setLoggedOnUser(loggedOnUser);
+                setBasketData(res.data[res.data.length]);
+                setBasket(res.data[res.data.length]);
             })
     }
 
@@ -29,12 +31,12 @@ function Basket(props){
                 if (basketData.length <= 0){
                     createNewBasket()
                 } else {
-                    setLoggedOnUser({loggedOnUser, basketData})
-                    setBasket(res.data)
+                    setLoggedOnUser(loggedOnUser);
+                    setBasketData(res.data[res.data.length]);
+                    setBasket(res.data[res.data.length]);
                 }
             })
             .catch(err => console.log(err))
-            console.log(loggedOnUser)
     },[])
 
     useEffect(() => {

@@ -28,7 +28,7 @@ module.exports = function(app){
     app.get(`/api/Basketrow/:id`, function(req, res){
         const basketRowId = req.params.id;
         if (basketRowId){
-            db.Answers.findAll({
+            db.BasketRows.findAll({
                     where: {
                         basketId: basketId
                     }

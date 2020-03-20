@@ -25,19 +25,19 @@ function Header(){
             <div className="login-basket">
                 <button onClick={() => setToggleLogInBasket(true)}>
                     Login/Basket
-                </button>
+                </button>               
+            {toggleLogInBasket? (<div>
+                    <Close onClick={() => setToggleLogInBasket(false)} />
+                    {(loggedOnUser === undefined)?(<div>
+                        <Login />
+                        <Link to="/signup">Sign Up</Link>
+                    </div>):(<div>
+                        <Basket/>
+                    </div>)}
+                </div>) : ""}
             </div>
         </header>
         {toggleNav? (<Nav />) : ""} 
-        {toggleLogInBasket? (<div>
-                <Close onClick={() => setToggleLogInBasket(false)} />
-                {(loggedOnUser === undefined)?(<div>
-                    <Login />
-                    <Link to="/signup">Sign Up</Link>
-                </div>):(<div>
-                    <Basket/>
-                </div>)}
-            </div>) : ""}
     </>)
 }
 

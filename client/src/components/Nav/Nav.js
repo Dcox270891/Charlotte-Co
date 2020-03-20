@@ -61,12 +61,12 @@ function Nav(){
                 >
                     <Link to="/allproducts">All products</Link>
                 </div>
-                {loggedOnUser?.isAdmin?(<div 
+                {(loggedOnUser?.isAdmin)?(<div 
                     className="nav-category-links"
                     key="add-products"
                 >
                     <Link to="/addnewproduct">Add a product</Link>
-                </div>):""}
+                </div>):null}
                 {categories.map((category, i) => {
                     return (<>
                         <div 
@@ -94,12 +94,12 @@ function Nav(){
                                                                 key={product._id}
                                                             >
                                                                 <Link to={`/productpage/${product._id}`}>{product.name}</Link>
-                                                                {loggedOnUser?.isAdmin?(<Link 
+                                                                {(loggedOnUser?.isAdmin)?(<Link 
                                                                     className="edit"
                                                                     to={`/editproduct/${product._id}`}
                                                                 >
                                                                     Edit
-                                                                </Link>):""}
+                                                                </Link>): null}
                                                             </div>
                                                         })
                                                     ) : ""}
