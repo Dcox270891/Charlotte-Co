@@ -3,6 +3,7 @@ import API from "../../utils/API";
 import Gallery from "../../components/Gallery/Gallery";
 import {UserContext} from "../../UserContext";
 import {BasketContext} from "../../BasketContext";
+import Quantity from "../../components/Quantity/Quantity";
 
 function ProductPage(props){
     const [ basketData, setBasketData ] = useContext(BasketContext);
@@ -16,7 +17,7 @@ function ProductPage(props){
     const [  transferSelected, setTransferSelected ] = useState(undefined);
     const [  size, setSize ] = useState();
     const [  color, setColor ] = useState();
-    const [ quantity, setQuantity ] = useState();
+    const [ quantity, setQuantity ] = useState(0);
     const query = props.match.params.id;
 
     useEffect(() => {
@@ -65,7 +66,7 @@ function ProductPage(props){
                     transferTitle: transferSelected.title,
                     size: size,
                     productColor: color,
-                    quantity: 1,
+                    quantity: quantity,
                     price: price,
                 })
                 .then(res => console.log(res))
@@ -156,7 +157,10 @@ function ProductPage(props){
                 <div className="product-add-to-basket">
                     <button onClick={(e) => addToBasket(e)}>Add to Basket</button>                </div>
                 <div className="product-quantity">
-                    -0+
+                    <Quantity
+                        quantity={quantity}
+                        setQuantity={setQuantity}
+                    />
                 </div>
             </div>
         </div>
