@@ -82,7 +82,7 @@ module.exports = function(app){
 
     app.delete(`/api/Basketrow/:id`, function(req,res){
         const basketRowId = req.params.id
-        db.BasketRows.delete(
+        db.BasketRows.destroy(
                 {
                     where: {
                         basketRowId: basketRowId

@@ -97,7 +97,7 @@ export default {
     editBasketRow: function(id){
         return axios.put(`/api/Basketrow/${id}`);
     },
-    deletBasketRow: function(id){
+    deleteBasketRow: function(id){
         return axios.delete(`/api/Basketrow/${id}`);
     },
 

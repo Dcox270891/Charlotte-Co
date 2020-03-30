@@ -19,8 +19,6 @@ function ProductPage(props){
     const [ quantity, setQuantity ] = useState();
     const query = props.match.params.id;
 
-    console.log(basketData)
-
     useEffect(() => {
         API.getProductById(query)
             .then(res => setProduct(res.data))
@@ -39,7 +37,6 @@ function ProductPage(props){
             setSize(product.sizes[0]);
             setColor(product.productColours[0])
             setUniqueTransfers(product.uniqueTransfers)
-            console.log(product)
         }
     },[product])
 
@@ -58,7 +55,7 @@ function ProductPage(props){
     function addToBasket(e){
         e.preventDefault();
         if(loggedOnUser !== undefined && transferSelected !== undefined){
-            console.log(basketData[0].basketId)
+            console.log(`basket row id ${basketData[0].basketId}`)
             API.newBasketRow({
                     basketId: basketData[0].basketId,
                     userId: loggedOnUser.userId,
@@ -71,7 +68,7 @@ function ProductPage(props){
                     quantity: 1,
                     price: price,
                 })
-                .then(res => console.log("results here"))
+                .then(res => console.log(res))
                 .catch(err => console.log(err))
         } else {
             alert("You need to log on and select a transfer before you can add an item to your basket.")

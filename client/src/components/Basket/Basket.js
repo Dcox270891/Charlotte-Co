@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import {UserContext} from "../../UserContext";
 import {BasketContext} from "../../BasketContext";
+import Delete from "../Buttons/Delete";
 import API from "../../utils/API";
 
 function Basket(props){
@@ -49,6 +50,13 @@ function Basket(props){
         }
     },[basket])
 
+    function remove(e){
+        e.preventDefault()
+        API.deleteBasketRow(e.target.getAttribute("delete"))
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+    }
+
     return(<>
         <div>
         <h2>{loggedOnUser.firstName}'s Basket</h2>
@@ -60,6 +68,9 @@ function Basket(props){
                         <p>Colour: {row.productColor}</p>
                         <p>£{row.price}</p>
                         <p>Amount: {row.quantity}</p>
+                        <button 
+                            delete={row.basketRowId}
+                            onClick={(e) => remove(e)}>Delete</button>
                     </div>
             })):""}
 
