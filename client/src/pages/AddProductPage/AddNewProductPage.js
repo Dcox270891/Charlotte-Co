@@ -10,7 +10,6 @@ function AddNewProductPage(){
         API.newProduct(newProduct)
             .then(res => {
                 setProduct(res)
-                return <Redirect to={"/editproduct/" + product._id}/>
             })
             .catch(err => console.log(err))
     }

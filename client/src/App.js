@@ -9,10 +9,12 @@ import CategoriesPage from "./pages/CategoriesPage/CategoriesPage";
 import AddProduct from "./pages/AddProductPage/AddNewProductPage";
 import EditProduct from "./pages/EditProductPage/EditProductPage";
 import Header from "./components/Header/Header";
+import OrderHistory from "./pages/OrderHistory/OrderHistory";
 import "./styles.css";
 import AllProductsPage from './pages/AllProductsPage/AllProductsPage';
 import {UserWrapper} from "./UserContext";
 import {BasketWrapper} from "./BasketContext";
+import EditableTransferPage from "./pages/EditableTransferPage/EditableTransferPage";
 
 function App() {
   
@@ -28,9 +30,11 @@ function App() {
             <Route path="/allproducts" component={AllProductsPage} />
             <Route path="/category/:id" render={(props) => <CategoriesPage {...props} />} />
             <Route exact path="/signup" component={SignUp} />
+            <Route path="/product/transfer/:id" render={(props) => <EditableTransferPage {...props} />} />
             <Route path="/productpage/:id" render={(props) => <ProductPage {...props} />} />
             <Route exact path="/addnewproduct" component={AddProduct} />
             <Route path="/editproduct/:id" render={(props) => <EditProduct {...props} />} />
+            <Route path="/orderhistory" component={OrderHistory} />
           </div>
         </div>
         </CloudinaryContext>

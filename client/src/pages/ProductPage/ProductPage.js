@@ -4,6 +4,7 @@ import Gallery from "../../components/Gallery/Gallery";
 import {UserContext} from "../../UserContext";
 import {BasketContext} from "../../BasketContext";
 import Quantity from "../../components/Quantity/Quantity";
+import { Link } from "react-router-dom";
 
 function ProductPage(props){
     const [ basketData, setBasketData ] = useContext(BasketContext);
@@ -18,6 +19,7 @@ function ProductPage(props){
     const [  size, setSize ] = useState();
     const [  color, setColor ] = useState();
     const [ quantity, setQuantity ] = useState(0);
+    const [ isEditable, setIsEditable ] = useState();
     const query = props.match.params.id;
 
     useEffect(() => {
@@ -36,8 +38,9 @@ function ProductPage(props){
             setImages(product.images);
             setPrice(product.price);
             setSize(product.sizes[0]);
-            setColor(product.productColours[0])
-            setUniqueTransfers(product.uniqueTransfers)
+            setColor(product.productColours[0]);
+            setUniqueTransfers(product.uniqueTransfers);
+            setIsEditable(product.isEditable);
         }
     },[product])
 
@@ -53,8 +56,7 @@ function ProductPage(props){
         setTransferSelected(uniqueTransfers[e.target.value])
     }
 
-    function addToBasket(e){
-        e.preventDefault();
+    function addToBasket(){
         if(loggedOnUser !== undefined && transferSelected !== undefined){
             console.log(`basket row id ${basketData[0].basketId}`)
             API.newBasketRow({
@@ -78,6 +80,13 @@ function ProductPage(props){
 
     return (<>
         <div className="product-page">
+            {(isEditable)? (
+                <div>
+                    <Link to={`/product/transfer/${product._id}`}>
+                        <h1>Create your own Transfer for this product</h1>
+                    </Link>
+                </div>
+            ):""}
             <div className="container">
                 <div className="product-main">
                     <div className="product-title">
@@ -155,7 +164,7 @@ function ProductPage(props){
                     ):""}
                 </div>
                 <div className="product-add-to-basket">
-                    <button onClick={(e) => addToBasket(e)}>Add to Basket</button>                </div>
+                    <button onClick={addToBasket}>Add to Basket</button>                </div>
                 <div className="product-quantity">
                     <Quantity
                         quantity={quantity}

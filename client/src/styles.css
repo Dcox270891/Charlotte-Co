@@ -7,6 +7,39 @@
     font-weight: 400;
 }
 
+.editableArea{
+    position: absolute;
+    background-color: green;
+    height: 150px;
+    width: 150px;
+    border-style: solid;
+    border-color: black;
+    border-width: 5px;
+    z-index: 5;
+    cursor: move;
+}
+
+/* .editable-top{
+    position: sticky;
+    justify-self: space-around;
+    align-self: space-around;
+}
+.editable-left{
+    position: relative;
+    left: 0px;
+    top: auto;
+}
+.editable-right{
+    position: relative;
+    right: 0px;
+    top: auto; 
+}
+.editable-bottom{
+    position: relative;
+    bottom: 0px;
+    left: auto;
+} */
+
 button{
     background-color: #FFCCCC;
     color: #D4AC0D;

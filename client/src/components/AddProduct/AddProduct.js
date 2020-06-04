@@ -7,6 +7,7 @@ import MultipleOptions from "../Input/MuiltipleInputs";
 import API from "../../utils/API";
 import Submit from "../Buttons/Submit";
 import ImageUploader from "../ImageUploader/ImageUploader";
+import EditableImageUploader from "../ImageUploader/EditableImageUploader";
 
 function AddProduct(props){
     const [  product, setProduct ] = useState()
@@ -26,6 +27,8 @@ function AddProduct(props){
     const [  deliveryTimeMax, setDeliveryTimeMax ] = useState();
     const [  deliveryTimeMin, setDeliveryTimeMin ] = useState();
     const [  images, setImages ] = useState([]);
+    const [  isEditable, setIsEditable ] = useState();
+    const [  blankImage, setBlankImage ] = useState([]);
     const query = props.id;
 
     useEffect(() => {
@@ -48,6 +51,8 @@ function AddProduct(props){
             setImages(product.images);
             setDeliveryTimeMax(product.deliveryTimeMax);
             setDeliveryTimeMin(product.deliveryTimeMin);
+            setIsEditable(product.isEditable);
+            setBlankImage(product.blankImage);
         }
 
     },[product]);
@@ -81,6 +86,8 @@ function AddProduct(props){
             deliveryTimeMax: deliveryTimeMax,
             deliveryTimeMin: deliveryTimeMin,
             images: images,
+            isEditable: isEditable,
+            blankImage: blankImage,
         };
         props.submitHandler(newProduct) 
     }
@@ -129,6 +136,12 @@ function AddProduct(props){
                 onChange={e => setInStock(e.target.checked)?(true):(false)}
                 placeholder="In Stock"
             />
+            <Checkbox
+                name="isEditable"
+                value={isEditable}
+                onChange={e => setIsEditable(e.target.checked)?(true):(false)}
+                placeholder="Personalized transfers available"
+            />
             <MultipleOptions 
                 value={size} 
                 placeholder="Sizes"
@@ -161,6 +174,13 @@ function AddProduct(props){
                 images={images}
                 setImages={setImages}
             />
+            {/* {(isEditable)?(<>
+                <p>Only blank images for the personilzation</p>
+                <EditableImageUploader
+                    images={blankImage}
+                    setImages={setBlankImage}
+                />
+            </>):""} */}
             <Submit
                 onClick={(e) => submitProduct(e)}
             />

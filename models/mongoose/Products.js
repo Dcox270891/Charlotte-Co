@@ -60,6 +60,15 @@ const ProductSchema = new Schema({
         type: Number,
         required: true, 
     },
+    isEditable:{
+        type: Boolean,
+        default: true,
+        required: true, 
+    },
+    blankImage:{
+        type: [],
+        required: false,
+    }
 });
 
 const Product = mongoose.model("Product", ProductSchema);
