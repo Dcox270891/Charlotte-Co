@@ -7,19 +7,20 @@ function OrderHistory(props){
     const [ orders, setOrders ] = useState();
 
     useEffect(() => {
-        API.getBasketById(loggedOnUser.id)
+        API.getAllBasketsByCustomer(loggedOnUser.id)
             .then(res => setOrders(res.data))
             .catch(err => console.log(err))
     },[])
 
+    console.log(`orders`, orders)
     return(<>
     <div>
-        <h1>{loggedOnUser.firtsName} {loggedOnUser.lastName}'s Orders</h1>
+        <h1>{loggedOnUser.firstName} {loggedOnUser.lastName}'s Orders</h1>
         <div>
             <h2>Current Orders</h2>
             {(orders>0)?((orders.isPaid && !orders.isSent && !orders.isCompleted)?(
                 <p>{orders.basketId}</p>
-            ):""):(<p>You currently dont have any orders</p>)}
+            ):""):(<p>You currently dont have any active orders</p>)}
         </div>
         <div>
             <h2>Orders to be delivered</h2>

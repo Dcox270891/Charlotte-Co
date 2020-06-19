@@ -56,6 +56,14 @@ function Basket(props){
         API.deleteBasketRow(e.target.getAttribute("delete"))
             .then(res => console.log(res))
             .catch(err => console.log(err))
+        setBasketData(undefined);
+    }
+
+    function checkout(e){
+        e.preventDefault()
+        API.basketPaid(basketData[0].basketId)
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
     }
 
     return(<>
@@ -76,12 +84,13 @@ function Basket(props){
             })):""}
 
             <button
-            >
+            onClick={(e) => checkout(e)}>
                 Checkout
             </button>
-            <Link to="/orderhistory">Your Orders</Link>
-            <button
-            >
+            <button>
+                <Link to="/orderhistory">Your Orders</Link>
+            </button>
+            <button>
                 Sign out
             </button>
         </div>

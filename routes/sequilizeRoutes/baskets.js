@@ -43,9 +43,20 @@ module.exports = function(app){
                 res.json(err);
             });
     });
+
+    app.get(`/api/basket/customer/:id`, function (req,res){
+        const customerId = req.params.id;
+        db.Baskets.findAll({
+            where: {
+                userId: customerId
+            }
+        })
+            .then(res => res.json())
+        res.end()
+    })
   
     app.put(`/api/basket/:id`, function(req,res){
-        const basketId = req.params.id
+        const basketId = req.params.id;
         const newBasket = req.body;
         db.Baskets.update(
                 {
@@ -63,6 +74,56 @@ module.exports = function(app){
                 }
             )
             .then(res.json())
+        res.end();
+    })
+
+    app.put(`/api/basket/sent/:id`, function(req,res){
+        const basketId = req.params.id;
+        const trackingCode = req.params.trackingCode;
+        db.Baskets.update(
+            {
+                isSent: true,
+                trackingCode: trackingCode,
+            },
+            {
+                where: {
+                    basketId: basketId
+                }
+            }
+        )
+        .then(res.json())
+        res.end();
+    })
+
+    app.put(`/api/basket/paid/:id`, function(req,res){
+        const basketId = req.params.id;
+        db.Baskets.update(
+            {
+                isPaid: true,
+            },
+            {
+                where: {
+                    basketId: basketId
+                }
+            }
+        )
+        .then(res.json())
+        res.end();
+    })
+
+    app.put(`/api/basket/delivered/:id`, function(req,res){
+        const basketId = req.params.id;
+        db.Baskets.update(
+            {
+                isCompleted: true,
+            },
+            {
+                where: {
+                    basketId: basketId
+                }
+            }
+        )
+        .then(res.json())
         res.end();
     })
 };

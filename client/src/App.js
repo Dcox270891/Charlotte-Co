@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { CloudinaryContext, Transformation, Image } from 'cloudinary-react';
 import SignUp from "./pages/SignUp/SignUp";
@@ -15,8 +15,19 @@ import AllProductsPage from './pages/AllProductsPage/AllProductsPage';
 import {UserWrapper} from "./UserContext";
 import {BasketWrapper} from "./BasketContext";
 import EditableTransferPage from "./pages/EditableTransferPage/EditableTransferPage";
+import {UserContext} from "./UserContext";
+import API from "./utils/API";
 
 function App() {
+  const [ loggedOnUser, setLoggedOnUser ] = useContext(UserContext);
+
+  useEffect(()=>{
+    API.loginUser(loggedOnUser.email, loggedOnUser.password)
+      .then(res => {
+        setLoggedOnUser(res.data);
+      })
+      .catch(err => console.log(err));
+  },[])
   
   return (<Router>
     <UserWrapper>

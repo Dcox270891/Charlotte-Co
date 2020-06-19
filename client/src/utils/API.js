@@ -82,6 +82,9 @@ export default {
     getAllBaskets: function(){
         return axios.post(`/api/basket`);
     },
+    getAllBasketsByCustomer: function(id){
+        return axios.get(`/api/basket/customer/${id}`);
+    },
     editBasket: function(id){
         return axios.put(`/api/basket/${id}`);
     },
@@ -100,5 +103,13 @@ export default {
     deleteBasketRow: function(id){
         return axios.delete(`/api/Basketrow/${id}`);
     },
-
+    basketPaid: function(id){
+        return axios.put(`/api/basket/paid/${id}`);
+    },
+    basketSent: function(id, trackingCode){
+        return axios.put(`/api/basket/sent/${id}`, trackingCode);
+    },
+    basketDelivered: function(id){
+        return axios.put(`/api/basket/delivered/${id}`);
+    },
 }

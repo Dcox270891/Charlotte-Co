@@ -14,7 +14,7 @@ const db = require("./models/sequilize");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
-app.use(session({secret: process.env.sessionSecret}));
+app.use(session({secret: process.env.sessionSecret, resave: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(catgeory);

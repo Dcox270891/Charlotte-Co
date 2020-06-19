@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import Input from "../Input/InputText";
 import Submit from "../Buttons/Submit";
 import API from "../../utils/API";
-import {UserContext} from "../../UserContext"
+import {UserContext} from "../../UserContext";
 
 
 function Login(){

@@ -30,7 +30,9 @@ function Header(){
                     <Close onClick={() => setToggleLogInBasket(false)} />
                     {(loggedOnUser === undefined)?(<div>
                         <Login />
-                        <Link to="/signup">Sign Up</Link>
+                        <button>
+                            <Link to="/signup">Sign Up</Link>
+                        </button>
                     </div>):(<div>
                         <Basket/>
                     </div>)}

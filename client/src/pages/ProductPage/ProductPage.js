@@ -7,8 +7,8 @@ import Quantity from "../../components/Quantity/Quantity";
 import { Link } from "react-router-dom";
 
 function ProductPage(props){
-    const [ basketData, setBasketData ] = useContext(BasketContext);
-    const [ loggedOnUser, setLoggedOnUser ] = useContext(UserContext);
+    const [  basketData, setBasketData ] = useContext(BasketContext);
+    const [  loggedOnUser, setLoggedOnUser ] = useContext(UserContext);
     const [  product, setProduct ] = useState(undefined);
     const [  title, setTitle  ] = useState("");
     const [  description, setDescription ] = useState("");
@@ -18,8 +18,8 @@ function ProductPage(props){
     const [  transferSelected, setTransferSelected ] = useState(undefined);
     const [  size, setSize ] = useState();
     const [  color, setColor ] = useState();
-    const [ quantity, setQuantity ] = useState(0);
-    const [ isEditable, setIsEditable ] = useState();
+    const [  quantity, setQuantity ] = useState(0);
+    const [  isEditable, setIsEditable ] = useState();
     const query = props.match.params.id;
 
     useEffect(() => {
@@ -58,7 +58,6 @@ function ProductPage(props){
 
     function addToBasket(){
         if(loggedOnUser !== undefined && transferSelected !== undefined){
-            console.log(`basket row id ${basketData[0].basketId}`)
             API.newBasketRow({
                     basketId: basketData[0].basketId,
                     userId: loggedOnUser.userId,
@@ -77,6 +76,7 @@ function ProductPage(props){
             alert("You need to log on and select a transfer before you can add an item to your basket.")
         }
     }
+    console.log(`basket data:`, basketData)
 
     return (<>
         <div className="product-page">
