@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import API from "../../utils/API";
 import {UserContext} from "../../UserContext";
 import {NavDropdown, Nav, Dropdown} from "react-bootstrap";
+import Login from "../Login/Login";
+import Basket from "../Basket/Basket";
 
 function NavMenu(){
     const [ categories, setCategories] = useState([]);
@@ -23,7 +25,9 @@ function NavMenu(){
     },[])
 
     return(<>
-        <Nav justify variant="tabs">
+        <Nav fill
+        sticky="top"
+        variant="tabs">
             <Nav.Item>
                 <Nav.Link href="/allproducts">
                     All Products
@@ -81,6 +85,13 @@ function NavMenu(){
                     Contact Us
                 </Nav.Link>
             </Nav.Item>
+            <div className="justify-content-end">
+                {(loggedOnUser === undefined)?(
+                    <Login />
+                ):(
+                    <Basket/>
+                )}
+            </div>
         </Nav>
     </>);
 }
