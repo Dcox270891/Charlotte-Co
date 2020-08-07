@@ -1,22 +1,30 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Picture from "../Picture/Picture";
+import {Button, Card} from "react-bootstrap";
+
 
 function ProductCard({product}){
+    
     return (<>
-        {(product)?(<div className="productCard">
-            <Link to={`/productpage/${product._id}`} >         
-                {(product.transfer)?(<h3 className="productCard-price" >£{product.price + product.transfer.pricedifferce}</h3>):""}
-                {(product.images)?(<Picture 
-                        publicId={product.images[0].public_id}
-                        version={product.images[0].version}
-                        width="200"
-                        quality="60"
-                        />
-                ):""}
-                <h3 className="productCard-name">{product.name}</h3>
-            </Link>
-            </div>):""}
+        {(product)?(
+            <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" 
+                src={product.images[0].secure_url}/>
+                <Card.Body>
+                    <Card.Title>
+                        {product.name}
+                    </Card.Title>
+                    <Card.Text>
+                        {product.description}
+                    </Card.Text>
+                    <Button variant="primary">
+                        <Link to={`/productpage/${product._id}`} >
+                            Veiw this item
+                        </Link>
+                    </Button>
+                </Card.Body>
+            </Card>
+        ):""}
     </>)
 }
 
