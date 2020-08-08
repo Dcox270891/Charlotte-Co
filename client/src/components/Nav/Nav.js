@@ -85,6 +85,14 @@ function NavMenu(){
                     Contact Us
                 </Nav.Link>
             </Nav.Item>
+            {(loggedOnUser?.isAdmin)?(
+            <Nav.Item>
+                <Nav.Link href="/addnewproduct"
+                key="add-products">
+                    Add a product
+                </Nav.Link>
+            </Nav.Item>
+            ):("")}
             <div className="justify-content-end">
                 {(loggedOnUser === undefined)?(
                     <Login />
