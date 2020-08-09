@@ -25,8 +25,7 @@ function NavMenu(){
     },[])
 
     return(<>
-        <Nav fill
-        sticky="top"
+        <Nav sticky="top"
         variant="tabs">
             <Nav.Item>
                 <Nav.Link href="/allproducts">
@@ -81,7 +80,8 @@ function NavMenu(){
                 </>)
             })}
             <Nav.Item>
-                <Nav.Link href="/contactus">
+                <Nav.Link href="/contactus"
+                key="contactUs">
                     Contact Us
                 </Nav.Link>
             </Nav.Item>

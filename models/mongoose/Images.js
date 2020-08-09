@@ -6,24 +6,19 @@ const UniqueTransfers = require("./UniqueTransfers");
 const Schema = mongoose.Schema;
 
 const ImagesSchema = new Schema({
-    title:{
+    name:{
         type: String,
         required: true,
     },
-    url:{
-        type: String,
-        required: true,
+    img:{
+        data: Buffer,
+        contentType: String,
     },
-    forProduct: [{
+    for: [{
         type: Schema.Types.ObjectId,
-        ref: 'Products',
+        ref: Product || UniqueTransfers,
         required: false, 
     }],
-    forTransfer: [{
-        type: Schema.Types.ObjectId,
-        ref: 'UniqueTransfers',
-        required: false,  
-    }]
 });
 
 const Images = mongoose.model("Images", ImagesSchema);
