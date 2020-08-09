@@ -426,8 +426,7 @@ function AddProduct(props){
                         name='size' 
                         defaultValue={(size)?(size):("")}
                         onChange={(e) => setSize(e.target.value)}
-                        placeholder="Product Size"
-                        required/>
+                        placeholder="Product Size"/>
                         <Form.Control.Feedback type="invalid">
                             Please add some sizes for your Product.
                         </Form.Control.Feedback>
@@ -457,8 +456,7 @@ function AddProduct(props){
                         name='colour' 
                         defaultValue={(colour)?(colour):("")}
                         onChange={(e) => setColour(e.target.value)}
-                        placeholder="Product Colours"
-                        required/>
+                        placeholder="Product Colours"/>
                         <Form.Control.Feedback type="invalid">
                             Please add some sizes for your Product.
                         </Form.Control.Feedback>
@@ -531,7 +529,7 @@ function AddProduct(props){
                         (images.map(image => {
                             return <Image key={image}
                             src={image}
-                            width="8em"/>
+                            width="100px"/>
                         }))
                         :("No images saved yet")}
                     </Form.Group>
