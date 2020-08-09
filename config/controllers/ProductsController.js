@@ -40,5 +40,17 @@ module.exports ={
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },
+    getNewProducts: function(req, res){
+      db.Products
+        .find({ new: true, })
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+    },
+    getHotProducts: function(req, res){
+      db.Products
+        .find({ hot : true, })
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+    },
 
 }
