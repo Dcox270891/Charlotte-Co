@@ -8,8 +8,10 @@ function ProductCard({product}){
     return (<>
         {(product)?(
             <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" 
-                src={product.images[0].secure_url}/>
+                {(product.images)?
+                (<Card.Img variant="top" 
+                src={product.images[0]}/>)
+                :("")}
                 <Card.Body>
                     <Card.Title>
                         {product.name}
