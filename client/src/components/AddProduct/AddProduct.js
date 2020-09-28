@@ -94,6 +94,7 @@ function AddProduct(props){
     },[productId]);
 
     function submitProduct(e){
+        if (!productId){
         e.preventDefault();
         const newProduct = {
             name: name,
@@ -122,6 +123,34 @@ function AddProduct(props){
                 console.log(err);
                 setShowError(true);
             })
+        } else {
+            e.preventDefault();
+            const editedProduct = {
+                name: name,
+                description: description,
+                category: category,
+                subCategory: subCategory,
+                price: price,
+                sizes: sizes,
+                productColours: productColours,
+                isActive: isActive,
+                inStock: inStock,
+                deliveryTimeMax: deliveryTimeMax,
+                deliveryTimeMin: deliveryTimeMin,
+                images: images,
+                isEditable: isEditable,
+                blankImage: blankImage,
+                hot: hot,
+                new: homeNew,
+            };
+
+            API.editProduct(productId, editedProduct)
+                .then(res => setProduct(res.data))
+                .catch(err => {
+                    console.log(err);
+                    setShowError(true);
+                })
+        }
     }
 
     function saveNewCategory(e) {
@@ -555,7 +584,7 @@ function AddProduct(props){
                 </Modal.Title>
             </Modal.Header>
                 <Modal.Body>
-                    Unfortunatley, there was an Error PLease check all required fields are filled.
+                    Unfortunatley, there was an Error Please check all required fields are filled.
                 </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" 

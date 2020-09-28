@@ -5,6 +5,7 @@ import {UserContext} from "../../UserContext";
 import {BasketContext} from "../../BasketContext";
 import Quantity from "../../components/Quantity/Quantity";
 import { Link } from "react-router-dom";
+import TransferCard from "../../components/TransferCard/TransferCard";
 
 function ProductPage(props){
     const [  basketData, setBasketData ] = useContext(BasketContext);
@@ -27,7 +28,9 @@ function ProductPage(props){
             .then(res => setProduct(res.data))
             .catch(err => console.log(err))
         API.getTransferByProduct(query)
-            .then(res => setUniqueTransfers(res.data))
+            .then(res => {
+                setUniqueTransfers(res.data)
+                console.log(`transfers`, uniqueTransfers)})
             .catch(err => console.log(err))
     },[query])
 
@@ -76,7 +79,13 @@ function ProductPage(props){
             alert("You need to log on and select a transfer before you can add an item to your basket.")
         }
     }
-    console.log(`basket data:`, basketData)
+
+    
+    useEffect(()=> {
+        console.log(`transfers`, uniqueTransfers)
+
+    },[uniqueTransfers])
+
 
     return (<>
         <div className="product-page">
@@ -87,91 +96,13 @@ function ProductPage(props){
                     </Link>
                 </div>
             ):""}
-            <div className="container">
-                <div className="product-main">
-                    <div className="product-title">
-                        <h3>{title}</h3>
-                        {(transferSelected !== undefined)?(<h2>{transferSelected.title}</h2>):""}
-                    </div>
-                </div>
-                <div className="product-other-img">
-                    <Gallery
-                        images={images}
-                    />
-                </div>
-            </div>
-            <div className="row">
-                <div className="product-description">
-                    {(transferSelected !== undefined)?transferSelected.description:""}
-                    {description}
-                </div>
-            </div>
-            <div className="row">
-                <div className="product-price">
-                    <p>£{price}</p>
-                </div>
-                <div className="product-unique-transfers">
-                    <select onChange={(e) => selectedTransfer(e)}>
-                        <option value="null">Select Your option</option>
-                        {uniqueTransfers ? (uniqueTransfers.map((transfer, i) => {
-                            return (<option
-                                key={transfer._id}
-                                value={i}
-                            >
-                                {transfer.title}
-                            </option>)
-                        })):""}
-                    </select>
-                </div>
-            </div>
-            <div className="row">
-            <div>
-                    {(product !== undefined)?(
-                        <div>
-                            <label htmlFor="sizeSelector">
-                                Select your Size : 
-                            </label>
-                            <select
-                                name="sizeSelector"
-                                onChange={(e) => setSize(product.sizes[e.target.value])}
-                            >
-                                {product.sizes.map((size, i)=> {
-                                    return <option value={i} key={size}>
-                                        {size}
-                                    </option>
-                                })}
-                            </select>
-                        </div>
-                    ):""}
-                </div>
-                <div>
-                    {(product !== undefined)?(
-                        <div>
-                            <label htmlFor="colorSelector">
-                                Select your Color : 
-                            </label>
-                            <select
-                                name="colorSelector"
-                                onChange={(e) => setColor(product.productColours[e.target.value])}
-                            >
-                                {product.productColours.map((color, i)=> {
-                                    return <option value={i} key={color}>
-                                        {color}
-                                    </option>
-                                })}
-                            </select>
-                        </div>
-                    ):""}
-                </div>
-                <div className="product-add-to-basket">
-                    <button onClick={addToBasket}>Add to Basket</button>                </div>
-                <div className="product-quantity">
-                    <Quantity
-                        quantity={quantity}
-                        setQuantity={setQuantity}
-                    />
-                </div>
-            </div>
+            {(uniqueTransfers != undefined)?
+            (uniqueTransfers.map(transfer => {
+                return (<TransferCard transfer={transfer}
+                    product={product}
+                    key={transfer._id}/>)
+            }))
+            :("We are loading your products for you")}
         </div>
     </>)
 };

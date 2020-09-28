@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import API from "../../utils/API";
 import {Carousel} from "react-bootstrap";
-import Picture from "../../components/Picture/Picture.js";
-
 
 function HomePage(){
     const [ hotNow, setHotNow ] = useState([]);

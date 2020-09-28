@@ -21,13 +21,17 @@ module.exports ={
     },
     updateProduct: function(req, res) {
       db.Products
-        .findOneAndUpdate({ _id: req.params.id }, req.body)
+        .findOneAndUpdate({
+          _id: req.params.id
+        }, req.body)
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },
     removeProducts: function(req, res) {
       db.Products
-        .findById({ _id: req.params.id })
+        .findById({
+          _id: req.params.id
+        })
         .then(dbModel => dbModel.remove())
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
@@ -35,20 +39,24 @@ module.exports ={
     getProductBySubCategory: function(req, res) {
       db.Products
         .find({
-          subCategory: req.params.id
+          subCategory: req.params.id,
         })
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },
     getNewProducts: function(req, res){
       db.Products
-        .find({ new: true, })
+        .find({
+          new: true,
+        })
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },
     getHotProducts: function(req, res){
       db.Products
-        .find({ hot : true, })
+        .find({
+          hot : true,
+        })
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },
