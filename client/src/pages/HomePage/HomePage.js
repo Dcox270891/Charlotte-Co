@@ -1,35 +1,49 @@
 import React, { useEffect, useState } from "react";
-import ProductCard from "../../components/ProductCard/ProductCard";
 import API from "../../utils/API";
+import {Carousel} from "react-bootstrap";
 
 function HomePage(){
-    const [ hotNow, setHotNow ] = useState();
-    const [ newProduct, setNewProduct ] = useState();
-    const [ allProducts, setAllProducts ] = useState(null);
+    const [ hotNow, setHotNow ] = useState([]);
+    const [ newProduct, setNewProduct ] = useState([]);
 
     useEffect(() => {
-        API.getProducts()
-            .then(res => setAllProducts(res.data))
+        API.getHotProducts()
+            .then(res => setHotNow(res.data))
+            .catch(err => console.log(err));
+        API.getNewProducts()
+            .then(res => setNewProduct(res.data))
             .catch(err => console.log(err));
     },[])
 
-    useEffect(() => {
-        if (allProducts !== null){
-            setHotNow(allProducts[Math.floor(Math.random() * Math.floor(allProducts.length))]);
-            allProducts.filter(product => product !== hotNow);
-            setNewProduct(allProducts[Math.floor(Math.random() * Math.floor(allProducts.length))]);
-        }
-    },[allProducts])
-
     return(<>
-        <div className="container row">
-            <div className="home-product">
-                {hotNow?(<ProductCard key="hotNow" product={hotNow}/>):""}
-            </div>
-            <div className="home-product">
-                {newProduct?(<ProductCard key="New" product={newProduct}/>):""}
-            </div>
-        </div>
+        <Carousel>
+            {(newProduct)?
+                (newProduct.map(product => {
+                    return <Carousel.Item key={product._id}>
+                                <img className="d-block w-100"
+                                src={product.images[0].secure_url}
+                                alt={product.name}/>
+                            <Carousel.Caption>
+                                <h3>{product.name}</h3>
+                                <p>{product.description}</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                })
+            ):""}
+            {(hotNow)?
+                (hotNow.map(product => {
+                    return <Carousel.Item key={product._id}>
+                                <img className="d-block w-100"
+                                src={product.images[0].secure_url}
+                                alt={product.name}/>
+                            <Carousel.Caption>
+                                <h3>{product.name}</h3>
+                                <p>{product.description}</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                })
+            ):""}
+        </Carousel>
     </>)
 }
 

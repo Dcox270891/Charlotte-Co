@@ -10,6 +10,7 @@ import AddProduct from "./pages/AddProductPage/AddNewProductPage";
 import EditProduct from "./pages/EditProductPage/EditProductPage";
 import Header from "./components/Header/Header";
 import OrderHistory from "./pages/OrderHistory/OrderHistory";
+import TransferPage from "./pages/TransferPage/TransferPage";
 import "./styles.css";
 import AllProductsPage from './pages/AllProductsPage/AllProductsPage';
 import {UserWrapper} from "./UserContext";
@@ -46,6 +47,7 @@ function App() {
             <Route exact path="/addnewproduct" component={AddProduct} />
             <Route path="/editproduct/:id" render={(props) => <EditProduct {...props} />} />
             <Route path="/orderhistory" component={OrderHistory} />
+            <Route path="/transferpage/:id" render={(props) => <TransferPage {...props} />} />
           </div>
         </div>
         </CloudinaryContext>

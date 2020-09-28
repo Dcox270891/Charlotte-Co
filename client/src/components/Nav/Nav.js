@@ -2,14 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import API from "../../utils/API";
 import {UserContext} from "../../UserContext";
+import {NavDropdown, Nav, Dropdown} from "react-bootstrap";
+import Login from "../Login/Login";
+import Basket from "../Basket/Basket";
 
-function Nav(){
+function NavMenu(){
     const [ categories, setCategories] = useState([]);
-    const [ categoryChosen, setCategroyChosen] = useState("");
-    const [ loadSubCategories, setLoadSubCategories ] = useState(false);
     const [ subCategories, setSubCategories] = useState([]);
-    const [ subCategoryChosen, setSubCategroyChosen] = useState("");
-    const [ loadProducts, setLoadProducts ] = useState(false);
     const [ products, setProducts ] = useState([]);
     const [ loggedOnUser, ] = useContext(UserContext);
 
@@ -17,105 +16,92 @@ function Nav(){
         API.getCategories()
             .then(res => {setCategories(res.data)})
             .catch(err => console.log(err));
+        API.getSubCategories()
+            .then(res => {setSubCategories(res.data)})
+            .catch(err => console.log(err));
+        API.getProducts()  
+            .then(res => {setProducts(res.data)})
+            .catch(err => console.log(err));
     },[])
 
-    useEffect(() => {
-        if(categoryChosen !== ""){
-            API.getSubCategoryByCategory(categoryChosen)
-                .then(res => {
-                    setSubCategories(res.data);
-                    setLoadSubCategories(true);
-                })
-                .catch(err => console.log(err))
-            }
-    },[categoryChosen])
-
-    function chooseCategory(e, category){
-        e.preventDefault();
-        setCategroyChosen(category);
-    }
-    
-    useEffect(() => {
-        if(subCategoryChosen !== ""){
-            API.getProductBySubCategory(subCategoryChosen) 
-                .then(res => {
-                    console.log(res.data)
-                    setProducts(res.data);
-                    setLoadProducts(true);
-                })
-                .catch(err => console.log(err))
-        }
-    },[subCategoryChosen])
-
-    function chooseSubCategory(e, subCategory){
-        e.preventDefault();
-        setSubCategroyChosen(subCategory);
-    }
-
     return(<>
-        <nav>
-            <div className="nav-category">
-                <div 
-                    className="nav-category-links"
-                    key="all-products"
-                >
-                    <Link to="/allproducts">All products</Link>
-                </div>
-                {(loggedOnUser?.isAdmin)?(<div 
-                    className="nav-category-links"
-                    key="add-products"
-                >
-                    <Link to="/addnewproduct">Add a product</Link>
-                </div>):null}
-                {categories.map((category, i) => {
-                    return (<>
-                        <div 
-                            value={i}
-                            className="nav-category-links"
-                            key={category._id} 
-                            onClick={(e) => chooseCategory(e, category._id)}>
-                                {category.title}
-                        </div>
-                            <div className="nav-subcategory">
-                                {loadSubCategories && category._id === categoryChosen ? (
-                                    subCategories.map(subCategory => {
-                                        return <div>
-                                                <div
-                                                    className="nav-subcategory-links"
-                                                    key={subCategory._id} 
-                                                    onClick={(e) => chooseSubCategory(e, subCategory._id)}>
-                                                    <Link to={`/category/${subCategory._id}`}>{subCategory.title}</Link>
-                                                </div>
-                                                <div className="nav-products">
-                                                    {loadProducts && subCategory._id === subCategoryChosen ? (
-                                                        products.map(product =>{
-                                                            return <div 
-                                                                className="nav-product-links"
-                                                                key={product._id}
-                                                            >
-                                                                <Link to={`/productpage/${product._id}`}>{product.name}</Link>
-                                                                {(loggedOnUser?.isAdmin)?(<Link 
-                                                                    className="edit"
-                                                                    to={`/editproduct/${product._id}`}
-                                                                >
+        <Nav sticky="top"
+        variant="tabs">
+            <Nav.Item>
+                <Nav.Link href="/allproducts">
+                    All Products
+                </Nav.Link>
+            </Nav.Item>
+            {categories.map((category, i) => {
+                return (<>
+                    <NavDropdown title={category.title}
+                    key={category._id}
+                    value={i}
+                    id="nav-dropdown">
+                        {subCategories.map(subCategory => {
+                            if (subCategory.belongsTo == category._id){
+                                return (<>
+                                    <Dropdown as={Nav.Item}
+                                    drop="down"
+                                    key={subCategory._id}
+                                    href={`/category/${subCategory._id}`}>
+                                        <Dropdown.Toggle as={Nav.Link}>
+                                            <Link to={`/category/${subCategory._id}`}>
+                                                {subCategory.title}
+                                            </Link>
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu>
+                                            {products.map(product =>{
+                                                if (product.subCategory == subCategory._id){
+                                                    return (
+                                                        <Dropdown.Item as={Nav.Link}
+                                                        drop="down"
+                                                        key={product._id}
+                                                        href={`/productpage/${product._id}`}>
+                                                             <Link to={`/productpage/${product._id}`}>
+                                                                {product.name}
+                                                            </Link>
+                                                            {(loggedOnUser?.isAdmin)?(
+                                                                <Link className="edit"
+                                                                to={`/editproduct/${product._id}`}>
                                                                     Edit
-                                                                </Link>): null}
-                                                            </div>
-                                                        })
-                                                    ) : ""}
-                                                </div>
-                                            </div>
-                                    }) ) : ""}
-                            </div>
-                    </>)
-                })}
-                <div 
-                    className="nav-category-links"
-                    key="contact-us"
-                >Contact us</div>
+                                                                </Link>
+                                                            ): null}
+                                                        </Dropdown.Item>
+                                                    )
+                                                }
+                                            })}
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </>)
+                            }
+                        })}
+                    </NavDropdown>
+                </>)
+            })}
+            <Nav.Item>
+                <Nav.Link href="/contactus"
+                key="contactUs">
+                    Contact Us
+                </Nav.Link>
+            </Nav.Item>
+            {(loggedOnUser?.isAdmin)?(
+            <Nav.Item>
+                <Nav.Link href="/addnewproduct"
+                key="add-products">
+                    Add a product
+                </Nav.Link>
+            </Nav.Item>
+            ):("")}
+            <div className="justify-content-end">
+                {(loggedOnUser === undefined)?(
+                    <Login />
+                ):(
+                    <Basket/>
+                )}
             </div>
-        </nav>
+        </Nav>
     </>);
 }
 
-export default Nav;
+export default NavMenu;

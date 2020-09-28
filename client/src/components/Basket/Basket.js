@@ -2,14 +2,19 @@ import React, { useEffect, useContext, useState } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import {UserContext} from "../../UserContext";
 import {BasketContext} from "../../BasketContext";
-import Delete from "../Buttons/Delete";
 import API from "../../utils/API";
+import {Button, Modal} from "react-bootstrap";
+
 
 function Basket(props){
     const [ basketData, setBasketData ] = useContext(BasketContext);
     const [ basketRowData, setBasketRowData ] = useContext(BasketContext);
     const [ loggedOnUser, setLoggedOnUser ] = useContext(UserContext);
-    const [ basket, setBasket ] = useState()
+    const [ basket, setBasket ] = useState();
+    const [show, setShow] = useState(false);
+  
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     function createNewBasket(){
         API.newBasket({
@@ -29,7 +34,7 @@ function Basket(props){
         API.getBasketById(loggedOnUser.userId)
             .then(res => {
                 const basketData = res.data
-                if (basketData.length <= 0){
+                if (!basketData.isPaid <= 0){
                     createNewBasket()
                 } else {
                     setLoggedOnUser(loggedOnUser);
@@ -42,7 +47,6 @@ function Basket(props){
 
     useEffect(() => {
         if(basketData !== undefined){
-            console.log(basketData[0].basketId)
             API.getBasketRowById(basketData[0].basketId)
                 .then(res => {
                     setBasketRowData(res.data)
@@ -67,33 +71,48 @@ function Basket(props){
     }
 
     return(<>
-        <div>
-        <h2>{loggedOnUser.firstName}'s Basket</h2>
-            {basketRowData?(basketRowData.map(row => {
-                return <div key={row.basketRowId} value={row.basketRowId}>
-                        <p>{row.productTitle}</p>
-                        <p>{row.transferTitle}</p>
-                        <p>Size: {row.size}</p>
-                        <p>Colour: {row.productColor}</p>
-                        <p>£{row.price}</p>
-                        <p>Amount: {row.quantity}</p>
-                        <button 
-                            delete={row.basketRowId}
-                            onClick={(e) => remove(e)}>Delete</button>
-                    </div>
-            })):""}
+        <Button variant="primary" onClick={handleShow}>
+            Basket
+        </Button>
 
-            <button
-            onClick={(e) => checkout(e)}>
-                Checkout
-            </button>
-            <button>
+        <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+                <Modal.Title>
+                    {loggedOnUser.firstName + " " + loggedOnUser.lastName}'s Basket
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                {basketRowData?(basketRowData.map(row => {
+                    return (<>
+                        <div key={row.basketRowId} value={row.basketRowId}>
+                            <p>{row.productTitle}</p>
+                            <p>{row.transferTitle}</p>
+                            <p>Size: {row.size}</p>
+                            <p>Colour: {row.productColor}</p>
+                            <p>£{row.price}</p>
+                            <p>Amount: {row.quantity}</p>
+                            <button delete={row.basketRowId}
+                            onClick={(e) => remove(e)}>
+                                Delete
+                            </button>
+                        </div>
+                    </>)})
+                ):"You currently dont have any items in your basket"}
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" 
+                onClick={handleClose}>
+                    Continue Shopping
+                </Button>
+                <Button variant="primary" 
+                onClick={(e) => checkout(e)}>
+                    Checkout
+                </Button>
+                <Button>
                 <Link to="/orderhistory">Your Orders</Link>
-            </button>
-            <button>
-                Sign out
-            </button>
-        </div>
+                </Button>
+            </Modal.Footer>
+        </Modal>
     </>)
 }
 

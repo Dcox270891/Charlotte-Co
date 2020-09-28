@@ -112,4 +112,10 @@ export default {
     basketDelivered: function(id){
         return axios.put(`/api/basket/delivered/${id}`);
     },
+    getNewProducts: function(){
+        return axios.get(`/api/products/new}`);
+    },
+    getHotProducts: function(){
+        return axios.get(`/api/products/hot`);
+    },
 }

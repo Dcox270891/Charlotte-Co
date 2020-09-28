@@ -27,10 +27,7 @@ function EditProductPage(props){
     return (<>
         <div className="edit-product">
             <h2>Edit {product.name}</h2>
-            <AddProduct 
-                id={id}
-                submitHandler={editProduct}
-            />
+            <AddProduct id={id}/>
         </div>
         <div className="edit-transfers">
             <h2>Transfers for {product.name}</h2>

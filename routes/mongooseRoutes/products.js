@@ -12,5 +12,11 @@ router.route("/api/products/:id")
 
 router.route("/api/products/subcategory/:id")
     .get(productController.getProductBySubCategory)
+    
+router.route("/api/products/hot")
+    .get(productController.getHotProducts)
+    
+router.route("/api/products/new")
+    .get(productController.getNewProducts)
 
 module.exports = router;
